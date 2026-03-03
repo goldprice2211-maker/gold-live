@@ -238,6 +238,21 @@ export default function Home() {
   <p className="text-xs text-zinc-400 mb-4">
   الأسعار المعروضة تقديرية بناءً على متوسط السوق، وقد تختلف حسب محل الصياغة والمصنعية.
 </p>
+    <div className="mt-6 grid gap-3">
+  {BAR_WEIGHTS.map((g) => (
+    <div
+      key={g}
+      className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 px-4 py-4"
+    >
+      <span>{g} جرام</span>
+
+      <span className="text-amber-100 font-semibold">
+        {fmt(priceForWeight(display.gram24 * (1 + shopMargin), g))}{" "}
+        {CURRENCY[active].symbol}
+      </span>
+    </div>
+  ))}
+</div>
 
     <div className="grid gap-3">
       {BAR_WEIGHTS.map((w) => (
