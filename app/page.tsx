@@ -199,26 +199,55 @@ export default function Home() {
 
           {/* Currency switch */}
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="flex w-full flex-wrap items-center gap-2">
-              {(["AED", "USD", "EUR", "SAR", "QAR", "KWD", "OMR"] as CurrencyKey[]).map((k) => {
-                const on = k === active;
-                return (
-                  <button
-                    key={k}
-                    onClick={() => setActive(k)}
-                    className={[
-                      "rounded-xl px-4 py-2 text-sm font-medium transition",
-                      "border",
-                      on
-                        ? "border-amber-200/30 bg-amber-300/15 text-amber-100 shadow-[0_0_0_1px_rgba(255,215,0,0.12)]"
-                        : "border-white/10 bg-white/5 text-zinc-200 hover:border-amber-200/20 hover:bg-white/10",
-                    ].join(" ")}
-                  >
-                    {k} — {CURRENCY[k].label}
-                  </button>
-                );
-              })}
-            </div>
+
+  {/* العملات */}
+  <div className="flex w-full flex-wrap items-center gap-2">
+    {(["AED", "USD", "EUR", "SAR", "QAR", "KWD", "OMR"] as CurrencyKey[]).map((k) => {
+      const on = k === active;
+      return (
+        <button
+          key={k}
+          onClick={() => setActive(k)}
+          className={[
+            "rounded-xl px-4 py-2 text-sm font-medium transition",
+            "border",
+            on
+              ? "border-amber-200/30 bg-amber-300/15 text-amber-100"
+              : "border-white/10 bg-white/5 text-zinc-200",
+          ].join(" ")}
+        >
+          {k}
+        </button>
+      );
+    })}
+  </div>
+
+  {/* 🔥 زر اللغة هنا */}
+  <div className="flex items-center gap-2">
+    <button
+      onClick={() => setLang("ar")}
+      className={`px-3 py-1 rounded-lg text-sm border ${
+        lang === "ar"
+          ? "bg-amber-300/20 border-amber-300 text-amber-200"
+          : "border-white/10 text-zinc-300"
+      }`}
+    >
+      عربي
+    </button>
+
+    <button
+      onClick={() => setLang("en")}
+      className={`px-3 py-1 rounded-lg text-sm border ${
+        lang === "en"
+          ? "bg-amber-300/20 border-amber-300 text-amber-200"
+          : "border-white/10 text-zinc-300"
+      }`}
+    >
+      English
+    </button>
+  </div>
+
+</div>
 
             <div className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-zinc-200 md:min-w-[320px]">
               <div className="flex flex-col">
