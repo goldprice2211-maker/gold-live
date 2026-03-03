@@ -18,7 +18,12 @@ const CURRENCY: Record<CurrencyKey, { label: string; symbol: string }> = {
 function fmt(n: number) {
   return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
+const shopMargin = 0.05; // 5% زيادة المحلات
+const BAR_WEIGHTS = [5, 10, 20, 50, 100, 250, 1000];
 
+function priceForWeight(gramPrice: number, grams: number) {
+  return gramPrice * grams;
+}
 export default function Home() {
   const [active, setActive] = useState<CurrencyKey>("AED");
   const [usdBase, setUsdBase] = useState<Prices | null>(null);
@@ -224,6 +229,29 @@ export default function Home() {
                 <PriceRow k="18" v={display.gram18} sym={CURRENCY[active].symbol} />
               </div>
             )}
+            {/* Gold Bars Section */}
+{display && (
+  <div className="mt-10 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-6">
+    <h3 className="text-lg font-semibold text-amber-300 mb-4">
+      سعر سبائك الذهب (عيار 24)
+    </h3>
+
+    <div className="grid gap-3">
+      {BAR_WEIGHTS.map((w) => (
+        <div
+          key={w}
+          className="flex justify-between items-center rounded-xl border border-white/10 bg-white/5 px-4 py-3"
+        >
+          <span>{w} جرام</span>
+          <span className="font-semibold text-amber-200">
+            {CURRENCY[active].symbol}{" "}
+            {(display.gram24 * w * (1 + shopMargin)).toFixed(2)}
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
           </div>
 
           {/* Info */}
