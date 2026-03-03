@@ -19,7 +19,7 @@ function fmt(n: number) {
   return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 const shopMargin = 0.05; // 5% زيادة المحلات
-const BAR_WEIGHTS = [5, 10, 20, 50, 100, 250, 1000];
+const BAR_WEIGHTS = [1, 5, 10, 20, 50, 100, 250, 1000];
 
 function priceForWeight(gramPrice: number, grams: number) {
   return gramPrice * grams;
@@ -232,9 +232,12 @@ export default function Home() {
             {/* Gold Bars Section */}
 {display && (
   <div className="mt-10 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-6">
-    <h3 className="text-lg font-semibold text-amber-300 mb-4">
-      سعر سبائك الذهب (عيار 24)
-    </h3>
+   <h3 className="text-lg font-semibold text-amber-300 mb-4">
+  سعر سبائك الذهب في محلات الصياغة (عيار 24)
+</h3>
+  <p className="text-xs text-zinc-400 mb-4">
+  الأسعار المعروضة تقديرية بناءً على متوسط السوق، وقد تختلف حسب محل الصياغة والمصنعية.
+</p>
 
     <div className="grid gap-3">
       {BAR_WEIGHTS.map((w) => (
