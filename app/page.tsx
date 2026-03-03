@@ -39,7 +39,7 @@ async function loadPrices() {
 
     const [goldRes, fxRes] = await Promise.all([
       fetch("https://api.gold-api.com/price/XAU", { cache: "no-store" }),
-   fetch("https://api.frankfurter.app/latest?from=USD&to=AED,SAR,KWD,QAR,OMR", { cache: "no-store" }),
+  fetch("https://open.er-api.com/v6/latest/USD", { cache: "no-store" }),
 
     const goldData = await goldRes.json();
     const fxData = await fxRes.json();
@@ -53,8 +53,15 @@ const kwdRate = Number(fxData?.rates?.KWD);
 const qarRate = Number(fxData?.rates?.QAR);
 const omrRate = Number(fxData?.rates?.OMR);
 
-if (!aedRate || !sarRate || !kwdRate || !qarRate || !omrRate)
+if (
+  isNaN(aedRate) ||
+  isNaN(sarRate) ||
+  isNaN(kwdRate) ||
+  isNaN(qarRate) ||
+  isNaN(omrRate)
+) {
   throw new Error("لم يتم جلب سعر الصرف حالياً");
+}
 
 setRates({
   USD: 1,
