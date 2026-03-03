@@ -3,15 +3,16 @@
 import { useEffect, useMemo, useState } from "react";
 
 type Prices = { gram24: number; gram22: number; gram21: number; gram18: number };
-type CurrencyKey = "AED" | "USD" | "SAR" | "KWD" | "QAR" | "OMR";
+type CurrencyKey = "USD" | "EUR" | "AED" | "SAR" | "QAR" | "KWD" | "OMR";
 
-const FX: Record<CurrencyKey, { label: string; symbol: string }> = {
+const CURRENCY: Record<CurrencyKey, { label: string; symbol: string }> = {
   USD: { label: "الدولار الأمريكي", symbol: "$" },
+  EUR: { label: "اليورو", symbol: "€" },
   AED: { label: "الدرهم الإماراتي", symbol: "د.إ" },
   SAR: { label: "الريال السعودي", symbol: "ر.س" },
-  KWD: { label: "الدينار الكويتي", symbol: "د.ك" },
   QAR: { label: "الريال القطري", symbol: "ر.ق" },
-  OMR: { label: "الريال العماني", symbol: "ر.ع" },
+  KWD: { label: "الدينار الكويتي", symbol: "د.ك" },
+  OMR: { label: "الريال العُماني", symbol: "ر.ع" },
 };
 
 function fmt(n: number) {
@@ -24,12 +25,14 @@ export default function Home() {
   const [updatedAt, setUpdatedAt] = useState<string>("");
   const [err, setErr] = useState<string>("");
 
+  // Rates are “units per 1 USD” (e.g., AED ~ 3.67, EUR ~ 0.92)
   const [rates, setRates] = useState<Record<CurrencyKey, number>>({
     USD: 1,
+    EUR: 0,
     AED: 0,
     SAR: 0,
-    KWD: 0,
     QAR: 0,
+    KWD: 0,
     OMR: 0,
   });
 
@@ -39,9 +42,8 @@ export default function Home() {
 
       const [goldRes, fxRes] = await Promise.all([
         fetch("https://api.gold-api.com/price/XAU", { cache: "no-store" }),
-        fetch("https://api.exchangerate.host/latest?base=USD&symbols=AED,SAR,KWD,QAR,OMR", {
-          cache: "no-store",
-        }),
+        // Reliable free FX (no key). If it fails, we’ll just keep previous rates.
+        fetch("https://open.er-api.com/v6/latest/USD", { cache: "no-store" }),
       ]);
 
       const goldData = await goldRes.json();
@@ -50,33 +52,42 @@ export default function Home() {
       const ounceUSD = Number(goldData?.price);
       if (!ounceUSD || Number.isNaN(ounceUSD)) throw new Error("لم يتم جلب سعر الذهب حالياً");
 
-      const aedRate = Number(fxData?.rates?.AED);
-      const sarRate = Number(fxData?.rates?.SAR);
-      const kwdRate = Number(fxData?.rates?.KWD);
-      const qarRate = Number(fxData?.rates?.QAR);
-      const omrRate = Number(fxData?.rates?.OMR);
-
-      if ([aedRate, sarRate, kwdRate, qarRate, omrRate].some((x) => Number.isNaN(x) || !Number.isFinite(x))) {
-        throw new Error("لم يتم جلب سعر الصرف حالياً");
-      }
-
-      setRates({
-        USD: 1,
-        AED: aedRate,
-        SAR: sarRate,
-        KWD: kwdRate,
-        QAR: qarRate,
-        OMR: omrRate,
-      });
-
+      // Update gold (USD base)
       const gram24USD = ounceUSD / 31.1034768;
-
       setUsdBase({
         gram24: gram24USD,
         gram22: gram24USD * (22 / 24),
         gram21: gram24USD * (21 / 24),
         gram18: gram24USD * (18 / 24),
       });
+
+      // Update FX silently (no UI). If missing, keep old value.
+      const nextRates: Record<CurrencyKey, number> = { ...rates };
+      const r = fxData?.rates || {};
+
+      const maybe = (k: CurrencyKey) => {
+        const v = Number(r?.[k]);
+        return Number.isFinite(v) && v > 0 ? v : null;
+      };
+
+      // USD base
+      nextRates.USD = 1;
+
+      const eur = maybe("EUR");
+      const aed = maybe("AED");
+      const sar = maybe("SAR");
+      const qar = maybe("QAR");
+      const kwd = maybe("KWD");
+      const omr = maybe("OMR");
+
+      if (eur) nextRates.EUR = eur;
+      if (aed) nextRates.AED = aed;
+      if (sar) nextRates.SAR = sar;
+      if (qar) nextRates.QAR = qar;
+      if (kwd) nextRates.KWD = kwd;
+      if (omr) nextRates.OMR = omr;
+
+      setRates(nextRates);
 
       setUpdatedAt(new Date().toISOString());
     } catch (e: any) {
@@ -88,11 +99,15 @@ export default function Home() {
     loadPrices();
     const t = setInterval(loadPrices, 60000);
     return () => clearInterval(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const display = useMemo(() => {
     if (!usdBase) return null;
+
     const r = rates[active] || 0;
+    if (!r) return null;
+
     return {
       gram24: usdBase.gram24 * r,
       gram22: usdBase.gram22 * r,
@@ -103,12 +118,14 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-950 to-black text-zinc-100">
+      {/* Glow */}
       <div className="pointer-events-none fixed inset-0">
         <div className="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-amber-400/10 blur-3xl" />
         <div className="absolute top-40 right-[-120px] h-[420px] w-[420px] rounded-full bg-yellow-200/5 blur-3xl" />
       </div>
 
       <div className="relative mx-auto max-w-5xl px-5 py-10">
+        {/* Header */}
         <header className="flex flex-col gap-6 rounded-3xl border border-amber-300/10 bg-white/5 p-6 shadow-[0_0_0_1px_rgba(255,215,0,0.06),0_20px_80px_rgba(0,0,0,0.55)] backdrop-blur">
           <div className="flex flex-col gap-2">
             <p className="inline-flex w-fit items-center gap-2 rounded-full border border-amber-200/15 bg-amber-300/10 px-3 py-1 text-sm text-amber-200">
@@ -119,18 +136,19 @@ export default function Home() {
             <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
               أسعار الذهب اليوم{" "}
               <span className="ml-2 bg-gradient-to-r from-amber-200 via-yellow-100 to-amber-300 bg-clip-text text-transparent">
-                (عيارات)
+                (24 / 22 / 21 / 18)
               </span>
             </h1>
 
             <p className="text-sm text-zinc-300 md:text-base">
-              الأسعار تقديرية للاستخدام المعلوماتي فقط — تعتمد على السعر العالمي (XAU).
+              معلومات فقط — الأسعار تقديرية وتعتمد على السعر العالمي (XAU).
             </p>
           </div>
 
+          {/* Currency switch */}
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="flex w-full flex-wrap items-center gap-2">
-              {(["AED", "USD", "SAR", "KWD", "QAR", "OMR"] as CurrencyKey[]).map((k) => {
+              {(["AED", "USD", "EUR", "SAR", "QAR", "KWD", "OMR"] as CurrencyKey[]).map((k) => {
                 const on = k === active;
                 return (
                   <button
@@ -144,7 +162,7 @@ export default function Home() {
                         : "border-white/10 bg-white/5 text-zinc-200 hover:border-amber-200/20 hover:bg-white/10",
                     ].join(" ")}
                   >
-                    {k} — {FX[k].label}
+                    {k} — {CURRENCY[k].label}
                   </button>
                 );
               })}
@@ -165,24 +183,17 @@ export default function Home() {
           </div>
         </header>
 
+        {/* Content */}
         <section className="mt-8 grid gap-4 md:grid-cols-2">
+          {/* Price card */}
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
             <h2 className="text-lg font-semibold">
               الأسعار بـ{" "}
               <span className="text-amber-200">
-                {active} ({FX[active].symbol})
+                {active} ({CURRENCY[active].symbol})
               </span>
             </h2>
             <p className="mt-1 text-sm text-zinc-400">السعر لكل 1 جرام</p>
-
-            <p className="mt-2 text-xs text-zinc-400">
-              سعر الصرف: 1 USD ={" "}
-              {rates.AED ? rates.AED.toFixed(4) : "—"} AED •{" "}
-              {rates.SAR ? rates.SAR.toFixed(4) : "—"} SAR •{" "}
-              {rates.KWD ? rates.KWD.toFixed(4) : "—"} KWD •{" "}
-              {rates.QAR ? rates.QAR.toFixed(4) : "—"} QAR •{" "}
-              {rates.OMR ? rates.OMR.toFixed(4) : "—"} OMR
-            </p>
 
             {err && (
               <div className="mt-4 rounded-2xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-200">
@@ -199,16 +210,23 @@ export default function Home() {
               </div>
             )}
 
+            {!display && !err && rates[active] === 0 && (
+              <div className="mt-4 rounded-2xl border border-amber-200/15 bg-amber-300/10 p-4 text-sm text-amber-100">
+                جاري تحميل بيانات العملة…
+              </div>
+            )}
+
             {display && (
               <div className="mt-6 grid gap-3">
-                <PriceRow k="24" v={display.gram24} sym={FX[active].symbol} />
-                <PriceRow k="22" v={display.gram22} sym={FX[active].symbol} />
-                <PriceRow k="21" v={display.gram21} sym={FX[active].symbol} />
-                <PriceRow k="18" v={display.gram18} sym={FX[active].symbol} />
+                <PriceRow k="24" v={display.gram24} sym={CURRENCY[active].symbol} />
+                <PriceRow k="22" v={display.gram22} sym={CURRENCY[active].symbol} />
+                <PriceRow k="21" v={display.gram21} sym={CURRENCY[active].symbol} />
+                <PriceRow k="18" v={display.gram18} sym={CURRENCY[active].symbol} />
               </div>
             )}
           </div>
 
+          {/* Info */}
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
             <h2 className="text-lg font-semibold">معلومات سريعة</h2>
 
@@ -222,7 +240,7 @@ export default function Home() {
             <div className="mt-6 rounded-2xl border border-amber-200/15 bg-amber-300/10 p-4 text-sm text-amber-100">
               <p className="font-medium">ملاحظة</p>
               <p className="mt-1 text-amber-100/90">
-                تحويل العملات لايف ويتم تحديثه تلقائياً مع سعر الذهب.
+                اختر العملة المناسبة لك، وسيتم عرض أسعار العيارات مباشرة.
               </p>
             </div>
           </div>
