@@ -39,7 +39,7 @@ async function loadPrices() {
 
     const [goldRes, fxRes] = await Promise.all([
       fetch("https://api.gold-api.com/price/XAU", { cache: "no-store" }),
-  fetch("https://open.er-api.com/v6/latest/USD", { cache: "no-store" }),
+ fetch("https://api.exchangerate.host/latest?base=USD&symbols=AED,SAR,KWD,QAR,OMR", { cache: "no-store" }),
 
     const goldData = await goldRes.json();
     const fxData = await fxRes.json();
