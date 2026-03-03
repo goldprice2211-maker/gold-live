@@ -1,9 +1,9 @@
 import Home from "../page";
 
 export const metadata = {
-  title: "سعر الذهب اليوم في عمان - تحديث مباشر",
+  title: "سعر الذهب اليوم في عمان | Gold Price Oman",
   description:
-    "أسعار الذهب اليوم في عمان لجميع العيارات (24، 22، 21، 18) بالريال العماني مع تحديث مباشر.",
+    "تابع سعر الذهب اليوم في عمان لجميع العيارات 24 و22 و21 و18 مع تحديث مباشر.",
 };
 
 export default function OmanPage() {
