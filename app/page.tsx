@@ -4,12 +4,15 @@ import { useEffect, useMemo, useState } from "react";
 
 type Prices = { gram24: number; gram22: number; gram21: number; gram18: number };
 
-type CurrencyKey = "AED" | "USD" | "SAR";
+type CurrencyKey = "AED" | "USD" | "SAR" | "KWD" | "QAR" | "OMR";
 
 const FX: Record<CurrencyKey, { label: string; symbol: string }> = {
   USD: { label: "الدولار الأمريكي", symbol: "$" },
   AED: { label: "الدرهم الإماراتي", symbol: "د.إ" },
   SAR: { label: "الريال السعودي", symbol: "ر.س" },
+  KWD: { label: "الدينار الكويتي", symbol: "د.ك" },
+  QAR: { label: "الريال القطري", symbol: "ر.ق" },
+  OMR: { label: "الريال العماني", symbol: "ر.ع" },
 };
 
 function fmt(n: number) {
@@ -21,10 +24,13 @@ export default function Home() {
   const [usdBase, setUsdBase] = useState<Prices | null>(null);
   const [updatedAt, setUpdatedAt] = useState<string>("");
   const [err, setErr] = useState<string>("");
-  const [rates, setRates] = useState<Record<CurrencyKey, number>>({
+ const [rates, setRates] = useState<Record<CurrencyKey, number>>({
   USD: 1,
   AED: 0,
   SAR: 0,
+  KWD: 0,
+  QAR: 0,
+  OMR: 0,
 });
 
 async function loadPrices() {
@@ -33,8 +39,7 @@ async function loadPrices() {
 
     const [goldRes, fxRes] = await Promise.all([
       fetch("https://api.gold-api.com/price/XAU", { cache: "no-store" }),
-      fetch("https://api.frankfurter.app/latest?from=USD&to=AED,SAR", { cache: "no-store" }),
-    ]);
+   fetch("https://api.frankfurter.app/latest?from=USD&to=AED,SAR,KWD,QAR,OMR", { cache: "no-store" }),
 
     const goldData = await goldRes.json();
     const fxData = await fxRes.json();
@@ -43,10 +48,22 @@ async function loadPrices() {
     if (!ounceUSD || Number.isNaN(ounceUSD)) throw new Error("لم يتم جلب سعر الذهب حالياً");
 
     const aedRate = Number(fxData?.rates?.AED);
-    const sarRate = Number(fxData?.rates?.SAR);
-    if (!aedRate || !sarRate) throw new Error("لم يتم جلب سعر الصرف حالياً");
+const sarRate = Number(fxData?.rates?.SAR);
+const kwdRate = Number(fxData?.rates?.KWD);
+const qarRate = Number(fxData?.rates?.QAR);
+const omrRate = Number(fxData?.rates?.OMR);
 
-    setRates({ USD: 1, AED: aedRate, SAR: sarRate });
+if (!aedRate || !sarRate || !kwdRate || !qarRate || !omrRate)
+  throw new Error("لم يتم جلب سعر الصرف حالياً");
+
+setRates({
+  USD: 1,
+  AED: aedRate,
+  SAR: sarRate,
+  KWD: kwdRate,
+  QAR: qarRate,
+  OMR: omrRate,
+});
 
     const gram24USD = ounceUSD / 31.1034768;
 
