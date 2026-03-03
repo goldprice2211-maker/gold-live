@@ -1,9 +1,9 @@
 import Home from "../page";
 
 export const metadata = {
-  title: "سعر الذهب اليوم في السعودية - تحديث مباشر",
+  title: "سعر الذهب اليوم في السعودية | Gold Price Saudi Arabia",
   description:
-    "أسعار الذهب اليوم في السعودية لجميع العيارات (24، 22، 21، 18) بالريال السعودي مع تحديث مباشر.",
+    "تابع سعر الذهب اليوم في السعودية لجميع العيارات 24 و22 و21 و18 مع تحديث مباشر.",
 };
 
 export default function SaudiPage() {
