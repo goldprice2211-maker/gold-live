@@ -6,10 +6,10 @@ type Prices = { gram24: number; gram22: number; gram21: number; gram18: number }
 
 type CurrencyKey = "AED" | "USD" | "SAR";
 
-const FX: Record<CurrencyKey, { label: string; symbol: string; rateFromUSD: number }> = {
-  USD: { label: "الدولار الأمريكي", symbol: "$", rateFromUSD: 1 },
-  AED: { label: "الدرهم الإماراتي", symbol: "د.إ", rateFromUSD: 3.6725 },
-  SAR: { label: "الريال السعودي", symbol: "ر.س", rateFromUSD: 3.75 },
+const FX: Record<CurrencyKey, { label: string; symbol: string }> = {
+  USD: { label: "الدولار الأمريكي", symbol: "$" },
+  AED: { label: "الدرهم الإماراتي", symbol: "د.إ" },
+  SAR: { label: "الريال السعودي", symbol: "ر.س" },
 };
 
 function fmt(n: number) {
@@ -21,29 +21,47 @@ export default function Home() {
   const [usdBase, setUsdBase] = useState<Prices | null>(null);
   const [updatedAt, setUpdatedAt] = useState<string>("");
   const [err, setErr] = useState<string>("");
+  const [rates, setRates] = useState<Record<CurrencyKey, number>>({
+  USD: 1,
+  AED: 0,
+  SAR: 0,
+});
 
-  async function loadPrices() {
-    try {
-      setErr("");
-      const res = await fetch("https://api.gold-api.com/price/XAU", { cache: "no-store" });
-      const data = await res.json();
+async function loadPrices() {
+  try {
+    setErr("");
 
-      const ounceUSD = Number(data?.price);
-      if (!ounceUSD || Number.isNaN(ounceUSD)) throw new Error("لم يتم جلب السعر حالياً");
+    const [goldRes, fxRes] = await Promise.all([
+      fetch("https://api.gold-api.com/price/XAU", { cache: "no-store" }),
+      fetch("https://api.frankfurter.app/latest?from=USD&to=AED,SAR", { cache: "no-store" }),
+    ]);
 
-      const gram24USD = ounceUSD / 31.1034768;
+    const goldData = await goldRes.json();
+    const fxData = await fxRes.json();
 
-      setUsdBase({
-        gram24: gram24USD,
-        gram22: gram24USD * (22 / 24),
-        gram21: gram24USD * (21 / 24),
-        gram18: gram24USD * (18 / 24),
-      });
-      setUpdatedAt(new Date().toISOString());
-    } catch (e: any) {
-      setErr(e?.message || "صار خطأ في جلب السعر");
-    }
+    const ounceUSD = Number(goldData?.price);
+    if (!ounceUSD || Number.isNaN(ounceUSD)) throw new Error("لم يتم جلب سعر الذهب حالياً");
+
+    const aedRate = Number(fxData?.rates?.AED);
+    const sarRate = Number(fxData?.rates?.SAR);
+    if (!aedRate || !sarRate) throw new Error("لم يتم جلب سعر الصرف حالياً");
+
+    setRates({ USD: 1, AED: aedRate, SAR: sarRate });
+
+    const gram24USD = ounceUSD / 31.1034768;
+
+    setUsdBase({
+      gram24: gram24USD,
+      gram22: gram24USD * (22 / 24),
+      gram21: gram24USD * (21 / 24),
+      gram18: gram24USD * (18 / 24),
+    });
+
+    setUpdatedAt(new Date().toISOString());
+  } catch (e: any) {
+    setErr(e?.message || "صار خطأ في جلب البيانات");
   }
+}
 
   useEffect(() => {
     loadPrices();
@@ -53,7 +71,7 @@ export default function Home() {
 
   const display = useMemo(() => {
     if (!usdBase) return null;
-    const r = FX[active].rateFromUSD;
+   const r = rates[active] || 0;
     return {
       gram24: usdBase.gram24 * r,
       gram22: usdBase.gram22 * r,
@@ -142,6 +160,9 @@ export default function Home() {
               </span>
             </h2>
             <p className="mt-1 text-sm text-zinc-400">السعر لكل 1 جرام</p>
+<p className="mt-2 text-xs text-zinc-400">
+  سعر الصرف: 1 USD = {rates.AED ? rates.AED.toFixed(4) : "—"} AED • {rates.SAR ? rates.SAR.toFixed(4) : "—"} SAR
+</p>
 
             {err && (
               <div className="mt-4 rounded-2xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-200">
