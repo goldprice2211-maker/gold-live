@@ -1,15 +1,40 @@
-export default function sitemap() {
-  const base = "https://gold-live.vercel.app";
-  const now = new Date();
+import { MetadataRoute } from 'next'
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = 'https://goldliveprices.net'
 
   return [
-    { url: base, lastModified: now },
-    { url: `${base}/uae`, lastModified: now },
-    { url: `${base}/saudi`, lastModified: now },
-    { url: `${base}/qatar`, lastModified: now },
-    { url: `${base}/kuwait`, lastModified: now },
-    { url: `${base}/oman`, lastModified: now },
-    { url: `${base}/euro`, lastModified: now },
-    { url: `${base}/usd`, lastModified: now },
-  ];
+    {
+      url: `${baseUrl}`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/uae`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/saudi`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/qatar`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/kuwait`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/oman`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/euro`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/usd`,
+      lastModified: new Date(),
+    },
+  ]
 }
