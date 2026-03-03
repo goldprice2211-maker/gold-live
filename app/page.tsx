@@ -31,9 +31,53 @@ function priceForWeight(gramPrice: number, grams: number) {
 
 export default function Home() {
   const [active, setActive] = useState<CurrencyKey>("AED");
+  const [lang, setLang] = useState<"ar" | "en">("ar");
   const [usdBase, setUsdBase] = useState<Prices | null>(null);
   const [updatedAt, setUpdatedAt] = useState<string>("");
   const [err, setErr] = useState<string>("");
+  const T = useMemo(() => {
+  const ar = {
+    live: "تحديث مباشر كل دقيقة",
+    title: "أسعار الذهب اليوم",
+    note: "معلومات فقط — الأسعار تقديرية وتعتمد على السعر العالمي (XAU).",
+    lastUpdate: "آخر تحديث",
+    refreshNow: "تحديث الآن",
+    pricesIn: "الأسعار بـ",
+    perGram: "السعر لكل 1 جرام",
+    loadingCurrency: "جاري تحميل بيانات العملة…",
+    barsTitle: "سعر سبائك الذهب في محلات الصياغة (عيار 24)",
+    barsNote: "الأسعار المعروضة تقديرية بناءً على متوسط السوق، وقد تختلف حسب محل الصياغة والمصنعية.",
+    quickInfo: "معلومات سريعة",
+    tipTitle: "ملاحظة",
+    tipBody: "اختر العملة المناسبة لك، وسيتم عرض أسعار العيارات مباشرة.",
+    disclaimer: "معلومات فقط وليست نصيحة استثمارية.",
+    gram: "جرام",
+    karat: "عيار",
+    language: "اللغة",
+  };
+
+  const en = {
+    live: "Live update every minute",
+    title: "Gold Prices Today",
+    note: "Info only — approximate prices based on global XAU spot price.",
+    lastUpdate: "Last update",
+    refreshNow: "Refresh now",
+    pricesIn: "Prices in",
+    perGram: "Price per 1 gram",
+    loadingCurrency: "Loading currency data…",
+    barsTitle: "Gold Bar Prices in Jewelry Shops (24K)",
+    barsNote: "Approximate market prices. May vary by shop and workmanship fees.",
+    quickInfo: "Quick info",
+    tipTitle: "Note",
+    tipBody: "Choose your currency to see karat prices instantly.",
+    disclaimer: "Info only. Not investment advice.",
+    gram: "gram",
+    karat: "Karat",
+    language: "Language",
+  };
+
+  return lang === "ar" ? ar : en;
+}, [lang]);
 
   // Rates are “units per 1 USD” (e.g., AED ~ 3.67, EUR ~ 0.92)
   const [rates, setRates] = useState<Record<CurrencyKey, number>>({
