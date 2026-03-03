@@ -13,17 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://goldliveprices.net"),
   title: "سعر الذهب اليوم في الإمارات والخليج | تحديث مباشر",
   description:
     "تابع سعر الذهب اليوم في الإمارات، السعودية، الكويت، قطر، عمان واليورو. تحديث مباشر لكل دقيقة لأسعار الذهب عيار 24 و22 و21 و18.",
-  keywords: [
-    "سعر الذهب اليوم",
-    "سعر الذهب الإمارات",
-    "سعر الذهب السعودية",
-    "سعر الذهب الكويت",
-    "gold price today",
-    "gold price UAE"
-  ],
+  keywords:
+    "سعر الذهب اليوم, سعر الذهب الإمارات, سعر الذهب السعودية, سعر الذهب الكويت, سعر الذهب قطر, سعر الذهب عمان, سعر الذهب باليورو, gold price today, gold price UAE",
   openGraph: {
     title: "سعر الذهب اليوم - تحديث مباشر",
     description:
@@ -41,10 +36,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="ar" dir="rtl">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
       </body>
     </html>
