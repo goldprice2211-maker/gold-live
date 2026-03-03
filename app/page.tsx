@@ -18,12 +18,17 @@ const CURRENCY: Record<CurrencyKey, { label: string; symbol: string }> = {
 function fmt(n: number) {
   return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
-const shopMargin = 0.05; // 5% زيادة المحلات
+
+// 5% متوسط زيادة المحلات (تقدر تغيرها لاحقاً: 0.03 = 3% ، 0.07 = 7%)
+const shopMargin = 0.05;
+
+// أوزان السبائك (جرام) — تشمل 1 جرام
 const BAR_WEIGHTS = [1, 5, 10, 20, 50, 100, 250, 1000];
 
 function priceForWeight(gramPrice: number, grams: number) {
   return gramPrice * grams;
 }
+
 export default function Home() {
   const [active, setActive] = useState<CurrencyKey>("AED");
   const [usdBase, setUsdBase] = useState<Prices | null>(null);
@@ -47,7 +52,6 @@ export default function Home() {
 
       const [goldRes, fxRes] = await Promise.all([
         fetch("https://api.gold-api.com/price/XAU", { cache: "no-store" }),
-        // Reliable free FX (no key). If it fails, we’ll just keep previous rates.
         fetch("https://open.er-api.com/v6/latest/USD", { cache: "no-store" }),
       ]);
 
@@ -93,7 +97,6 @@ export default function Home() {
       if (omr) nextRates.OMR = omr;
 
       setRates(nextRates);
-
       setUpdatedAt(new Date().toISOString());
     } catch (e: any) {
       setErr(e?.message || "صار خطأ في جلب البيانات");
@@ -229,47 +232,34 @@ export default function Home() {
                 <PriceRow k="18" v={display.gram18} sym={CURRENCY[active].symbol} />
               </div>
             )}
-            {/* Gold Bars Section */}
-{display && (
-  <div className="mt-10 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-6">
-   <h3 className="text-lg font-semibold text-amber-300 mb-4">
-  سعر سبائك الذهب في محلات الصياغة (عيار 24)
-</h3>
-  <p className="text-xs text-zinc-400 mb-4">
-  الأسعار المعروضة تقديرية بناءً على متوسط السوق، وقد تختلف حسب محل الصياغة والمصنعية.
-</p>
-    <div className="mt-6 grid gap-3">
-  {BAR_WEIGHTS.map((g) => (
-    <div
-      key={g}
-      className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 px-4 py-4"
-    >
-      <span>{g} جرام</span>
 
-      <span className="text-amber-100 font-semibold">
-        {fmt(priceForWeight(display.gram24 * (1 + shopMargin), g))}{" "}
-        {CURRENCY[active].symbol}
-      </span>
-    </div>
-  ))}
-</div>
+            {/* Gold Bars Section (ONE VERSION ONLY) */}
+            {display && (
+              <div className="mt-10 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-6">
+                <h3 className="mb-4 text-lg font-semibold text-amber-300">
+                  سعر سبائك الذهب في محلات الصياغة (عيار 24)
+                </h3>
 
-    <div className="grid gap-3">
-      {BAR_WEIGHTS.map((w) => (
-        <div
-          key={w}
-          className="flex justify-between items-center rounded-xl border border-white/10 bg-white/5 px-4 py-3"
-        >
-          <span>{w} جرام</span>
-          <span className="font-semibold text-amber-200">
-            {CURRENCY[active].symbol}{" "}
-            {(display.gram24 * w * (1 + shopMargin)).toFixed(2)}
-          </span>
-        </div>
-      ))}
-    </div>
-  </div>
-)}
+                <p className="mb-4 text-xs text-zinc-400">
+                  الأسعار المعروضة تقديرية بناءً على متوسط السوق، وقد تختلف حسب محل الصياغة والمصنعية.
+                </p>
+
+                <div className="mt-6 grid gap-3">
+                  {BAR_WEIGHTS.map((g) => (
+                    <div
+                      key={g}
+                      className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 px-4 py-4"
+                    >
+                      <span>{g === 1000 ? "1 كيلو" : `${g} جرام`}</span>
+
+                      <span className="font-semibold text-amber-100">
+                        {fmt(priceForWeight(display.gram24 * (1 + shopMargin), g))} {CURRENCY[active].symbol}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Info */}
@@ -285,9 +275,7 @@ export default function Home() {
 
             <div className="mt-6 rounded-2xl border border-amber-200/15 bg-amber-300/10 p-4 text-sm text-amber-100">
               <p className="font-medium">ملاحظة</p>
-              <p className="mt-1 text-amber-100/90">
-                اختر العملة المناسبة لك، وسيتم عرض أسعار العيارات مباشرة.
-              </p>
+              <p className="mt-1 text-amber-100/90">اختر العملة المناسبة لك، وسيتم عرض أسعار العيارات مباشرة.</p>
             </div>
           </div>
         </section>
