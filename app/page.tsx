@@ -5,14 +5,14 @@ import { useEffect, useMemo, useState } from "react";
 type Prices = { gram24: number; gram22: number; gram21: number; gram18: number };
 type CurrencyKey = "USD" | "EUR" | "AED" | "SAR" | "QAR" | "KWD" | "OMR";
 
-const CURRENCY: Record<CurrencyKey, { label: string; symbol: string }> = {
-  USD: { label: "الدولار الأمريكي", symbol: "$" },
-  EUR: { label: "اليورو", symbol: "€" },
-  AED: { label: "الدرهم الإماراتي", symbol: "د.إ" },
-  SAR: { label: "الريال السعودي", symbol: "ر.س" },
-  QAR: { label: "الريال القطري", symbol: "ر.ق" },
-  KWD: { label: "الدينار الكويتي", symbol: "د.ك" },
-  OMR: { label: "الريال العُماني", symbol: "ر.ع" },
+const CURRENCY: Record<CurrencyKey, { labelAr: string; labelEn: string; symbol: string }> = {
+  USD: { labelAr: "الدولار الأمريكي", labelEn: "US Dollar", symbol: "$" },
+  EUR: { labelAr: "اليورو", labelEn: "Euro", symbol: "€" },
+  AED: { labelAr: "الدرهم الإماراتي", labelEn: "UAE Dirham", symbol: "د.إ" },
+  SAR: { labelAr: "الريال السعودي", labelEn: "Saudi Riyal", symbol: "ر.س" },
+  QAR: { labelAr: "الريال القطري", labelEn: "Qatari Riyal", symbol: "ر.ق" },
+  KWD: { labelAr: "الدينار الكويتي", labelEn: "Kuwaiti Dinar", symbol: "د.ك" },
+  OMR: { labelAr: "الريال العُماني", labelEn: "Omani Rial", symbol: "ر.ع" },
 };
 
 function fmt(n: number) {
@@ -35,51 +35,57 @@ export default function Home() {
   const [usdBase, setUsdBase] = useState<Prices | null>(null);
   const [updatedAt, setUpdatedAt] = useState<string>("");
   const [err, setErr] = useState<string>("");
+
   const T = useMemo(() => {
-  const ar = {
-    live: "تحديث مباشر كل دقيقة",
-    title: "أسعار الذهب اليوم",
-    note: "معلومات فقط — الأسعار تقديرية وتعتمد على السعر العالمي (XAU).",
-    lastUpdate: "آخر تحديث",
-    refreshNow: "تحديث الآن",
-    pricesIn: "الأسعار بـ",
-    perGram: "السعر لكل 1 جرام",
-    loadingCurrency: "جاري تحميل بيانات العملة…",
-    barsTitle: "سعر سبائك الذهب في محلات الصياغة (عيار 24)",
-    barsNote: "الأسعار المعروضة تقديرية بناءً على متوسط السوق، وقد تختلف حسب محل الصياغة والمصنعية.",
-    quickInfo: "معلومات سريعة",
-    tipTitle: "ملاحظة",
-    tipBody: "اختر العملة المناسبة لك، وسيتم عرض أسعار العيارات مباشرة.",
-    disclaimer: "معلومات فقط وليست نصيحة استثمارية.",
-    gram: "جرام",
-    karat: "عيار",
-    language: "اللغة",
-  };
+    const ar = {
+      live: "تحديث مباشر كل دقيقة",
+      title: "أسعار الذهب اليوم",
+      note: "معلومات فقط — الأسعار تقديرية وتعتمد على السعر العالمي (XAU).",
+      lastUpdate: "آخر تحديث",
+      refreshNow: "تحديث الآن",
+      pricesIn: "الأسعار بـ",
+      perGram: "السعر لكل 1 جرام",
+      loadingCurrency: "جاري تحميل بيانات العملة…",
+      barsTitle: "سعر سبائك الذهب في محلات الصياغة (عيار 24)",
+      barsNote:
+        "الأسعار المعروضة تقديرية بناءً على متوسط السوق، وقد تختلف حسب محل الصياغة والمصنعية.",
+      quickInfo: "معلومات سريعة",
+      tipTitle: "ملاحظة",
+      tipBody: "اختر العملة المناسبة لك، وسيتم عرض أسعار العيارات مباشرة.",
+      disclaimer: "معلومات فقط وليست نصيحة استثمارية.",
+      gram: "جرام",
+      kilo: "1 كيلو",
+      karat: "عيار",
+      errorFetch: "لم يتم جلب سعر الذهب حالياً",
+      loading: "جاري التحميل…",
+    };
 
-  const en = {
-    live: "Live update every minute",
-    title: "Gold Prices Today",
-    note: "Info only — approximate prices based on global XAU spot price.",
-    lastUpdate: "Last update",
-    refreshNow: "Refresh now",
-    pricesIn: "Prices in",
-    perGram: "Price per 1 gram",
-    loadingCurrency: "Loading currency data…",
-    barsTitle: "Gold Bar Prices in Jewelry Shops (24K)",
-    barsNote: "Approximate market prices. May vary by shop and workmanship fees.",
-    quickInfo: "Quick info",
-    tipTitle: "Note",
-    tipBody: "Choose your currency to see karat prices instantly.",
-    disclaimer: "Info only. Not investment advice.",
-    gram: "gram",
-    karat: "Karat",
-    language: "Language",
-  };
+    const en = {
+      live: "Live update every minute",
+      title: "Gold Prices Today",
+      note: "Info only — approximate prices based on global XAU spot price.",
+      lastUpdate: "Last update",
+      refreshNow: "Refresh now",
+      pricesIn: "Prices in",
+      perGram: "Price per 1 gram",
+      loadingCurrency: "Loading currency data…",
+      barsTitle: "Gold Bar Prices in Jewelry Shops (24K)",
+      barsNote: "Approximate market prices. May vary by shop and workmanship fees.",
+      quickInfo: "Quick info",
+      tipTitle: "Note",
+      tipBody: "Choose your currency to see karat prices instantly.",
+      disclaimer: "Info only. Not investment advice.",
+      gram: "gram",
+      kilo: "1 kg",
+      karat: "Karat",
+      errorFetch: "Could not fetch gold price right now",
+      loading: "Loading…",
+    };
 
-  return lang === "ar" ? ar : en;
-}, [lang]);
+    return lang === "ar" ? ar : en;
+  }, [lang]);
 
-  // Rates are “units per 1 USD” (e.g., AED ~ 3.67, EUR ~ 0.92)
+  // Rates are “units per 1 USD”
   const [rates, setRates] = useState<Record<CurrencyKey, number>>({
     USD: 1,
     EUR: 0,
@@ -103,7 +109,7 @@ export default function Home() {
       const fxData = await fxRes.json();
 
       const ounceUSD = Number(goldData?.price);
-      if (!ounceUSD || Number.isNaN(ounceUSD)) throw new Error("لم يتم جلب سعر الذهب حالياً");
+      if (!ounceUSD || Number.isNaN(ounceUSD)) throw new Error(T.errorFetch);
 
       // Update gold (USD base)
       const gram24USD = ounceUSD / 31.1034768;
@@ -114,7 +120,7 @@ export default function Home() {
         gram18: gram24USD * (18 / 24),
       });
 
-      // Update FX silently (no UI). If missing, keep old value.
+      // Update FX silently. If missing, keep old value.
       const nextRates: Record<CurrencyKey, number> = { ...rates };
       const r = fxData?.rates || {};
 
@@ -123,7 +129,6 @@ export default function Home() {
         return Number.isFinite(v) && v > 0 ? v : null;
       };
 
-      // USD base
       nextRates.USD = 1;
 
       const eur = maybe("EUR");
@@ -143,7 +148,7 @@ export default function Home() {
       setRates(nextRates);
       setUpdatedAt(new Date().toISOString());
     } catch (e: any) {
-      setErr(e?.message || "صار خطأ في جلب البيانات");
+      setErr(e?.message || (lang === "ar" ? "صار خطأ في جلب البيانات" : "Something went wrong"));
     }
   }
 
@@ -169,7 +174,10 @@ export default function Home() {
   }, [usdBase, active, rates]);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-950 to-black text-zinc-100">
+    <main
+      dir={lang === "ar" ? "rtl" : "ltr"}
+      className="min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-950 to-black text-zinc-100"
+    >
       {/* Glow */}
       <div className="pointer-events-none fixed inset-0">
         <div className="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-amber-400/10 blur-3xl" />
@@ -182,83 +190,83 @@ export default function Home() {
           <div className="flex flex-col gap-2">
             <p className="inline-flex w-fit items-center gap-2 rounded-full border border-amber-200/15 bg-amber-300/10 px-3 py-1 text-sm text-amber-200">
               <span className="h-2 w-2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(255,215,0,0.55)]" />
-              تحديث مباشر كل دقيقة
+              {T.live}
             </p>
 
             <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
-              أسعار الذهب اليوم{" "}
+              {T.title}{" "}
               <span className="ml-2 bg-gradient-to-r from-amber-200 via-yellow-100 to-amber-300 bg-clip-text text-transparent">
                 (24 / 22 / 21 / 18)
               </span>
             </h1>
 
-            <p className="text-sm text-zinc-300 md:text-base">
-              معلومات فقط — الأسعار تقديرية وتعتمد على السعر العالمي (XAU).
-            </p>
+            <p className="text-sm text-zinc-300 md:text-base">{T.note}</p>
           </div>
 
-          {/* Currency switch */}
+          {/* ✅ Currency + Language + Last Update in ONE ROW */}
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            {/* Buttons block */}
+            <div className="flex w-full flex-wrap items-center gap-2">
+              {(["AED", "USD", "EUR", "SAR", "QAR", "KWD", "OMR"] as CurrencyKey[]).map((k) => {
+                const on = k === active;
+                const label = lang === "ar" ? CURRENCY[k].labelAr : CURRENCY[k].labelEn;
 
-  {/* العملات */}
-  <div className="flex w-full flex-wrap items-center gap-2">
-    {(["AED", "USD", "EUR", "SAR", "QAR", "KWD", "OMR"] as CurrencyKey[]).map((k) => {
-      const on = k === active;
-      return (
-        <button
-          key={k}
-          onClick={() => setActive(k)}
-          className={[
-            "rounded-xl px-4 py-2 text-sm font-medium transition",
-            "border",
-            on
-              ? "border-amber-200/30 bg-amber-300/15 text-amber-100"
-              : "border-white/10 bg-white/5 text-zinc-200",
-          ].join(" ")}
-        >
-          {k}
-        </button>
-      );
-    })}
-  </div>
+                return (
+                  <button
+                    key={k}
+                    onClick={() => setActive(k)}
+                    className={[
+                      "rounded-xl px-4 py-2 text-sm font-medium transition",
+                      "border",
+                      on
+                        ? "border-amber-200/30 bg-amber-300/15 text-amber-100 shadow-[0_0_0_1px_rgba(255,215,0,0.12)]"
+                        : "border-white/10 bg-white/5 text-zinc-200 hover:border-amber-200/20 hover:bg-white/10",
+                    ].join(" ")}
+                  >
+                    {k} — {label}
+                  </button>
+                );
+              })}
 
-  {/* 🔥 زر اللغة هنا */}
-  <div className="flex items-center gap-2">
-    <button
-      onClick={() => setLang("ar")}
-      className={`px-3 py-1 rounded-lg text-sm border ${
-        lang === "ar"
-          ? "bg-amber-300/20 border-amber-300 text-amber-200"
-          : "border-white/10 text-zinc-300"
-      }`}
-    >
-      عربي
-    </button>
+              {/* Language switch */}
+              <div className="ml-auto flex items-center gap-2">
+                <button
+                  onClick={() => setLang("ar")}
+                  className={`px-3 py-2 rounded-xl text-sm border ${
+                    lang === "ar"
+                      ? "bg-amber-300/20 border-amber-300 text-amber-200"
+                      : "border-white/10 text-zinc-300 hover:bg-white/10"
+                  }`}
+                >
+                  عربي
+                </button>
+                <button
+                  onClick={() => setLang("en")}
+                  className={`px-3 py-2 rounded-xl text-sm border ${
+                    lang === "en"
+                      ? "bg-amber-300/20 border-amber-300 text-amber-200"
+                      : "border-white/10 text-zinc-300 hover:bg-white/10"
+                  }`}
+                >
+                  English
+                </button>
+              </div>
+            </div>
 
-    <button
-      onClick={() => setLang("en")}
-      className={`px-3 py-1 rounded-lg text-sm border ${
-        lang === "en"
-          ? "bg-amber-300/20 border-amber-300 text-amber-200"
-          : "border-white/10 text-zinc-300"
-      }`}
-    >
-      English
-    </button>
-  </div>
-
-</div>
-
+            {/* Last update box */}
             <div className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-zinc-200 md:min-w-[320px]">
               <div className="flex flex-col">
-                <span className="text-xs text-zinc-400">آخر تحديث</span>
-                <span className="font-medium">{updatedAt ? new Date(updatedAt).toLocaleString() : "—"}</span>
+                <span className="text-xs text-zinc-400">{T.lastUpdate}</span>
+                <span className="font-medium">
+                  {updatedAt ? new Date(updatedAt).toLocaleString() : "—"}
+                </span>
               </div>
+
               <button
                 onClick={loadPrices}
                 className="rounded-xl border border-amber-200/20 bg-amber-300/10 px-3 py-2 text-xs font-medium text-amber-100 hover:bg-amber-300/15"
               >
-                تحديث الآن
+                {T.refreshNow}
               </button>
             </div>
           </div>
@@ -269,12 +277,12 @@ export default function Home() {
           {/* Price card */}
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
             <h2 className="text-lg font-semibold">
-              الأسعار بـ{" "}
+              {T.pricesIn}{" "}
               <span className="text-amber-200">
                 {active} ({CURRENCY[active].symbol})
               </span>
             </h2>
-            <p className="mt-1 text-sm text-zinc-400">السعر لكل 1 جرام</p>
+            <p className="mt-1 text-sm text-zinc-400">{T.perGram}</p>
 
             {err && (
               <div className="mt-4 rounded-2xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-200">
@@ -293,29 +301,25 @@ export default function Home() {
 
             {!display && !err && rates[active] === 0 && (
               <div className="mt-4 rounded-2xl border border-amber-200/15 bg-amber-300/10 p-4 text-sm text-amber-100">
-                جاري تحميل بيانات العملة…
+                {T.loadingCurrency}
               </div>
             )}
 
             {display && (
               <div className="mt-6 grid gap-3">
-                <PriceRow k="24" v={display.gram24} sym={CURRENCY[active].symbol} />
-                <PriceRow k="22" v={display.gram22} sym={CURRENCY[active].symbol} />
-                <PriceRow k="21" v={display.gram21} sym={CURRENCY[active].symbol} />
-                <PriceRow k="18" v={display.gram18} sym={CURRENCY[active].symbol} />
+                <PriceRow k="24" v={display.gram24} sym={CURRENCY[active].symbol} t={T} />
+                <PriceRow k="22" v={display.gram22} sym={CURRENCY[active].symbol} t={T} />
+                <PriceRow k="21" v={display.gram21} sym={CURRENCY[active].symbol} t={T} />
+                <PriceRow k="18" v={display.gram18} sym={CURRENCY[active].symbol} t={T} />
               </div>
             )}
 
             {/* Gold Bars Section (ONE VERSION ONLY) */}
             {display && (
               <div className="mt-10 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-6">
-                <h3 className="mb-4 text-lg font-semibold text-amber-300">
-                  سعر سبائك الذهب في محلات الصياغة (عيار 24)
-                </h3>
+                <h3 className="mb-4 text-lg font-semibold text-amber-300">{T.barsTitle}</h3>
 
-                <p className="mb-4 text-xs text-zinc-400">
-                  الأسعار المعروضة تقديرية بناءً على متوسط السوق، وقد تختلف حسب محل الصياغة والمصنعية.
-                </p>
+                <p className="mb-4 text-xs text-zinc-400">{T.barsNote}</p>
 
                 <div className="mt-6 grid gap-3">
                   {BAR_WEIGHTS.map((g) => (
@@ -323,10 +327,11 @@ export default function Home() {
                       key={g}
                       className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 px-4 py-4"
                     >
-                      <span>{g === 1000 ? "1 كيلو" : `${g} جرام`}</span>
+                      <span>{g === 1000 ? T.kilo : `${g} ${T.gram}`}</span>
 
                       <span className="font-semibold text-amber-100">
-                        {fmt(priceForWeight(display.gram24 * (1 + shopMargin), g))} {CURRENCY[active].symbol}
+                        {fmt(priceForWeight(display.gram24 * (1 + shopMargin), g))}{" "}
+                        {CURRENCY[active].symbol}
                       </span>
                     </div>
                   ))}
@@ -337,32 +342,58 @@ export default function Home() {
 
           {/* Info */}
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <h2 className="text-lg font-semibold">معلومات سريعة</h2>
+            <h2 className="text-lg font-semibold">{T.quickInfo}</h2>
 
             <div className="mt-5 grid gap-3">
-              <InfoCard title="عيار 24" desc="أنقى ذهب (تقريباً 99.9%)." />
-              <InfoCard title="عيار 22" desc="شائع في الخليج للمجوهرات." />
-              <InfoCard title="عيار 21" desc="الأكثر تداولاً في كثير من الأسواق." />
-              <InfoCard title="عيار 18" desc="مناسب للتصاميم الحديثة ومقاوم للخدش أكثر." />
+              <InfoCard
+                title={lang === "ar" ? "عيار 24" : "24K"}
+                desc={lang === "ar" ? "أنقى ذهب (تقريباً 99.9%)." : "Purest gold (~99.9%)."}
+              />
+              <InfoCard
+                title={lang === "ar" ? "عيار 22" : "22K"}
+                desc={lang === "ar" ? "شائع في الخليج للمجوهرات." : "Common in the Gulf for jewelry."}
+              />
+              <InfoCard
+                title={lang === "ar" ? "عيار 21" : "21K"}
+                desc={lang === "ar" ? "الأكثر تداولاً في كثير من الأسواق." : "Most traded in many markets."}
+              />
+              <InfoCard
+                title={lang === "ar" ? "عيار 18" : "18K"}
+                desc={
+                  lang === "ar"
+                    ? "مناسب للتصاميم الحديثة ومقاوم للخدش أكثر."
+                    : "Good for modern designs; more scratch-resistant."
+                }
+              />
             </div>
 
             <div className="mt-6 rounded-2xl border border-amber-200/15 bg-amber-300/10 p-4 text-sm text-amber-100">
-              <p className="font-medium">ملاحظة</p>
-              <p className="mt-1 text-amber-100/90">اختر العملة المناسبة لك، وسيتم عرض أسعار العيارات مباشرة.</p>
+              <p className="font-medium">{T.tipTitle}</p>
+              <p className="mt-1 text-amber-100/90">{T.tipBody}</p>
             </div>
           </div>
         </section>
 
         <footer className="mt-10 flex flex-col items-center gap-2 text-center text-xs text-zinc-500">
           <p>© {new Date().getFullYear()} — Gold Live</p>
-          <p>Disclaimer: معلومات فقط وليست نصيحة استثمارية.</p>
+          <p>{T.disclaimer}</p>
         </footer>
       </div>
     </main>
   );
 }
 
-function PriceRow({ k, v, sym }: { k: string; v: number; sym: string }) {
+function PriceRow({
+  k,
+  v,
+  sym,
+  t,
+}: {
+  k: string;
+  v: number;
+  sym: string;
+  t: { karat: string; gram: string };
+}) {
   return (
     <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 px-4 py-4">
       <div className="flex items-center gap-3">
@@ -370,8 +401,10 @@ function PriceRow({ k, v, sym }: { k: string; v: number; sym: string }) {
           {k}
         </div>
         <div className="flex flex-col">
-          <span className="text-sm font-semibold">عيار {k}</span>
-          <span className="text-xs text-zinc-400">جرام</span>
+          <span className="text-sm font-semibold">
+            {t.karat} {k}
+          </span>
+          <span className="text-xs text-zinc-400">{t.gram}</span>
         </div>
       </div>
 
