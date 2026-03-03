@@ -1,5 +1,3 @@
-
-
 import Home from "../page";
 
 export const metadata = {
