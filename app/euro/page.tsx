@@ -1,9 +1,9 @@
 import Home from "../page";
 
 export const metadata = {
-  title: "Gold Price Today in Euro (EUR) - Live Update",
+  title: "Gold Price Today in Euro | Live Gold Prices",
   description:
-    "Live gold price today in Euro for 24K, 22K, 21K, and 18K per gram. Updated regularly with accurate data.",
+    "Live gold price today in Euro for 24k, 22k, 21k and 18k gold updated every minute.",
 };
 
 export default function EuroPage() {
