@@ -6,6 +6,6 @@ export const metadata = {
     "تابع سعر الذهب اليوم في الإمارات لجميع العيارات 24 و22 و21 و18 مع تحديث مباشر.",
 };
 
-export default function UAEPage() {
+export default function UAEPage()  {
   return <Home />;
 }
