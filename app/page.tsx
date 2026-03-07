@@ -205,6 +205,9 @@ export default function Home() {
     <a href="/about" className="hover:text-amber-500">
       {lang === "ar" ? "من نحن" : "About Us"}
     </a>
+    <a href="/blog" className="hover:text-amber-500">
+  {lang === "ar" ? "تحليلات الذهب" : "Gold Insights"}
+</a>
 
     <a href="/contact" className="hover:text-amber-500">
       {lang === "ar" ? "تواصل معنا" : "Contact"}
