@@ -34,6 +34,23 @@ export default function Home() {
   const [err, setErr] = useState<string>("");
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const [selectedChartKarat, setSelectedChartKarat] =
+    useState<"24" | "22" | "21" | "18">("24");
+
+  const [history, setHistory] = useState<{
+    gram24: number[];
+    gram22: number[];
+    gram21: number[];
+    gram18: number[];
+    ounceUSD: number[];
+  }>({
+    gram24: [],
+    gram22: [],
+    gram21: [],
+    gram18: [],
+    ounceUSD: [],
+  });
+
   const T = useMemo(() => {
     const ar = {
       live: "تحديث مباشر كل دقيقة",
@@ -56,6 +73,22 @@ export default function Home() {
       karat: "عيار",
       errorFetch: "لم يتم جلب سعر الذهب حالياً",
       loading: "جاري التحميل…",
+      globalChartTitle: "الرسم البياني التاريخي للذهب",
+      globalChartDesc:
+        "مخطط زمني لسعر الذهب العالمي (XAU/USD).",
+      globalChartNote:
+        "ملاحظة: هذا الرسم يعرض سعر الذهب العالمي بالدولار، وليس سعر الجرام المحلي بعد التحويل.",
+      localChartTitle: "الرسم البياني المحلي الاحترافي",
+      localChartDesc: "حركة سعر الجرام حسب العيار والعملة المختارة خلال آخر 60 تحديث.",
+      last60: "آخر 60 تحديث",
+      latestAnalysis: "آخر التحليلات",
+      latestAnalysisDesc:
+        "اقرأ أحدث المقالات والتحليلات لفهم حركة سوق الذهب والعوامل المؤثرة على الأسعار.",
+      viewArticles: "عرض المقالات",
+      globalOunceMovement: "حركة الأونصة العالمية",
+      globalOunceDesc: "تغير سعر الذهب العالمي بالدولار خلال آخر 60 تحديث.",
+      localGramMovement: "حركة جرام عيار",
+      localGramDesc: "الرسم يتحدث تلقائيًا حسب العملة المختارة.",
     };
 
     const en = {
@@ -78,6 +111,21 @@ export default function Home() {
       karat: "Karat",
       errorFetch: "Could not fetch gold price right now",
       loading: "Loading…",
+      globalChartTitle: "Historical Gold Chart",
+      globalChartDesc: "A time-based chart for global gold spot price (XAU/USD).",
+      globalChartNote:
+        "Note: This chart shows global gold price in USD, not the converted local gram price.",
+      localChartTitle: "Professional Local Chart",
+      localChartDesc: "Gram price movement by selected karat and currency across the last 60 updates.",
+      last60: "Last 60 updates",
+      latestAnalysis: "Latest Analysis",
+      latestAnalysisDesc:
+        "Read our latest insights to better understand gold market movements and price drivers.",
+      viewArticles: "View Articles",
+      globalOunceMovement: "Global Ounce Movement",
+      globalOunceDesc: "Global gold price in USD across the last 60 updates.",
+      localGramMovement: "",
+      localGramDesc: "This chart updates automatically based on the selected currency.",
     };
 
     return lang === "ar" ? ar : en;
@@ -109,11 +157,24 @@ export default function Home() {
       if (!ounceUSD || Number.isNaN(ounceUSD)) throw new Error(T.errorFetch);
 
       const gram24USD = ounceUSD / 31.1034768;
-      setUsdBase({
+      const nextUsdBase = {
         gram24: gram24USD,
         gram22: gram24USD * (22 / 24),
         gram21: gram24USD * (21 / 24),
         gram18: gram24USD * (18 / 24),
+      };
+
+      setUsdBase(nextUsdBase);
+
+      setHistory((prev) => {
+        const limit = 60;
+        return {
+          gram24: [...prev.gram24.slice(-limit + 1), gram24USD],
+          gram22: [...prev.gram22.slice(-limit + 1), gram24USD * (22 / 24)],
+          gram21: [...prev.gram21.slice(-limit + 1), gram24USD * (21 / 24)],
+          gram18: [...prev.gram18.slice(-limit + 1), gram24USD * (18 / 24)],
+          ounceUSD: [...prev.ounceUSD.slice(-limit + 1), ounceUSD],
+        };
       });
 
       const nextRates: Record<CurrencyKey, number> = { ...rates };
@@ -167,6 +228,32 @@ export default function Home() {
       gram18: usdBase.gram18 * r,
     };
   }, [usdBase, active, rates]);
+
+  const chartData = useMemo(() => {
+    const r = rates[active] || 0;
+    if (!r) return [];
+
+    if (selectedChartKarat === "24") return history.gram24.map((v) => v * r);
+    if (selectedChartKarat === "22") return history.gram22.map((v) => v * r);
+    if (selectedChartKarat === "21") return history.gram21.map((v) => v * r);
+    return history.gram18.map((v) => v * r);
+  }, [history, selectedChartKarat, active, rates]);
+
+  const chartChange = useMemo(() => {
+    if (chartData.length < 2) return 0;
+    const first = chartData[0];
+    const last = chartData[chartData.length - 1];
+    if (!first) return 0;
+    return ((last - first) / first) * 100;
+  }, [chartData]);
+
+  const ounceChange = useMemo(() => {
+    if (history.ounceUSD.length < 2) return 0;
+    const first = history.ounceUSD[0];
+    const last = history.ounceUSD[history.ounceUSD.length - 1];
+    if (!first) return 0;
+    return ((last - first) / first) * 100;
+  }, [history.ounceUSD]);
 
   return (
     <main
@@ -395,16 +482,100 @@ export default function Home() {
             </div>
           </div>
         </section>
-        {/* Historical Gold Chart */}
+
+        <div className="mt-12 grid gap-6">
+          {history.ounceUSD.length > 1 && (
+            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+              <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <h3 className="text-xl font-semibold text-amber-300">
+                    {T.globalOunceMovement}
+                  </h3>
+                  <p className="mt-1 text-sm text-zinc-400">
+                    {T.globalOunceDesc}
+                  </p>
+                </div>
+
+                <div
+                  className={`w-fit rounded-full px-3 py-1 text-sm font-medium ${
+                    ounceChange >= 0
+                      ? "bg-emerald-500/15 text-emerald-300"
+                      : "bg-red-500/15 text-red-300"
+                  }`}
+                >
+                  {ounceChange >= 0 ? "▲" : "▼"} {ounceChange.toFixed(2)}%
+                </div>
+              </div>
+
+              <LineChart
+                data={history.ounceUSD}
+                symbol="$"
+                positive={ounceChange >= 0}
+              />
+            </div>
+          )}
+
+          {chartData.length > 1 && (
+            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+              <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <h3 className="text-xl font-semibold text-amber-300">
+                    {lang === "ar"
+                      ? `${T.localGramMovement} ${selectedChartKarat}`
+                      : `${selectedChartKarat}K Gram Movement`}
+                  </h3>
+                  <p className="mt-1 text-sm text-zinc-400">
+                    {T.localGramDesc}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {(["24", "22", "21", "18"] as const).map((k) => (
+                    <button
+                      key={k}
+                      onClick={() => setSelectedChartKarat(k)}
+                      className={`rounded-xl border px-3 py-2 text-sm ${
+                        selectedChartKarat === k
+                          ? "border-amber-300 bg-amber-300/20 text-amber-200"
+                          : "border-white/10 text-zinc-300 hover:bg-white/10"
+                      }`}
+                    >
+                      {lang === "ar" ? `عيار ${k}` : `${k}K`}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mb-4 flex items-center justify-between">
+                <div className="text-sm text-zinc-400">{T.last60}</div>
+
+                <div
+                  className={`rounded-full px-3 py-1 text-sm font-medium ${
+                    chartChange >= 0
+                      ? "bg-emerald-500/15 text-emerald-300"
+                      : "bg-red-500/15 text-red-300"
+                  }`}
+                >
+                  {chartChange >= 0 ? "▲" : "▼"} {chartChange.toFixed(2)}%
+                </div>
+              </div>
+
+              <LineChart
+                data={chartData}
+                symbol={CURRENCY[active].symbol}
+                positive={chartChange >= 0}
+              />
+            </div>
+          )}
+        </div>
+
         <div className="mt-12 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
           <div className="mb-4">
             <h3 className="text-xl font-semibold text-amber-300">
-              {lang === "ar" ? "الرسم البياني التاريخي للذهب" : "Historical Gold Chart"}
+              {T.globalChartTitle}
             </h3>
             <p className="mt-2 text-sm text-zinc-400">
-              {lang === "ar"
-                ? "مخطط زمني لسعر الذهب العالمي (XAU/USD) — بداية ممتازة قبل بناء مخطط 24K محلي مخصص."
-                : "A time-based chart for global gold spot price (XAU/USD) — a strong first step before building a custom local 24K chart."}
+              {T.globalChartDesc}
             </p>
           </div>
 
@@ -420,9 +591,7 @@ export default function Home() {
           </div>
 
           <p className="mt-3 text-xs text-zinc-500">
-            {lang === "ar"
-              ? "ملاحظة: هذا الرسم يعرض سعر الذهب العالمي بالدولار، وليس سعر الجرام المحلي بعد التحويل."
-              : "Note: This chart shows global gold price in USD, not the converted local gram price."}
+            {T.globalChartNote}
           </p>
         </div>
 
@@ -430,13 +599,11 @@ export default function Home() {
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <h3 className="text-xl font-semibold text-amber-300">
-                {lang === "ar" ? "آخر التحليلات" : "Latest Analysis"}
+                {T.latestAnalysis}
               </h3>
 
               <p className="mt-2 max-w-xl text-sm text-zinc-400">
-                {lang === "ar"
-                  ? "اقرأ أحدث المقالات والتحليلات لفهم حركة سوق الذهب والعوامل المؤثرة على الأسعار."
-                  : "Read our latest insights to better understand gold market movements and price drivers."}
+                {T.latestAnalysisDesc}
               </p>
             </div>
 
@@ -444,7 +611,7 @@ export default function Home() {
               href="/blog"
               className="inline-flex items-center justify-center rounded-xl bg-amber-400/20 px-5 py-3 text-sm font-medium text-amber-200 transition hover:bg-amber-400/30"
             >
-              {lang === "ar" ? "عرض المقالات" : "View Articles"}
+              {T.viewArticles}
             </a>
           </div>
         </div>
@@ -496,6 +663,90 @@ function InfoCard({ title, desc }: { title: string; desc: string }) {
     <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
       <div className="text-sm font-semibold text-zinc-100">{title}</div>
       <div className="mt-1 text-sm text-zinc-400">{desc}</div>
+    </div>
+  );
+}
+
+function LineChart({
+  data,
+  symbol,
+  positive,
+}: {
+  data: number[];
+  symbol: string;
+  positive: boolean;
+}) {
+  const width = 900;
+  const height = 280;
+  const padding = 24;
+
+  const max = Math.max(...data);
+  const min = Math.min(...data);
+  const range = max - min || 1;
+
+  const points = data
+    .map((value, index) => {
+      const x = padding + (index / Math.max(data.length - 1, 1)) * (width - padding * 2);
+      const y = height - padding - ((value - min) / range) * (height - padding * 2);
+      return `${x},${y}`;
+    })
+    .join(" ");
+
+  const lastValue = data[data.length - 1];
+
+  return (
+    <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/20 p-4">
+      <svg viewBox={`0 0 ${width} ${height}`} className="h-72 w-full">
+        <defs>
+          <linearGradient id="lineFill" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stopColor={positive ? "#34d399" : "#f87171"} stopOpacity="0.35" />
+            <stop offset="100%" stopColor={positive ? "#34d399" : "#f87171"} stopOpacity="0.02" />
+          </linearGradient>
+        </defs>
+
+        {[0, 1, 2, 3].map((i) => {
+          const y = padding + (i / 3) * (height - padding * 2);
+          return (
+            <line
+              key={i}
+              x1={padding}
+              x2={width - padding}
+              y1={y}
+              y2={y}
+              stroke="rgba(255,255,255,0.08)"
+              strokeDasharray="4 6"
+            />
+          );
+        })}
+
+        <polyline
+          fill="none"
+          stroke={positive ? "#34d399" : "#f87171"}
+          strokeWidth="4"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          points={points}
+        />
+
+        <circle
+          cx={padding + ((data.length - 1) / Math.max(data.length - 1, 1)) * (width - padding * 2)}
+          cy={height - padding - ((lastValue - min) / range) * (height - padding * 2)}
+          r="5"
+          fill={positive ? "#34d399" : "#f87171"}
+        />
+      </svg>
+
+      <div className="mt-3 flex items-center justify-between text-xs text-zinc-400">
+        <span>1</span>
+        <span>15</span>
+        <span>30</span>
+        <span>45</span>
+        <span>60</span>
+      </div>
+
+      <div className="mt-4 text-right text-sm text-zinc-300">
+        {lastValue ? `${fmt(lastValue)} ${symbol}` : "—"}
+      </div>
     </div>
   );
 }
