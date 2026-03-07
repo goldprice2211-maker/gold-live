@@ -37,19 +37,47 @@ export default function Home() {
   const [selectedChartKarat, setSelectedChartKarat] =
     useState<"24" | "22" | "21" | "18">("24");
 
-  const [history, setHistory] = useState<{
-    gram24: number[];
-    gram22: number[];
-    gram21: number[];
-    gram18: number[];
-    ounceUSD: number[];
-  }>({
+ const [history, setHistory] = useState<{
+  gram24: number[];
+  gram22: number[];
+  gram21: number[];
+  gram18: number[];
+  ounceUSD: number[];
+}>(() => {
+  if (typeof window === "undefined") {
+    return {
+      gram24: [],
+      gram22: [],
+      gram21: [],
+      gram18: [],
+      ounceUSD: [],
+    };
+  }
+
+  const saved = localStorage.getItem("gold_history");
+
+  if (saved) {
+    try {
+      return JSON.parse(saved);
+    } catch {
+      return {
+        gram24: [],
+        gram22: [],
+        gram21: [],
+        gram18: [],
+        ounceUSD: [],
+      };
+    }
+  }
+
+  return {
     gram24: [],
     gram22: [],
     gram21: [],
     gram18: [],
     ounceUSD: [],
-  });
+  };
+});
 
   const T = useMemo(() => {
     const ar = {
@@ -214,6 +242,9 @@ export default function Home() {
     return () => clearInterval(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+  localStorage.setItem("gold_history", JSON.stringify(history));
+}, [history]);
 
   const display = useMemo(() => {
     if (!usdBase) return null;
