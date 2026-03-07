@@ -1,12 +1,6 @@
-use client";
+"use client";
 
 import { useState } from "react";
-
-export const metadata = {
-  title: "توقعات الذهب 2026 | Gold Market 2026 Outlook - Gold Live Prices",
-  description:
-    "تعرف على العوامل التي تؤثر على أسعار الذهب عالميًا واستكشف أبرز السيناريوهات المحتملة لحركة الذهب في 2026.",
-};
 
 export default function GoldMarket2026Page() {
   const [lang, setLang] = useState<"ar" | "en">("ar");
