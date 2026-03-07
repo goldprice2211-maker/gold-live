@@ -13,6 +13,9 @@ export default function BlogPage() {
         "العوامل التي تؤثر على أسعار الذهب عالميًا وتوقعات 2026",
       articleDesc:
         "تعرف على أهم العوامل الاقتصادية والسياسية التي تحرك أسعار الذهب عالميًا، واستعرض أبرز السيناريوهات المحتملة لحركة الذهب في عام 2026.",
+      article2Title: "كيف يتم تحديد سعر الذهب عالميًا؟",
+      article2Desc:
+        "تعرف على الطريقة التي يتم بها تحديد سعر الذهب يوميًا عالميًا، وكيف يؤثر الدولار، العرض والطلب، والتضخم على حركة الأسعار.",
       read: "اقرأ المقال ←",
       switch: "English",
     },
@@ -23,6 +26,9 @@ export default function BlogPage() {
         "Key Factors Affecting Global Gold Prices & 2026 Outlook",
       articleDesc:
         "Explore the major economic and geopolitical factors influencing gold prices worldwide and possible scenarios for 2026.",
+      article2Title: "How Is the Global Gold Price Determined?",
+      article2Desc:
+        "Learn how the global gold price is determined and how the dollar, supply and demand, and inflation affect market movements.",
       read: "Read Article →",
       switch: "العربية",
     },
@@ -33,8 +39,6 @@ export default function BlogPage() {
   return (
     <main className="min-h-screen bg-black text-white px-6 py-12">
       <div className="mx-auto max-w-4xl">
-
-        {/* Language Switch */}
         <div className="flex justify-end mb-6">
           <button
             onClick={() => setLang(lang === "ar" ? "en" : "ar")}
@@ -47,16 +51,30 @@ export default function BlogPage() {
         <h1 className="text-3xl font-bold mb-4">{t.title}</h1>
         <p className="text-zinc-400 mb-8">{t.desc}</p>
 
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-amber-400/40 transition">
-          <a href="/blog/gold-market-2026" className="block">
-            <h2 className="text-2xl font-semibold text-amber-300 mb-3">
-              {t.articleTitle}
-            </h2>
-            <p className="text-zinc-300 leading-7">
-              {t.articleDesc}
-            </p>
-            <p className="mt-4 text-sm text-amber-200">{t.read}</p>
-          </a>
+        <div className="space-y-6">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-amber-400/40 transition">
+            <a href="/blog/gold-market-2026" className="block">
+              <h2 className="text-2xl font-semibold text-amber-300 mb-3">
+                {t.articleTitle}
+              </h2>
+              <p className="text-zinc-300 leading-7">
+                {t.articleDesc}
+              </p>
+              <p className="mt-4 text-sm text-amber-200">{t.read}</p>
+            </a>
+          </div>
+
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-amber-400/40 transition">
+            <a href="/blog/how-gold-price-is-determined" className="block">
+              <h2 className="text-2xl font-semibold text-amber-300 mb-3">
+                {t.article2Title}
+              </h2>
+              <p className="text-zinc-300 leading-7">
+                {t.article2Desc}
+              </p>
+              <p className="mt-4 text-sm text-amber-200">{t.read}</p>
+            </a>
+          </div>
         </div>
       </div>
     </main>
