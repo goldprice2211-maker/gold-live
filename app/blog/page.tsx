@@ -2,12 +2,6 @@
 
 import { useState } from "react";
 
-export const metadata = {
-  title: "Gold Insights | تحليلات الذهب - Gold Live Prices",
-  description:
-    "Gold market analysis and insights. تحليلات سوق الذهب والعوامل المؤثرة على الأسعار.",
-};
-
 export default function BlogPage() {
   const [lang, setLang] = useState<"ar" | "en">("ar");
 
