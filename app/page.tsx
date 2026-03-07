@@ -395,6 +395,36 @@ export default function Home() {
             </div>
           </div>
         </section>
+        {/* Historical Gold Chart */}
+        <div className="mt-12 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+          <div className="mb-4">
+            <h3 className="text-xl font-semibold text-amber-300">
+              {lang === "ar" ? "الرسم البياني التاريخي للذهب" : "Historical Gold Chart"}
+            </h3>
+            <p className="mt-2 text-sm text-zinc-400">
+              {lang === "ar"
+                ? "مخطط زمني لسعر الذهب العالمي (XAU/USD) — بداية ممتازة قبل بناء مخطط 24K محلي مخصص."
+                : "A time-based chart for global gold spot price (XAU/USD) — a strong first step before building a custom local 24K chart."}
+            </p>
+          </div>
+
+          <div className="overflow-hidden rounded-2xl border border-white/10">
+            <iframe
+              title="Gold Historical Chart"
+              src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_gold_chart&symbol=OANDA%3AXAUUSD&interval=D&hidesidetoolbar=1&symboledit=1&saveimage=0&toolbarbg=0F172A&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&hidevolume=1&allow_symbol_change=0&calendar=0"
+              width="100%"
+              height="520"
+              frameBorder="0"
+              allowTransparency={true}
+            />
+          </div>
+
+          <p className="mt-3 text-xs text-zinc-500">
+            {lang === "ar"
+              ? "ملاحظة: هذا الرسم يعرض سعر الذهب العالمي بالدولار، وليس سعر الجرام المحلي بعد التحويل."
+              : "Note: This chart shows global gold price in USD, not the converted local gram price."}
+          </p>
+        </div>
 
         <div className="mt-12 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-6 backdrop-blur">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
