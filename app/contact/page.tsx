@@ -13,7 +13,7 @@ export default function ContactPage() {
           <p>
             لأي استفسارات أو اقتراحات يرجى التواصل معنا عبر البريد:
           </p>
-          <p className="font-semibold">info@goldliveprices.net</p>
+          <p className="font-semibold">goldprice2211@gmail.com</p>
           <p>نرد خلال 24–48 ساعة.</p>
         </div>
 
@@ -24,7 +24,7 @@ export default function ContactPage() {
           <p>
             For inquiries, suggestions, or business opportunities, please contact:
           </p>
-          <p className="font-semibold">info@goldliveprices.net</p>
+          <p className="font-semibold">goldprice2211@gmail.com</p>
           <p>We aim to respond within 24–48 hours.</p>
         </div>
 
