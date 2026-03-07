@@ -348,7 +348,11 @@ export default function Home({
             </p>
 
             <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
-              {T.title}{" "}
+              {country
+  ? (lang === "ar"
+      ? `سعر الذهب اليوم في ${country}`
+      : `Gold Price Today in ${country}`)
+  : T.title}
               <span className="ml-2 bg-gradient-to-r from-amber-200 via-yellow-100 to-amber-300 bg-clip-text text-transparent">
                 (24 / 22 / 21 / 18)
               </span>
