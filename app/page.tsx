@@ -19,10 +19,7 @@ function fmt(n: number) {
   return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-// 5% متوسط زيادة المحلات (تقدر تغيرها لاحقاً: 0.03 = 3% ، 0.07 = 7%)
 const shopMargin = 0.05;
-
-// أوزان السبائك (جرام) — تشمل 1 جرام
 const BAR_WEIGHTS = [1, 5, 10, 20, 50, 100, 250, 1000];
 
 function priceForWeight(gramPrice: number, grams: number) {
@@ -86,7 +83,6 @@ export default function Home() {
     return lang === "ar" ? ar : en;
   }, [lang]);
 
-  // Rates are “units per 1 USD”
   const [rates, setRates] = useState<Record<CurrencyKey, number>>({
     USD: 1,
     EUR: 0,
@@ -112,7 +108,6 @@ export default function Home() {
       const ounceUSD = Number(goldData?.price);
       if (!ounceUSD || Number.isNaN(ounceUSD)) throw new Error(T.errorFetch);
 
-      // Update gold (USD base)
       const gram24USD = ounceUSD / 31.1034768;
       setUsdBase({
         gram24: gram24USD,
@@ -121,7 +116,6 @@ export default function Home() {
         gram18: gram24USD * (18 / 24),
       });
 
-      // Update FX silently. If missing, keep old value.
       const nextRates: Record<CurrencyKey, number> = { ...rates };
       const r = fxData?.rates || {};
 
@@ -179,49 +173,50 @@ export default function Home() {
       dir={lang === "ar" ? "rtl" : "ltr"}
       className="min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-950 to-black text-zinc-100"
     >
-      {/* Glow */}
       <div className="pointer-events-none fixed inset-0">
         <div className="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-amber-400/10 blur-3xl" />
         <div className="absolute top-40 right-[-120px] h-[420px] w-[420px] rounded-full bg-yellow-200/5 blur-3xl" />
       </div>
 
       <div className="relative mx-auto max-w-5xl px-5 py-10">
-        {/* Header */}
         <header className="flex flex-col gap-6 rounded-3xl border border-amber-300/10 bg-white/5 p-6 shadow-[0_0_0_1px_rgba(255,215,0,0.06),0_20px_80px_rgba(0,0,0,0.55)] backdrop-blur">
-        <div className="flex justify-between items-center">
-  <h1 className="text-xl font-bold">
-    {lang === "ar" ? "سعر الذهب اليوم" : "Gold Price Today"}
-  </h1>
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl font-bold">
+              {lang === "ar" ? "سعر الذهب اليوم" : "Gold Price Today"}
+            </h1>
 
-  <button
-    onClick={() => setMenuOpen(!menuOpen)}
-    className="text-2xl"
-  >
-    ☰
-  </button>
-</div>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="text-2xl"
+            >
+              ☰
+            </button>
+          </div>
+
           {menuOpen && (
-  <div className="mt-4 flex flex-col gap-3 border-t pt-4 text-sm">
-    <a href="/about" className="hover:text-amber-500">
-      {lang === "ar" ? "من نحن" : "About Us"}
-    </a>
-    <a href="/blog" className="hover:text-amber-500">
-  {lang === "ar" ? "تحليلات الذهب" : "Gold Insights"}
-</a>
+            <div className="mt-4 flex flex-col gap-3 border-t pt-4 text-sm">
+              <a href="/about" className="hover:text-amber-500">
+                {lang === "ar" ? "من نحن" : "About Us"}
+              </a>
 
-    <a href="/contact" className="hover:text-amber-500">
-      {lang === "ar" ? "تواصل معنا" : "Contact"}
-    </a>
+              <a href="/blog" className="hover:text-amber-500">
+                {lang === "ar" ? "تحليلات الذهب" : "Gold Insights"}
+              </a>
 
-    <a href="/privacy" className="hover:text-amber-500">
-      {lang === "ar" ? "سياسة الخصوصية" : "Privacy Policy"}
-    </a>
+              <a href="/contact" className="hover:text-amber-500">
+                {lang === "ar" ? "تواصل معنا" : "Contact"}
+              </a>
 
-    <a href="/terms" className="hover:text-amber-500">
-      {lang === "ar" ? "الشروط والأحكام" : "Terms & Conditions"}
-    </a>
-  </div>
-)}
+              <a href="/privacy" className="hover:text-amber-500">
+                {lang === "ar" ? "سياسة الخصوصية" : "Privacy Policy"}
+              </a>
+
+              <a href="/terms" className="hover:text-amber-500">
+                {lang === "ar" ? "الشروط والأحكام" : "Terms & Conditions"}
+              </a>
+            </div>
+          )}
+
           <div className="flex flex-col gap-2">
             <p className="inline-flex w-fit items-center gap-2 rounded-full border border-amber-200/15 bg-amber-300/10 px-3 py-1 text-sm text-amber-200">
               <span className="h-2 w-2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(255,215,0,0.55)]" />
@@ -238,9 +233,7 @@ export default function Home() {
             <p className="text-sm text-zinc-300 md:text-base">{T.note}</p>
           </div>
 
-          {/* ✅ Currency + Language + Last Update in ONE ROW */}
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            {/* Buttons block */}
             <div className="flex w-full flex-wrap items-center gap-2">
               {(["AED", "USD", "EUR", "SAR", "QAR", "KWD", "OMR"] as CurrencyKey[]).map((k) => {
                 const on = k === active;
@@ -263,7 +256,6 @@ export default function Home() {
                 );
               })}
 
-              {/* Language switch */}
               <div className="ml-auto flex items-center gap-2">
                 <button
                   onClick={() => setLang("ar")}
@@ -288,7 +280,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Last update box */}
             <div className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-zinc-200 md:min-w-[320px]">
               <div className="flex flex-col">
                 <span className="text-xs text-zinc-400">{T.lastUpdate}</span>
@@ -307,9 +298,7 @@ export default function Home() {
           </div>
         </header>
 
-        {/* Content */}
         <section className="mt-8 grid gap-4 md:grid-cols-2">
-          {/* Price card */}
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
             <h2 className="text-lg font-semibold">
               {T.pricesIn}{" "}
@@ -349,7 +338,6 @@ export default function Home() {
               </div>
             )}
 
-            {/* Gold Bars Section (ONE VERSION ONLY) */}
             {display && (
               <div className="mt-10 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-6">
                 <h3 className="mb-4 text-lg font-semibold text-amber-300">{T.barsTitle}</h3>
@@ -375,7 +363,6 @@ export default function Home() {
             )}
           </div>
 
-          {/* Info */}
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
             <h2 className="text-lg font-semibold">{T.quickInfo}</h2>
 
@@ -409,8 +396,31 @@ export default function Home() {
           </div>
         </section>
 
+        <div className="mt-12 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-6 backdrop-blur">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h3 className="text-xl font-semibold text-amber-300">
+                {lang === "ar" ? "آخر التحليلات" : "Latest Analysis"}
+              </h3>
+
+              <p className="mt-2 max-w-xl text-sm text-zinc-400">
+                {lang === "ar"
+                  ? "اقرأ أحدث المقالات والتحليلات لفهم حركة سوق الذهب والعوامل المؤثرة على الأسعار."
+                  : "Read our latest insights to better understand gold market movements and price drivers."}
+              </p>
+            </div>
+
+            <a
+              href="/blog"
+              className="inline-flex items-center justify-center rounded-xl bg-amber-400/20 px-5 py-3 text-sm font-medium text-amber-200 transition hover:bg-amber-400/30"
+            >
+              {lang === "ar" ? "عرض المقالات" : "View Articles"}
+            </a>
+          </div>
+        </div>
+
         <footer className="mt-10 flex flex-col items-center gap-2 text-center text-xs text-zinc-500">
-          <p>© {new Date().getFullYear()} — Gold Live</p>
+          <p>©️ {new Date().getFullYear()} — Gold Live</p>
           <p>{T.disclaimer}</p>
         </footer>
       </div>
