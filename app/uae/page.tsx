@@ -7,5 +7,5 @@ export const metadata = {
 };
 
 export default function UAEPage()  {
-  return <Home />;
+  return <Home defaultCurrency="AED" country="الإمارات" />;
 }
