@@ -26,8 +26,14 @@ function priceForWeight(gramPrice: number, grams: number) {
   return gramPrice * grams;
 }
 
-export default function Home() {
-  const [active, setActive] = useState<CurrencyKey>("AED");
+export default function Home({
+  defaultCurrency = "AED",
+  country = "",
+}: {
+  defaultCurrency?: CurrencyKey;
+  country?: string;
+}) {
+  const [active, setActive] = useState<CurrencyKey>(defaultCurrency);
   const [lang, setLang] = useState<"ar" | "en">("ar");
   const [usdBase, setUsdBase] = useState<Prices | null>(null);
   const [updatedAt, setUpdatedAt] = useState<string>("");
