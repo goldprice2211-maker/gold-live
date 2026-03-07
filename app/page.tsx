@@ -35,6 +35,7 @@ export default function Home() {
   const [usdBase, setUsdBase] = useState<Prices | null>(null);
   const [updatedAt, setUpdatedAt] = useState<string>("");
   const [err, setErr] = useState<string>("");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const T = useMemo(() => {
     const ar = {
@@ -187,6 +188,37 @@ export default function Home() {
       <div className="relative mx-auto max-w-5xl px-5 py-10">
         {/* Header */}
         <header className="flex flex-col gap-6 rounded-3xl border border-amber-300/10 bg-white/5 p-6 shadow-[0_0_0_1px_rgba(255,215,0,0.06),0_20px_80px_rgba(0,0,0,0.55)] backdrop-blur">
+        <div className="flex justify-between items-center">
+  <h1 className="text-xl font-bold">
+    {lang === "ar" ? "سعر الذهب اليوم" : "Gold Price Today"}
+  </h1>
+
+  <button
+    onClick={() => setMenuOpen(!menuOpen)}
+    className="text-2xl"
+  >
+    ☰
+  </button>
+</div>
+          {menuOpen && (
+  <div className="mt-4 flex flex-col gap-3 border-t pt-4 text-sm">
+    <a href="/about" className="hover:text-amber-500">
+      {lang === "ar" ? "من نحن" : "About Us"}
+    </a>
+
+    <a href="/contact" className="hover:text-amber-500">
+      {lang === "ar" ? "تواصل معنا" : "Contact"}
+    </a>
+
+    <a href="/privacy" className="hover:text-amber-500">
+      {lang === "ar" ? "سياسة الخصوصية" : "Privacy Policy"}
+    </a>
+
+    <a href="/terms" className="hover:text-amber-500">
+      {lang === "ar" ? "الشروط والأحكام" : "Terms & Conditions"}
+    </a>
+  </div>
+)}
           <div className="flex flex-col gap-2">
             <p className="inline-flex w-fit items-center gap-2 rounded-full border border-amber-200/15 bg-amber-300/10 px-3 py-1 text-sm text-amber-200">
               <span className="h-2 w-2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(255,215,0,0.55)]" />
