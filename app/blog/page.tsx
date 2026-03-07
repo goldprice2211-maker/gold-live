@@ -16,6 +16,9 @@ export default function BlogPage() {
       article2Title: "كيف يتم تحديد سعر الذهب عالميًا؟",
       article2Desc:
         "تعرف على الطريقة التي يتم بها تحديد سعر الذهب يوميًا عالميًا، وكيف يؤثر الدولار، العرض والطلب، والتضخم على حركة الأسعار.",
+      article3Title: "هل الذهب استثمار آمن في أوقات التضخم؟",
+      article3Desc:
+        "تحليل مبسط للعلاقة بين الذهب والتضخم، ومتى يكون الذهب خيارًا مناسبًا لحفظ القيمة.",
       read: "اقرأ المقال ←",
       switch: "English",
     },
@@ -29,6 +32,9 @@ export default function BlogPage() {
       article2Title: "How Is the Global Gold Price Determined?",
       article2Desc:
         "Learn how the global gold price is determined and how the dollar, supply and demand, and inflation affect market movements.",
+      article3Title: "Is Gold a Safe Investment During Inflation?",
+      article3Desc:
+        "A simple analysis of the relationship between gold and inflation and when gold may help preserve value.",
       read: "Read Article →",
       switch: "العربية",
     },
@@ -71,6 +77,18 @@ export default function BlogPage() {
               </h2>
               <p className="text-zinc-300 leading-7">
                 {t.article2Desc}
+              </p>
+              <p className="mt-4 text-sm text-amber-200">{t.read}</p>
+            </a>
+          </div>
+
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-amber-400/40 transition">
+            <a href="/blog/is-gold-a-safe-investment-during-inflation" className="block">
+              <h2 className="text-2xl font-semibold text-amber-300 mb-3">
+                {t.article3Title}
+              </h2>
+              <p className="text-zinc-300 leading-7">
+                {t.article3Desc}
               </p>
               <p className="mt-4 text-sm text-amber-200">{t.read}</p>
             </a>
