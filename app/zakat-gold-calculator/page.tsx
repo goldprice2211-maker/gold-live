@@ -168,9 +168,16 @@ export default function ZakatGoldCalculatorPage() {
             </div>
 
             <div className="md:col-span-2">
-              <label className="mb-2 block text-sm text-zinc-300">{t.current24}</label>
-              <input
-                type="number"
-                inputMode="decimal"
-                value={price24}
-                />
+  <label className="mb-2 block text-sm text-zinc-300">
+    {t.current24}
+  </label>
+
+  <input
+    type="number"
+    inputMode="decimal"
+    value={price24}
+    onChange={(e) => setPrice24(Number(e.target.value))}
+    className="w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-white focus:border-amber-400 focus:outline-none"
+    placeholder="مثال: 240"
+  />
+</div>
