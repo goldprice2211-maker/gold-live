@@ -173,3 +173,4 @@ export default function ZakatGoldCalculatorPage() {
                 type="number"
                 inputMode="decimal"
                 value={price24}
+                />
