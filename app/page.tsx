@@ -326,6 +326,9 @@ export default function Home({
               <a href="/blog" className="hover:text-amber-500">
                 {lang === "ar" ? "تحليلات الذهب" : "Gold Insights"}
               </a>
+              <a href="/zakat-gold-calculator" className="hover:text-amber-500">
+  {lang === "ar" ? "حاسبة زكاة الذهب" : "Gold Zakat Calculator"}
+</a>
 
               <a href="/contact" className="hover:text-amber-500">
                 {lang === "ar" ? "تواصل معنا" : "Contact"}
