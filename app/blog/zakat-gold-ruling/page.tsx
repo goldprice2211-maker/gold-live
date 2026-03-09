@@ -99,6 +99,12 @@ export default function ZakatGoldRulingPage() {
 
           <h2 className="mt-8 text-2xl font-semibold text-amber-200">{t.h6}</h2>
           <p className="mt-3 text-zinc-300 leading-8">{t.p6}</p>
+          <a
+  href="/zakat-gold-calculator"
+  className="mt-6 inline-block bg-amber-400 text-black px-6 py-3 rounded-xl font-semibold hover:bg-amber-300"
+>
+  احسب زكاة الذهب الآن
+</a>
 
           <a
             href="/zakat-gold-calculator"
