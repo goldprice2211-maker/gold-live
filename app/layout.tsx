@@ -76,8 +76,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-  <html lang="ar" dir="rtl">
+ <html lang="ar" dir="rtl">
   <head>
+   <meta name="google-adsense-account" content="ca-pub-1466322893906496">
+
     <Script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1466322893906496"
