@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export default function ZakatGoldRulingPage() {
   const [lang, setLang] = useState<"ar" | "en">("ar");
+  
 
   const content = {
     ar: {
@@ -24,6 +25,13 @@ export default function ZakatGoldRulingPage() {
       p5: "هذه المسألة فيها خلاف معروف بين أهل العلم. بعضهم يرى وجوب الزكاة في الذهب مطلقًا إذا بلغ النصاب، وبعضهم يرى أن الذهب المعد للاستعمال والزينة لا زكاة فيه. لذلك يُرجع في هذه المسألة إلى فتوى موثوقة تناسب حال الشخص وبلده.",
       h6: "6. كيف أحسب زكاة الذهب بسهولة؟",
       p6: "لتسهيل الأمر، وفرنا في الموقع حاسبة زكاة الذهب التي تساعدك على إدخال الوزن والعيار، ثم حساب القيمة التقديرية والزكاة الواجبة بشكل مباشر.",
+      faqTitle: "أسئلة شائعة",
+faq1Q: "ما هو نصاب الذهب؟",
+faq1A: "النصاب المشهور عند كثير من أهل العلم هو 85 جرامًا من الذهب الخالص عيار 24.",
+faq2Q: "كم مقدار زكاة الذهب؟",
+faq2A: "زكاة الذهب هي 2.5% من القيمة الإجمالية للذهب إذا بلغ النصاب وحال عليه الحول.",
+faq3Q: "هل الذهب المستعمل للزينة فيه زكاة؟",
+faq3A: "هذه المسألة فيها خلاف بين أهل العلم، لذلك الأفضل الرجوع إلى فتوى موثوقة تناسب حال الشخص وبلده.",
       cta: "احسب زكاة الذهب الآن",
       noteTitle: "تنبيه مهم",
       noteBody:
@@ -47,6 +55,13 @@ export default function ZakatGoldRulingPage() {
       p5: "This issue is subject to a known scholarly difference. Some scholars consider all gold zakatable if it reaches nisab, while others consider personal jewelry exempt. For this reason, it is best to consult a trusted religious authority relevant to your situation and country.",
       h6: "6. How can I calculate gold zakat easily?",
       p6: "To make things easier, we provide a Gold Zakat Calculator on the site where you can enter the weight and karat to estimate the value and due zakat directly.",
+      faqTitle: "Frequently Asked Questions",
+faq1Q: "What is the nisab of gold?",
+faq1A: "The commonly used nisab among many scholars is 85 grams of pure 24K gold.",
+faq2Q: "How much is gold zakat?",
+faq2A: "Gold zakat is 2.5% of the total gold value if it reaches the nisab and one lunar year has passed.",
+faq3Q: "Is personal jewelry subject to zakat?",
+faq3A: "This issue differs among scholars, so it is best to consult a trusted fatwa authority relevant to your situation and country.",
       cta: "Calculate Gold Zakat Now",
       noteTitle: "Important note",
       noteBody:
@@ -99,6 +114,28 @@ export default function ZakatGoldRulingPage() {
 
           <h2 className="mt-8 text-2xl font-semibold text-amber-200">{t.h6}</h2>
           <p className="mt-3 text-zinc-300 leading-8">{t.p6}</p>
+          <div className="mt-10 border-t border-white/10 pt-8">
+  <h2 className="text-2xl font-semibold text-amber-200">{t.faqTitle}</h2>
+
+  <div className="mt-6 space-y-6">
+
+    <div>
+      <h3 className="text-lg font-semibold text-white">{t.faq1Q}</h3>
+      <p className="mt-2 text-zinc-300">{t.faq1A}</p>
+    </div>
+
+    <div>
+      <h3 className="text-lg font-semibold text-white">{t.faq2Q}</h3>
+      <p className="mt-2 text-zinc-300">{t.faq2A}</p>
+    </div>
+
+    <div>
+      <h3 className="text-lg font-semibold text-white">{t.faq3Q}</h3>
+      <p className="mt-2 text-zinc-300">{t.faq3A}</p>
+    </div>
+
+  </div>
+</div>
           <a
   href="/zakat-gold-calculator"
   className="mt-6 inline-block bg-amber-400 text-black px-6 py-3 rounded-xl font-semibold hover:bg-amber-300"
