@@ -70,12 +70,46 @@ faq3A: "This issue differs among scholars, so it is best to consult a trusted fa
   };
 
   const t = content[lang];
+  const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: t.faq1Q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: t.faq1A,
+      },
+    },
+    {
+      "@type": "Question",
+      name: t.faq2Q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: t.faq2A,
+      },
+    },
+    {
+      "@type": "Question",
+      name: t.faq3Q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: t.faq3A,
+      },
+    },
+  ],
+};
 
   return (
     <main
       dir={lang === "ar" ? "rtl" : "ltr"}
       className="min-h-screen bg-black text-white px-6 py-12"
     >
+      <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+/>
       <div className="mx-auto max-w-4xl">
         <div className="mb-6 flex items-center justify-between">
           <a href="/blog" className="text-sm text-amber-400 hover:underline">
