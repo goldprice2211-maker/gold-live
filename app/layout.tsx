@@ -76,22 +76,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=g-5SXP4YKN8E"
-          strategy="afterInteractive"
-          />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-          window.dataLayer=window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-5SXP4YKN8E');
-          `}
-        </Script>
-      </body>
-    </html>
-  );
-}
+   <html lang="ar" dir="rtl">
+  <head>
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1466322893906496"
+      crossOrigin="anonymous"
+    ></script>
+  </head>
+
+  <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    {children}
+
+    <Script
+      src="https://www.googletagmanager.com/gtag/js?id=G-5SXP4YKN8E"
+      strategy="afterInteractive"
+    />
+
+    <Script id="google-analytics" strategy="afterInteractive">
+      {`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-5SXP4YKN8E');
+      `}
+    </Script>
+  </body>
+</html>
