@@ -19,6 +19,9 @@ export default function BlogPage() {
       article3Title: "هل الذهب استثمار آمن في أوقات التضخم؟",
       article3Desc:
         "تحليل مبسط للعلاقة بين الذهب والتضخم، ومتى يكون الذهب خيارًا مناسبًا لحفظ القيمة.",
+      article3Title: "حكم زكاة الذهب في الإسلام",
+article3Desc:
+  "تعرف على حكم زكاة الذهب، وما هو النصاب، ومتى تجب الزكاة، وكيف يمكن حسابها بسهولة.",
       read: "اقرأ المقال ←",
       switch: "English",
     },
@@ -35,6 +38,9 @@ export default function BlogPage() {
       article3Title: "Is Gold a Safe Investment During Inflation?",
       article3Desc:
         "A simple analysis of the relationship between gold and inflation and when gold may help preserve value.",
+      article3Title: "The Ruling on Gold Zakat in Islam",
+article3Desc:
+  "Learn the ruling on gold zakat, the nisab, when zakat becomes due, and how to calculate it easily.",
       read: "Read Article →",
       switch: "العربية",
     },
@@ -69,6 +75,17 @@ export default function BlogPage() {
               <p className="mt-4 text-sm text-amber-200">{t.read}</p>
             </a>
           </div>
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-amber-400/40 transition">
+  <a href="/blog/zakat-gold-ruling" className="block">
+    <h2 className="text-2xl font-semibold text-amber-300 mb-3">
+      {t.article3Title}
+    </h2>
+    <p className="text-zinc-300 leading-7">
+      {t.article3Desc}
+    </p>
+    <p className="mt-4 text-sm text-amber-200">{t.read}</p>
+  </a>
+</div>
 
           <div className="rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-amber-400/40 transition">
             <a href="/blog/how-gold-price-is-determined" className="block">
