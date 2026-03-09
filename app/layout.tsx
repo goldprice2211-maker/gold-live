@@ -76,9 +76,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
- <html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl">
   <head>
-   <meta name="google-adsense-account" content="ca-pub-1466322893906496">
+    <meta name="google-adsense-account" content="ca-pub-1466322893906496" />
 
     <Script
       async
@@ -96,16 +96,13 @@ export default function RootLayout({
       strategy="afterInteractive"
     />
 
-  <Script id="google-analytics" strategy="afterInteractive">
-{`
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-5SXP4YKN8E');
-`}
-</Script>
-
+    <Script id="google-analytics" strategy="afterInteractive">
+      {`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-5SXP4YKN8E');
+      `}
+    </Script>
   </body>
 </html>
-    );
-}
