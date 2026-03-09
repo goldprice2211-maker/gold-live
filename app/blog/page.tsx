@@ -19,8 +19,8 @@ export default function BlogPage() {
       article3Title: "هل الذهب استثمار آمن في أوقات التضخم؟",
       article3Desc:
         "تحليل مبسط للعلاقة بين الذهب والتضخم، ومتى يكون الذهب خيارًا مناسبًا لحفظ القيمة.",
-      article3Title: "حكم زكاة الذهب في الإسلام",
-article3Desc:
+      article4Title: "حكم زكاة الذهب في الإسلام",
+article4Desc:
   "تعرف على حكم زكاة الذهب، وما هو النصاب، ومتى تجب الزكاة، وكيف يمكن حسابها بسهولة.",
       read: "اقرأ المقال ←",
       switch: "English",
@@ -38,8 +38,8 @@ article3Desc:
       article3Title: "Is Gold a Safe Investment During Inflation?",
       article3Desc:
         "A simple analysis of the relationship between gold and inflation and when gold may help preserve value.",
-      article3Title: "The Ruling on Gold Zakat in Islam",
-article3Desc:
+      article4Title: "The Ruling on Gold Zakat in Islam",
+article4Desc:
   "Learn the ruling on gold zakat, the nisab, when zakat becomes due, and how to calculate it easily.",
       read: "Read Article →",
       switch: "العربية",
