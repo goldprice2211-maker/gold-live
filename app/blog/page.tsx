@@ -1,8 +1,10 @@
 "use client";
+import { useRouter } from "next/navigation";
 
 import { useState } from "react";
 
 export default function BlogPage() {
+  const router = useRouter();
   const [lang, setLang] = useState<"ar" | "en">("ar");
 
   const content = {
@@ -51,6 +53,12 @@ article4Desc:
   return (
     <main className="min-h-screen bg-black text-white px-6 py-12">
       <div className="mx-auto max-w-4xl">
+        <button
+  onClick={() => router.back()}
+  className="mb-6 flex items-center gap-2 text-amber-400 hover:text-amber-300"
+>
+← رجوع
+</button>
         <div className="flex justify-end mb-6">
           <button
             onClick={() => setLang(lang === "ar" ? "en" : "ar")}
