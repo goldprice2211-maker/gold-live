@@ -53,12 +53,12 @@ article4Desc:
   return (
     <main className="min-h-screen bg-black text-white px-6 py-12">
       <div className="mx-auto max-w-4xl">
-        <button
-  onClick={() => router.back()}
+        <a
+  href="/"
   className="mb-6 flex items-center gap-2 text-amber-400 hover:text-amber-300"
 >
-← رجوع
-</button>
+← الرجوع للرئيسية
+</a>
         <div className="flex justify-end mb-6">
           <button
             onClick={() => setLang(lang === "ar" ? "en" : "ar")}
