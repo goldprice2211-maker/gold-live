@@ -76,13 +76,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-   <html lang="ar" dir="rtl">
+  <html lang="ar" dir="rtl">
   <head>
-    <script
+    <Script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1466322893906496"
       crossOrigin="anonymous"
-    ></script>
+      strategy="afterInteractive"
+    />
   </head>
 
   <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
@@ -101,5 +102,6 @@ export default function RootLayout({
         gtag('config', 'G-5SXP4YKN8E');
       `}
     </Script>
+
   </body>
 </html>
