@@ -532,12 +532,7 @@ export default function Home({
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
               <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <h3 className="text-xl font-semibold text-amber-300">
-                    {T.globalOunceMovement}
-                  </h3>
-                  <p className="mt-1 text-sm text-zinc-400">
-                    {T.globalOunceDesc}
-                  </p>
+            
                 </div>
 
                 <div
@@ -550,14 +545,72 @@ export default function Home({
                   {ounceChange >= 0 ? "▲" : "▼"} {ounceChange.toFixed(2)}%
                 </div>
               </div>
-
-              <LineChart
-                data={history.ounceUSD}
-                symbol="$"
-                positive={ounceChange >= 0}
-              />
-            </div>
+              
           )}
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur mb-8">
+
+<h3 className="text-xl font-semibold text-amber-300 mb-4">
+{lang === "ar" ? "أسعار الذهب آخر 7 أيام" : "Gold Prices Last 7 Days"}
+</h3>
+
+<div className="flex gap-2 mb-4">
+{(["24","22","21","18"] as const).map((k)=>(
+<button
+key={k}
+onClick={()=>setSelectedChartKarat(k)}
+className={`px-3 py-1 rounded border ${
+selectedChartKarat===k
+? "border-amber-400 text-amber-300"
+: "border-white/20 text-zinc-400"
+}`}
+>
+{lang==="ar" ? `عيار ${k}` : `${k}K`}
+</button>
+))}
+</div>
+
+<table className="w-full text-sm text-right">
+<thead>
+<tr className="border-b border-white/10 text-zinc-400">
+<th className="py-2">{lang==="ar"?"التاريخ":"Date"}</th>
+<th className="py-2">{lang==="ar"?"السعر":"Price"}</th>
+</tr>
+</thead>
+
+<tbody>
+
+{Array.from({length:7}).map((_,i)=>{
+
+const price =
+selectedChartKarat==="24"
+? prices.gram24
+: selectedChartKarat==="22"
+? prices.gram22
+: selectedChartKarat==="21"
+? prices.gram21
+: prices.gram18
+
+return(
+<tr key={i} className="border-b border-white/5">
+<td className="py-2 text-white">
+{i===0 ? (lang==="ar"?"اليوم":"Today") :
+i===1 ? (lang==="ar"?"أمس":"Yesterday") :
+(lang==="ar"?`قبل ${i} أيام`:`${i} days ago`)}
+</td>
+
+<td className="py-2 text-white">
+{price.toFixed(2)}
+</td>
+
+</tr>
+)
+
+})}
+
+</tbody>
+</table>
+
+</div>
 
           {chartData.length > 1 && (
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
