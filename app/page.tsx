@@ -786,7 +786,7 @@ function LineChart({
     .map((value, index) => {
       const x = padding + (index / Math.max(data.length - 1, 1)) * (width - padding * 2);
       const y = height - padding - ((value - min) / range) * (height - padding * 2);
-      return `${x},${y}`;
+     return `${x},${y}`;
     })
     .join(" ");
 
