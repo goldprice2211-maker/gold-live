@@ -547,7 +547,7 @@ export default function Home({
                 </div>
               </div>
               
-          )}
+          
               <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur mb-8">
 
 <h3 className="text-xl font-semibold text-amber-300 mb-4">
