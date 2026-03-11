@@ -2,11 +2,20 @@
 
 import { useEffect, useMemo, useState } from "react";
 
+type Prices = {
+  gram24: number;
+  gram22: number;
+  gram21: number;
+  gram18: number;
+};
 
-type Prices = { gram24: number; gram22: number; gram21: number; gram18: number };
 type CurrencyKey = "USD" | "EUR" | "AED" | "SAR" | "QAR" | "KWD" | "OMR";
+type KaratKey = "24" | "22" | "21" | "18";
 
-const CURRENCY: Record<CurrencyKey, { labelAr: string; labelEn: string; symbol: string }> = {
+const CURRENCY: Record<
+  CurrencyKey,
+  { labelAr: string; labelEn: string; symbol: string }
+> = {
   USD: { labelAr: "الدولار الأمريكي", labelEn: "US Dollar", symbol: "$" },
   EUR: { labelAr: "اليورو", labelEn: "Euro", symbol: "€" },
   AED: { labelAr: "الدرهم الإماراتي", labelEn: "UAE Dirham", symbol: "د.إ" },
@@ -17,7 +26,10 @@ const CURRENCY: Record<CurrencyKey, { labelAr: string; labelEn: string; symbol: 
 };
 
 function fmt(n: number) {
-  return n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return n.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 }
 
 const shopMargin = 0.05;
@@ -40,33 +52,16 @@ export default function Home({
   const [updatedAt, setUpdatedAt] = useState<string>("");
   const [err, setErr] = useState<string>("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedChartKarat, setSelectedChartKarat] = useState<KaratKey>("24");
 
-  const [selectedChartKarat, setSelectedChartKarat] =
-    useState<"24" | "22" | "21" | "18">("24");
-
- const [history, setHistory] = useState<{
-  gram24: number[];
-  gram22: number[];
-  gram21: number[];
-  gram18: number[];
-  ounceUSD: number[];
-}>(() => {
-  if (typeof window === "undefined") {
-    return {
-      gram24: [],
-      gram22: [],
-      gram21: [],
-      gram18: [],
-      ounceUSD: [],
-    };
-  }
-
-  const saved = localStorage.getItem("gold_history");
-
-  if (saved) {
-    try {
-      return JSON.parse(saved);
-    } catch {
+  const [history, setHistory] = useState<{
+    gram24: number[];
+    gram22: number[];
+    gram21: number[];
+    gram18: number[];
+    ounceUSD: number[];
+  }>(() => {
+    if (typeof window === "undefined") {
       return {
         gram24: [],
         gram22: [],
@@ -75,16 +70,30 @@ export default function Home({
         ounceUSD: [],
       };
     }
-  }
 
-  return {
-    gram24: [],
-    gram22: [],
-    gram21: [],
-    gram18: [],
-    ounceUSD: [],
-  };
-});
+    const saved = localStorage.getItem("gold_history");
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch {
+        return {
+          gram24: [],
+          gram22: [],
+          gram21: [],
+          gram18: [],
+          ounceUSD: [],
+        };
+      }
+    }
+
+    return {
+      gram24: [],
+      gram22: [],
+      gram21: [],
+      gram18: [],
+      ounceUSD: [],
+    };
+  });
 
   const T = useMemo(() => {
     const ar = {
@@ -109,21 +118,25 @@ export default function Home({
       errorFetch: "لم يتم جلب سعر الذهب حالياً",
       loading: "جاري التحميل…",
       globalChartTitle: "الرسم البياني التاريخي للذهب",
-      globalChartDesc:
-        "مخطط زمني لسعر الذهب العالمي (XAU/USD).",
+      globalChartDesc: "مخطط زمني لسعر الذهب العالمي (XAU/USD).",
       globalChartNote:
         "ملاحظة: هذا الرسم يعرض سعر الذهب العالمي بالدولار، وليس سعر الجرام المحلي بعد التحويل.",
       localChartTitle: "الرسم البياني المحلي الاحترافي",
-      localChartDesc: "حركة سعر الجرام حسب العيار والعملة المختارة خلال آخر 60 تحديث.",
+      localChartDesc:
+        "حركة سعر الجرام حسب العيار والعملة المختارة خلال آخر 60 تحديث.",
       last60: "آخر 60 تحديث",
       latestAnalysis: "آخر التحليلات",
       latestAnalysisDesc:
         "اقرأ أحدث المقالات والتحليلات لفهم حركة سوق الذهب والعوامل المؤثرة على الأسعار.",
       viewArticles: "عرض المقالات",
-      globalOunceMovement: "حركة الأونصة العالمية",
-      globalOunceDesc: "تغير سعر الذهب العالمي بالدولار خلال آخر 60 تحديث.",
       localGramMovement: "حركة جرام عيار",
       localGramDesc: "الرسم يتحدث تلقائيًا حسب العملة المختارة.",
+      last7Table: "آخر 7 تحديثات",
+      tableNote: "اختر العيار لعرض آخر 7 أسعار محفوظة.",
+      updateLabel: "التحديث",
+      priceLabel: "السعر",
+      latest: "الأحدث",
+      previous: "السابق",
     };
 
     const en = {
@@ -136,7 +149,8 @@ export default function Home({
       perGram: "Price per 1 gram",
       loadingCurrency: "Loading currency data…",
       barsTitle: "Gold Bar Prices in Jewelry Shops (24K)",
-      barsNote: "Approximate market prices. May vary by shop and workmanship fees.",
+      barsNote:
+        "Approximate market prices. May vary by shop and workmanship fees.",
       quickInfo: "Quick info",
       tipTitle: "Note",
       tipBody: "Choose your currency to see karat prices instantly.",
@@ -151,16 +165,22 @@ export default function Home({
       globalChartNote:
         "Note: This chart shows global gold price in USD, not the converted local gram price.",
       localChartTitle: "Professional Local Chart",
-      localChartDesc: "Gram price movement by selected karat and currency across the last 60 updates.",
+      localChartDesc:
+        "Gram price movement by selected karat and currency across the last 60 updates.",
       last60: "Last 60 updates",
       latestAnalysis: "Latest Analysis",
       latestAnalysisDesc:
         "Read our latest insights to better understand gold market movements and price drivers.",
       viewArticles: "View Articles",
-      globalOunceMovement: "Global Ounce Movement",
-      globalOunceDesc: "Global gold price in USD across the last 60 updates.",
-      localGramMovement: "",
-      localGramDesc: "This chart updates automatically based on the selected currency.",
+      localGramMovement: "Gram Movement",
+      localGramDesc:
+        "This chart updates automatically based on the selected currency.",
+      last7Table: "Last 7 Updates",
+      tableNote: "Choose a karat to view the latest 7 saved prices.",
+      updateLabel: "Update",
+      priceLabel: "Price",
+      latest: "Latest",
+      previous: "Previous",
     };
 
     return lang === "ar" ? ar : en;
@@ -189,7 +209,9 @@ export default function Home({
       const fxData = await fxRes.json();
 
       const ounceUSD = Number(goldData?.price);
-      if (!ounceUSD || Number.isNaN(ounceUSD)) throw new Error(T.errorFetch);
+      if (!ounceUSD || Number.isNaN(ounceUSD)) {
+        throw new Error(T.errorFetch);
+      }
 
       const gram24USD = ounceUSD / 31.1034768;
       const nextUsdBase = {
@@ -212,34 +234,29 @@ export default function Home({
         };
       });
 
-      const nextRates: Record<CurrencyKey, number> = { ...rates };
       const r = fxData?.rates || {};
-
       const maybe = (k: CurrencyKey) => {
         const v = Number(r?.[k]);
         return Number.isFinite(v) && v > 0 ? v : null;
       };
 
-      nextRates.USD = 1;
-
-      const eur = maybe("EUR");
-      const aed = maybe("AED");
-      const sar = maybe("SAR");
-      const qar = maybe("QAR");
-      const kwd = maybe("KWD");
-      const omr = maybe("OMR");
-
-      if (eur) nextRates.EUR = eur;
-      if (aed) nextRates.AED = aed;
-      if (sar) nextRates.SAR = sar;
-      if (qar) nextRates.QAR = qar;
-      if (kwd) nextRates.KWD = kwd;
-      if (omr) nextRates.OMR = omr;
+      const nextRates: Record<CurrencyKey, number> = {
+        USD: 1,
+        EUR: maybe("EUR") ?? 0,
+        AED: maybe("AED") ?? 0,
+        SAR: maybe("SAR") ?? 0,
+        QAR: maybe("QAR") ?? 0,
+        KWD: maybe("KWD") ?? 0,
+        OMR: maybe("OMR") ?? 0,
+      };
 
       setRates(nextRates);
       setUpdatedAt(new Date().toISOString());
     } catch (e: any) {
-      setErr(e?.message || (lang === "ar" ? "صار خطأ في جلب البيانات" : "Something went wrong"));
+      setErr(
+        e?.message ||
+          (lang === "ar" ? "صار خطأ في جلب البيانات" : "Something went wrong")
+      );
     }
   }
 
@@ -247,11 +264,11 @@ export default function Home({
     loadPrices();
     const t = setInterval(loadPrices, 60000);
     return () => clearInterval(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
-  localStorage.setItem("gold_history", JSON.stringify(history));
-}, [history]);
+    localStorage.setItem("gold_history", JSON.stringify(history));
+  }, [history]);
 
   const display = useMemo(() => {
     if (!usdBase) return null;
@@ -285,13 +302,34 @@ export default function Home({
     return ((last - first) / first) * 100;
   }, [chartData]);
 
-  const ounceChange = useMemo(() => {
-    if (history.ounceUSD.length < 2) return 0;
-    const first = history.ounceUSD[0];
-    const last = history.ounceUSD[history.ounceUSD.length - 1];
-    if (!first) return 0;
-    return ((last - first) / first) * 100;
-  }, [history.ounceUSD]);
+  const selectedHistorySeries = useMemo(() => {
+    const r = rates[active] || 0;
+    if (!r) return [];
+
+    const raw =
+      selectedChartKarat === "24"
+        ? history.gram24
+        : selectedChartKarat === "22"
+        ? history.gram22
+        : selectedChartKarat === "21"
+        ? history.gram21
+        : history.gram18;
+
+    return raw.map((v) => v * r);
+  }, [history, selectedChartKarat, active, rates]);
+
+  const last7Rows = useMemo(() => {
+    const series = selectedHistorySeries.slice(-7).reverse();
+    return series.map((value, index) => ({
+      label:
+        index === 0
+          ? T.latest
+          : index === 1
+          ? T.previous
+          : `${index + 1}`,
+      value,
+    }));
+  }, [selectedHistorySeries, T.latest, T.previous]);
 
   return (
     <main
@@ -310,10 +348,7 @@ export default function Home({
               {lang === "ar" ? "سعر الذهب اليوم" : "Gold Price Today"}
             </h1>
 
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="text-2xl"
-            >
+            <button onClick={() => setMenuOpen(!menuOpen)} className="text-2xl">
               ☰
             </button>
           </div>
@@ -327,9 +362,10 @@ export default function Home({
               <a href="/blog" className="hover:text-amber-500">
                 {lang === "ar" ? "تحليلات الذهب" : "Gold Insights"}
               </a>
+
               <a href="/zakat-gold-calculator" className="hover:text-amber-500">
-  {lang === "ar" ? "حاسبة زكاة الذهب" : "Gold Zakat Calculator"}
-</a>
+                {lang === "ar" ? "حاسبة زكاة الذهب" : "Gold Zakat Calculator"}
+              </a>
 
               <a href="/contact" className="hover:text-amber-500">
                 {lang === "ar" ? "تواصل معنا" : "Contact"}
@@ -353,10 +389,10 @@ export default function Home({
 
             <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
               {country
-  ? (lang === "ar"
-      ? `سعر الذهب اليوم في ${country}`
-      : `Gold Price Today in ${country}`)
-  : T.title}
+                ? lang === "ar"
+                  ? `سعر الذهب اليوم في ${country}`
+                  : `Gold Price Today in ${country}`
+                : T.title}
               <span className="ml-2 bg-gradient-to-r from-amber-200 via-yellow-100 to-amber-300 bg-clip-text text-transparent">
                 (24 / 22 / 21 / 18)
               </span>
@@ -367,9 +403,12 @@ export default function Home({
 
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="flex w-full flex-wrap items-center gap-2">
-              {(["AED", "USD", "EUR", "SAR", "QAR", "KWD", "OMR"] as CurrencyKey[]).map((k) => {
+              {(
+                ["AED", "USD", "EUR", "SAR", "QAR", "KWD", "OMR"] as CurrencyKey[]
+              ).map((k) => {
                 const on = k === active;
-                const label = lang === "ar" ? CURRENCY[k].labelAr : CURRENCY[k].labelEn;
+                const label =
+                  lang === "ar" ? CURRENCY[k].labelAr : CURRENCY[k].labelEn;
 
                 return (
                   <button
@@ -391,19 +430,20 @@ export default function Home({
               <div className="ml-auto flex items-center gap-2">
                 <button
                   onClick={() => setLang("ar")}
-                  className={`px-3 py-2 rounded-xl text-sm border ${
+                  className={`rounded-xl border px-3 py-2 text-sm ${
                     lang === "ar"
-                      ? "bg-amber-300/20 border-amber-300 text-amber-200"
+                      ? "border-amber-300 bg-amber-300/20 text-amber-200"
                       : "border-white/10 text-zinc-300 hover:bg-white/10"
                   }`}
                 >
                   عربي
                 </button>
+
                 <button
                   onClick={() => setLang("en")}
-                  className={`px-3 py-2 rounded-xl text-sm border ${
+                  className={`rounded-xl border px-3 py-2 text-sm ${
                     lang === "en"
-                      ? "bg-amber-300/20 border-amber-300 text-amber-200"
+                      ? "border-amber-300 bg-amber-300/20 text-amber-200"
                       : "border-white/10 text-zinc-300 hover:bg-white/10"
                   }`}
                 >
@@ -472,7 +512,9 @@ export default function Home({
 
             {display && (
               <div className="mt-10 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-6">
-                <h3 className="mb-4 text-lg font-semibold text-amber-300">{T.barsTitle}</h3>
+                <h3 className="mb-4 text-lg font-semibold text-amber-300">
+                  {T.barsTitle}
+                </h3>
 
                 <p className="mb-4 text-xs text-zinc-400">{T.barsNote}</p>
 
@@ -529,89 +571,57 @@ export default function Home({
         </section>
 
         <div className="mt-12 grid gap-6">
-          {history.ounceUSD.length > 1 && (
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-              <div className="mb-5 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                <div>
-            
-                </div>
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+            <h3 className="mb-4 text-xl font-semibold text-amber-300">
+              {T.last7Table}
+            </h3>
 
-                <div
-                  className={`w-fit rounded-full px-3 py-1 text-sm font-medium ${
-                    ounceChange >= 0
-                      ? "bg-emerald-500/15 text-emerald-300"
-                      : "bg-red-500/15 text-red-300"
+            <p className="mb-4 text-sm text-zinc-400">{T.tableNote}</p>
+
+            <div className="mb-4 flex gap-2">
+              {(["24", "22", "21", "18"] as KaratKey[]).map((k) => (
+                <button
+                  key={k}
+                  onClick={() => setSelectedChartKarat(k)}
+                  className={`rounded border px-3 py-1 ${
+                    selectedChartKarat === k
+                      ? "border-amber-400 text-amber-300"
+                      : "border-white/20 text-zinc-400"
                   }`}
                 >
-                  {ounceChange >= 0 ? "▲" : "▼"} {ounceChange.toFixed(2)}%
-                </div>
-              </div>
-              
-          
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur mb-8">
+                  {lang === "ar" ? `عيار ${k}` : `${k}K`}
+                </button>
+              ))}
+            </div>
 
-<h3 className="text-xl font-semibold text-amber-300 mb-4">
-{lang === "ar" ? "أسعار الذهب آخر 7 أيام" : "Gold Prices Last 7 Days"}
-</h3>
+            <table className="w-full text-right text-sm">
+              <thead>
+                <tr className="border-b border-white/10 text-zinc-400">
+                  <th className="py-2">{T.updateLabel}</th>
+                  <th className="py-2">{T.priceLabel}</th>
+                </tr>
+              </thead>
 
-<div className="flex gap-2 mb-4">
-{(["24","22","21","18"] as const).map((k)=>(
-<button
-key={k}
-onClick={()=>setSelectedChartKarat(k)}
-className={`px-3 py-1 rounded border ${
-selectedChartKarat===k
-? "border-amber-400 text-amber-300"
-: "border-white/20 text-zinc-400"
-}`}
->
-{lang==="ar" ? `عيار ${k}` : `${k}K`}
-</button>
-))}
-</div>
+              <tbody>
+                {last7Rows.map((row, i) => (
+                  <tr key={i} className="border-b border-white/5">
+                    <td className="py-2 text-white">{row.label}</td>
+                    <td className="py-2 text-white">
+                      {fmt(row.value)} {CURRENCY[active].symbol}
+                    </td>
+                  </tr>
+                ))}
 
-<table className="w-full text-sm text-right">
-<thead>
-<tr className="border-b border-white/10 text-zinc-400">
-<th className="py-2">{lang==="ar"?"التاريخ":"Date"}</th>
-<th className="py-2">{lang==="ar"?"السعر":"Price"}</th>
-</tr>
-</thead>
-
-<tbody>
-
-{Array.from({length:7}).map((_,i)=>{
-
-const price =
-selectedChartKarat==="24"
-? prices.gram24
-: selectedChartKarat==="22"
-? prices.gram22
-: selectedChartKarat==="21"
-? prices.gram21
-: prices.gram18
-
-return(
-<tr key={i} className="border-b border-white/5">
-<td className="py-2 text-white">
-{i===0 ? (lang==="ar"?"اليوم":"Today") :
-i===1 ? (lang==="ar"?"أمس":"Yesterday") :
-(lang==="ar"?`قبل ${i} أيام`:`${i} days ago`)}
-</td>
-
-<td className="py-2 text-white">
-{price.toFixed(2)}
-</td>
-
-</tr>
-)
-
-})}
-
-</tbody>
-</table>
-
-</div>
+                {last7Rows.length === 0 && (
+                  <tr>
+                    <td className="py-3 text-zinc-400" colSpan={2}>
+                      {lang === "ar" ? "لا توجد بيانات كافية بعد." : "Not enough data yet."}
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
 
           {chartData.length > 1 && (
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
@@ -620,15 +630,13 @@ i===1 ? (lang==="ar"?"أمس":"Yesterday") :
                   <h3 className="text-xl font-semibold text-amber-300">
                     {lang === "ar"
                       ? `${T.localGramMovement} ${selectedChartKarat}`
-                      : `${selectedChartKarat}K Gram Movement`}
+                      : `${selectedChartKarat}K ${T.localGramMovement}`}
                   </h3>
-                  <p className="mt-1 text-sm text-zinc-400">
-                    {T.localGramDesc}
-                  </p>
+                  <p className="mt-1 text-sm text-zinc-400">{T.localGramDesc}</p>
                 </div>
 
                 <div className="flex flex-wrap gap-2">
-                  {(["24", "22", "21", "18"] as const).map((k) => (
+                  {(["24", "22", "21", "18"] as KaratKey[]).map((k) => (
                     <button
                       key={k}
                       onClick={() => setSelectedChartKarat(k)}
@@ -640,9 +648,9 @@ i===1 ? (lang==="ar"?"أمس":"Yesterday") :
                     >
                       {lang === "ar" ? `عيار ${k}` : `${k}K`}
                     </button>
-              ))}
-</div>
-              
+                  ))}
+                </div>
+              </div>
 
               <div className="mb-4 flex items-center justify-between">
                 <div className="text-sm text-zinc-400">{T.last60}</div>
@@ -652,7 +660,7 @@ i===1 ? (lang==="ar"?"أمس":"Yesterday") :
                     chartChange >= 0
                       ? "bg-emerald-500/15 text-emerald-300"
                       : "bg-red-500/15 text-red-300"
-                  }'}
+                  }`}
                 >
                   {chartChange >= 0 ? "▲" : "▼"} {chartChange.toFixed(2)}%
                 </div>
@@ -672,9 +680,7 @@ i===1 ? (lang==="ar"?"أمس":"Yesterday") :
             <h3 className="text-xl font-semibold text-amber-300">
               {T.globalChartTitle}
             </h3>
-            <p className="mt-2 text-sm text-zinc-400">
-              {T.globalChartDesc}
-            </p>
+            <p className="mt-2 text-sm text-zinc-400">{T.globalChartDesc}</p>
           </div>
 
           <div className="overflow-hidden rounded-2xl border border-white/10">
@@ -688,9 +694,7 @@ i===1 ? (lang==="ar"?"أمس":"Yesterday") :
             />
           </div>
 
-          <p className="mt-3 text-xs text-zinc-500">
-            {T.globalChartNote}
-          </p>
+          <p className="mt-3 text-xs text-zinc-500">{T.globalChartNote}</p>
         </div>
 
         <div className="mt-12 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-6 backdrop-blur">
@@ -786,19 +790,27 @@ function LineChart({
     .map((value, index) => {
       const x = padding + (index / Math.max(data.length - 1, 1)) * (width - padding * 2);
       const y = height - padding - ((value - min) / range) * (height - padding * 2);
-     return `${x},${y}`;
+      return `${x},${y}`;
     })
     .join(" ");
 
-  const lastValue = data[data.length - 1];
+  const lastValue = data[data.length - 1] ?? 0;
 
   return (
     <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/20 p-4">
       <svg viewBox={`0 0 ${width} ${height}`} className="h-72 w-full">
         <defs>
           <linearGradient id="lineFill" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor={positive ? "#34d399" : "#f87171"} stopOpacity="0.35" />
-            <stop offset="100%" stopColor={positive ? "#34d399" : "#f87171"} stopOpacity="0.02" />
+            <stop
+              offset="0%"
+              stopColor={positive ? "#34d399" : "#f87171"}
+              stopOpacity="0.35"
+            />
+            <stop
+              offset="100%"
+              stopColor={positive ? "#34d399" : "#f87171"}
+              stopOpacity="0.02"
+            />
           </linearGradient>
         </defs>
 
@@ -843,7 +855,7 @@ function LineChart({
       </div>
 
       <div className="mt-4 text-right text-sm text-zinc-300">
-        {lastValue ? `${fmt(lastValue)} ${symbol}` : "—"}
+        {data.length ? `${fmt(lastValue)} ${symbol}` : "—"}
       </div>
     </div>
   );
