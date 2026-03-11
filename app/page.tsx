@@ -12,6 +12,14 @@ type Prices = {
 type CurrencyKey = "USD" | "EUR" | "AED" | "SAR" | "QAR" | "KWD" | "OMR";
 type KaratKey = "24" | "22" | "21" | "18";
 
+type DailyHistoryItem = {
+  date: string; // YYYY-MM-DD
+  gram24: number;
+  gram22: number;
+  gram21: number;
+  gram18: number;
+};
+
 const CURRENCY: Record<
   CurrencyKey,
   { labelAr: string; labelEn: string; symbol: string }
@@ -59,7 +67,6 @@ export default function Home({
     gram22: number[];
     gram21: number[];
     gram18: number[];
-    ounceUSD: number[];
   }>(() => {
     if (typeof window === "undefined") {
       return {
@@ -67,7 +74,6 @@ export default function Home({
         gram22: [],
         gram21: [],
         gram18: [],
-        ounceUSD: [],
       };
     }
 
@@ -81,7 +87,6 @@ export default function Home({
           gram22: [],
           gram21: [],
           gram18: [],
-          ounceUSD: [],
         };
       }
     }
@@ -91,8 +96,22 @@ export default function Home({
       gram22: [],
       gram21: [],
       gram18: [],
-      ounceUSD: [],
     };
+  });
+
+  const [dailyHistory, setDailyHistory] = useState<DailyHistoryItem[]>(() => {
+    if (typeof window === "undefined") return [];
+
+    const saved = localStorage.getItem("gold_daily_history");
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch {
+        return [];
+      }
+    }
+
+    return [];
   });
 
   const T = useMemo(() => {
@@ -131,12 +150,11 @@ export default function Home({
       viewArticles: "عرض المقالات",
       localGramMovement: "حركة جرام عيار",
       localGramDesc: "الرسم يتحدث تلقائيًا حسب العملة المختارة.",
-      last7Table: "آخر 7 تحديثات",
-      tableNote: "اختر العيار لعرض آخر 7 أسعار محفوظة.",
-      updateLabel: "التحديث",
+      last7Table: "أسعار الذهب آخر 7 أيام",
+      tableNote: "اختر العيار لعرض الأسعار الفعلية لآخر 7 أيام.",
+      dateLabel: "التاريخ",
       priceLabel: "السعر",
-      latest: "الأحدث",
-      previous: "السابق",
+      noDataYet: "لا توجد بيانات كافية بعد. سيتم بناء الجدول تلقائيًا يومًا بعد يوم.",
     };
 
     const en = {
@@ -175,12 +193,11 @@ export default function Home({
       localGramMovement: "Gram Movement",
       localGramDesc:
         "This chart updates automatically based on the selected currency.",
-      last7Table: "Last 7 Updates",
-      tableNote: "Choose a karat to view the latest 7 saved prices.",
-      updateLabel: "Update",
+      last7Table: "Gold Prices - Last 7 Days",
+      tableNote: "Choose a karat to view real saved daily prices for the last 7 days.",
+      dateLabel: "Date",
       priceLabel: "Price",
-      latest: "Latest",
-      previous: "Previous",
+      noDataYet: "Not enough daily data yet. The table will build automatically day by day.",
     };
 
     return lang === "ar" ? ar : en;
@@ -230,8 +247,32 @@ export default function Home({
           gram22: [...prev.gram22.slice(-limit + 1), gram24USD * (22 / 24)],
           gram21: [...prev.gram21.slice(-limit + 1), gram24USD * (21 / 24)],
           gram18: [...prev.gram18.slice(-limit + 1), gram24USD * (18 / 24)],
-          ounceUSD: [...prev.ounceUSD.slice(-limit + 1), ounceUSD],
         };
+      });
+
+      const today = new Date().toISOString().slice(0, 10);
+
+      setDailyHistory((prev) => {
+        const nextItem: DailyHistoryItem = {
+          date: today,
+          gram24: gram24USD,
+          gram22: gram24USD * (22 / 24),
+          gram21: gram24USD * (21 / 24),
+          gram18: gram24USD * (18 / 24),
+        };
+
+        const existingIndex = prev.findIndex((item) => item.date === today);
+
+        let updated: DailyHistoryItem[];
+
+        if (existingIndex >= 0) {
+          updated = [...prev];
+          updated[existingIndex] = nextItem;
+        } else {
+          updated = [...prev, nextItem];
+        }
+
+        return updated.slice(-7);
       });
 
       const r = fxData?.rates || {};
@@ -270,6 +311,10 @@ export default function Home({
     localStorage.setItem("gold_history", JSON.stringify(history));
   }, [history]);
 
+  useEffect(() => {
+    localStorage.setItem("gold_daily_history", JSON.stringify(dailyHistory));
+  }, [dailyHistory]);
+
   const display = useMemo(() => {
     if (!usdBase) return null;
 
@@ -302,34 +347,29 @@ export default function Home({
     return ((last - first) / first) * 100;
   }, [chartData]);
 
-  const selectedHistorySeries = useMemo(() => {
+  const last7Rows = useMemo(() => {
     const r = rates[active] || 0;
     if (!r) return [];
 
-    const raw =
-      selectedChartKarat === "24"
-        ? history.gram24
-        : selectedChartKarat === "22"
-        ? history.gram22
-        : selectedChartKarat === "21"
-        ? history.gram21
-        : history.gram18;
+    return [...dailyHistory]
+      .slice(-7)
+      .reverse()
+      .map((item) => {
+        const value =
+          selectedChartKarat === "24"
+            ? item.gram24 * r
+            : selectedChartKarat === "22"
+            ? item.gram22 * r
+            : selectedChartKarat === "21"
+            ? item.gram21 * r
+            : item.gram18 * r;
 
-    return raw.map((v) => v * r);
-  }, [history, selectedChartKarat, active, rates]);
-
-  const last7Rows = useMemo(() => {
-    const series = selectedHistorySeries.slice(-7).reverse();
-    return series.map((value, index) => ({
-      label:
-        index === 0
-          ? T.latest
-          : index === 1
-          ? T.previous
-          : `${index + 1}`,
-      value,
-    }));
-  }, [selectedHistorySeries, T.latest, T.previous]);
+        return {
+          date: item.date,
+          value,
+        };
+      });
+  }, [dailyHistory, selectedChartKarat, active, rates]);
 
   return (
     <main
@@ -597,7 +637,7 @@ export default function Home({
             <table className="w-full text-right text-sm">
               <thead>
                 <tr className="border-b border-white/10 text-zinc-400">
-                  <th className="py-2">{T.updateLabel}</th>
+                  <th className="py-2">{T.dateLabel}</th>
                   <th className="py-2">{T.priceLabel}</th>
                 </tr>
               </thead>
@@ -605,7 +645,7 @@ export default function Home({
               <tbody>
                 {last7Rows.map((row, i) => (
                   <tr key={i} className="border-b border-white/5">
-                    <td className="py-2 text-white">{row.label}</td>
+                    <td className="py-2 text-white">{row.date}</td>
                     <td className="py-2 text-white">
                       {fmt(row.value)} {CURRENCY[active].symbol}
                     </td>
@@ -615,7 +655,7 @@ export default function Home({
                 {last7Rows.length === 0 && (
                   <tr>
                     <td className="py-3 text-zinc-400" colSpan={2}>
-                      {lang === "ar" ? "لا توجد بيانات كافية بعد." : "Not enough data yet."}
+                      {T.noDataYet}
                     </td>
                   </tr>
                 )}
@@ -788,8 +828,10 @@ function LineChart({
 
   const points = data
     .map((value, index) => {
-      const x = padding + (index / Math.max(data.length - 1, 1)) * (width - padding * 2);
-      const y = height - padding - ((value - min) / range) * (height - padding * 2);
+      const x =
+        padding + (index / Math.max(data.length - 1, 1)) * (width - padding * 2);
+      const y =
+        height - padding - ((value - min) / range) * (height - padding * 2);
       return `${x},${y}`;
     })
     .join(" ");
@@ -839,8 +881,16 @@ function LineChart({
         />
 
         <circle
-          cx={padding + ((data.length - 1) / Math.max(data.length - 1, 1)) * (width - padding * 2)}
-          cy={height - padding - ((lastValue - min) / range) * (height - padding * 2)}
+          cx={
+            padding +
+            ((data.length - 1) / Math.max(data.length - 1, 1)) *
+              (width - padding * 2)
+          }
+          cy={
+            height -
+            padding -
+            ((lastValue - min) / range) * (height - padding * 2)
+          }
           r="5"
           fill={positive ? "#34d399" : "#f87171"}
         />
