@@ -640,8 +640,7 @@ i===1 ? (lang==="ar"?"أمس":"Yesterday") :
                     >
                       {lang === "ar" ? `عيار ${k}` : `${k}K`}
                     </button>
-                
-              </div>
+              
 
               <div className="mb-4 flex items-center justify-between">
                 <div className="text-sm text-zinc-400">{T.last60}</div>
