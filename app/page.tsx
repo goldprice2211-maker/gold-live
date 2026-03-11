@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
+
 type Prices = { gram24: number; gram22: number; gram21: number; gram18: number };
 type CurrencyKey = "USD" | "EUR" | "AED" | "SAR" | "QAR" | "KWD" | "OMR";
 
@@ -639,7 +640,7 @@ i===1 ? (lang==="ar"?"أمس":"Yesterday") :
                     >
                       {lang === "ar" ? `عيار ${k}` : `${k}K`}
                     </button>
-                  ))}
+                  
                 </div>
               </div>
 
@@ -651,7 +652,7 @@ i===1 ? (lang==="ar"?"أمس":"Yesterday") :
                     chartChange >= 0
                       ? "bg-emerald-500/15 text-emerald-300"
                       : "bg-red-500/15 text-red-300"
-                  }`}
+                  }'}
                 >
                   {chartChange >= 0 ? "▲" : "▼"} {chartChange.toFixed(2)}%
                 </div>
