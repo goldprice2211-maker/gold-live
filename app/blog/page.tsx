@@ -1,123 +1,182 @@
 "use client";
-import { useRouter } from "next/navigation";
 
 import { useState } from "react";
 
-export default function BlogPage() {
-  const router = useRouter();
-  const [lang, setLang] = useState<"ar" | "en">("ar");
+type Lang = "ar" | "en";
 
-  const content = {
+type Article = {
+  slug: string;
+  title: string;
+  desc: string;
+  date: string;
+  readTime: string;
+};
+
+export default function BlogPage() {
+  const [lang, setLang] = useState<Lang>("ar");
+
+  const content: Record<
+    Lang,
+    {
+      title: string;
+      desc: string;
+      back: string;
+      switch: string;
+      read: string;
+      dateLabel: string;
+      articles: Article[];
+    }
+  > = {
     ar: {
       title: "تحليلات الذهب",
       desc: "مقالات وتحليلات تساعدك على فهم سوق الذهب والعوامل المؤثرة على الأسعار.",
-      articleTitle:
-        "العوامل التي تؤثر على أسعار الذهب عالميًا وتوقعات 2026",
-      articleDesc:
-        "تعرف على أهم العوامل الاقتصادية والسياسية التي تحرك أسعار الذهب عالميًا، واستعرض أبرز السيناريوهات المحتملة لحركة الذهب في عام 2026.",
-      article2Title: "كيف يتم تحديد سعر الذهب عالميًا؟",
-      article2Desc:
-        "تعرف على الطريقة التي يتم بها تحديد سعر الذهب يوميًا عالميًا، وكيف يؤثر الدولار، العرض والطلب، والتضخم على حركة الأسعار.",
-      article3Title: "هل الذهب استثمار آمن في أوقات التضخم؟",
-      article3Desc:
-        "تحليل مبسط للعلاقة بين الذهب والتضخم، ومتى يكون الذهب خيارًا مناسبًا لحفظ القيمة.",
-      article4Title: "حكم زكاة الذهب في الإسلام",
-article4Desc:
-  "تعرف على حكم زكاة الذهب، وما هو النصاب، ومتى تجب الزكاة، وكيف يمكن حسابها بسهولة.",
-      read: "اقرأ المقال ←",
+      back: "الرجوع للرئيسية",
       switch: "English",
+      read: "اقرأ المقال ←",
+      dateLabel: "مدة القراءة",
+      articles: [
+        {
+          slug: "gold-market-2026",
+          title: "العوامل التي تؤثر على أسعار الذهب عالميًا وتوقعات 2026",
+          desc: "تعرف على أهم العوامل الاقتصادية والسياسية التي تحرك أسعار الذهب عالميًا، واستعرض أبرز السيناريوهات المحتملة لحركة الذهب في عام 2026.",
+          date: "2026-03-10",
+          readTime: "4 دقائق",
+        },
+        {
+          slug: "how-gold-price-is-determined",
+          title: "كيف يتم تحديد سعر الذهب عالميًا؟",
+          desc: "تعرف على الطريقة التي يتم بها تحديد سعر الذهب يوميًا عالميًا، وكيف يؤثر الدولار، العرض والطلب، والتضخم على حركة الأسعار.",
+          date: "2026-03-10",
+          readTime: "3 دقائق",
+        },
+        {
+          slug: "is-gold-a-safe-investment-during-inflation",
+          title: "هل الذهب استثمار آمن في أوقات التضخم؟",
+          desc: "تحليل مبسط للعلاقة بين الذهب والتضخم، ومتى يكون الذهب خيارًا مناسبًا لحفظ القيمة.",
+          date: "2026-03-10",
+          readTime: "3 دقائق",
+        },
+        {
+          slug: "zakat-gold-ruling",
+          title: "حكم زكاة الذهب في الإسلام",
+          desc: "تعرف على حكم زكاة الذهب، وما هو النصاب، ومتى تجب الزكاة، وكيف يمكن حسابها بسهولة.",
+          date: "2026-03-11",
+          readTime: "4 دقائق",
+        },
+        {
+          slug: "dollar-impact-gold",
+          title: "كيف يؤثر الدولار الأمريكي على سعر الذهب؟",
+          desc: "تعرف على العلاقة بين الدولار الأمريكي وأسعار الذهب عالميًا، وكيف تؤثر الفائدة الأمريكية والتضخم على حركة الذهب في الأسواق العالمية.",
+          date: "2026-03-12",
+          readTime: "4 دقائق",
+        },
+      ],
     },
     en: {
       title: "Gold Market Insights",
       desc: "Articles and analysis to help you understand the gold market and price movements.",
-      articleTitle:
-        "Key Factors Affecting Global Gold Prices & 2026 Outlook",
-      articleDesc:
-        "Explore the major economic and geopolitical factors influencing gold prices worldwide and possible scenarios for 2026.",
-      article2Title: "How Is the Global Gold Price Determined?",
-      article2Desc:
-        "Learn how the global gold price is determined and how the dollar, supply and demand, and inflation affect market movements.",
-      article3Title: "Is Gold a Safe Investment During Inflation?",
-      article3Desc:
-        "A simple analysis of the relationship between gold and inflation and when gold may help preserve value.",
-      article4Title: "The Ruling on Gold Zakat in Islam",
-article4Desc:
-  "Learn the ruling on gold zakat, the nisab, when zakat becomes due, and how to calculate it easily.",
-      read: "Read Article →",
+      back: "Back to Home",
       switch: "العربية",
+      read: "Read Article →",
+      dateLabel: "Read time",
+      articles: [
+        {
+          slug: "gold-market-2026",
+          title: "Key Factors Affecting Global Gold Prices & 2026 Outlook",
+          desc: "Explore the major economic and geopolitical factors influencing gold prices worldwide and possible scenarios for 2026.",
+          date: "2026-03-10",
+          readTime: "4 min",
+        },
+        {
+          slug: "how-gold-price-is-determined",
+          title: "How Is the Global Gold Price Determined?",
+          desc: "Learn how the global gold price is determined and how the dollar, supply and demand, and inflation affect market movements.",
+          date: "2026-03-10",
+          readTime: "3 min",
+        },
+        {
+          slug: "is-gold-a-safe-investment-during-inflation",
+          title: "Is Gold a Safe Investment During Inflation?",
+          desc: "A simple analysis of the relationship between gold and inflation and when gold may help preserve value.",
+          date: "2026-03-10",
+          readTime: "3 min",
+        },
+        {
+          slug: "zakat-gold-ruling",
+          title: "The Ruling on Gold Zakat in Islam",
+          desc: "Learn the ruling on gold zakat, the nisab, when zakat becomes due, and how to calculate it easily.",
+          date: "2026-03-11",
+          readTime: "4 min",
+        },
+        {
+          slug: "dollar-impact-gold",
+          title: "How the US Dollar Affects Gold Prices",
+          desc: "Learn how the US dollar impacts global gold prices and why interest rates and inflation play a major role in gold market movements.",
+          date: "2026-03-12",
+          readTime: "4 min",
+        },
+      ],
     },
   };
 
   const t = content[lang];
 
   return (
-    <main className="min-h-screen bg-black text-white px-6 py-12">
-      <div className="mx-auto max-w-4xl">
-        <a
-  href="/"
-  className="mb-6 flex items-center gap-2 text-amber-400 hover:text-amber-300"
->
-← الرجوع للرئيسية
-</a>
-        <div className="flex justify-end mb-6">
+    <main
+      dir={lang === "ar" ? "rtl" : "ltr"}
+      className="min-h-screen bg-gradient-to-b from-black via-zinc-950 to-black px-6 py-12 text-white"
+    >
+      <div className="mx-auto max-w-5xl">
+        <div className="mb-8 flex items-center justify-between">
+          <a
+            href="/"
+            className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-amber-300 transition hover:bg-white/10"
+          >
+            ← {t.back}
+          </a>
+
           <button
             onClick={() => setLang(lang === "ar" ? "en" : "ar")}
-            className="text-sm text-amber-400 hover:underline"
+            className="rounded-xl border border-amber-300/30 bg-amber-300/10 px-4 py-2 text-sm text-amber-200 transition hover:bg-amber-300/20"
           >
             {t.switch}
           </button>
         </div>
 
-        <h1 className="text-3xl font-bold mb-4">{t.title}</h1>
-        <p className="text-zinc-400 mb-8">{t.desc}</p>
+        <div className="mb-10 rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+          <h1 className="mb-4 text-3xl font-bold text-amber-300 md:text-4xl">
+            {t.title}
+          </h1>
+          <p className="max-w-2xl text-zinc-400 md:text-base">{t.desc}</p>
+        </div>
 
-        <div className="space-y-6">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-amber-400/40 transition">
-            <a href="/blog/gold-market-2026" className="block">
-              <h2 className="text-2xl font-semibold text-amber-300 mb-3">
-                {t.articleTitle}
-              </h2>
-              <p className="text-zinc-300 leading-7">
-                {t.articleDesc}
-              </p>
-              <p className="mt-4 text-sm text-amber-200">{t.read}</p>
-            </a>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-amber-400/40 transition">
-  <a href="/blog/zakat-gold-ruling" className="block">
-    <h2 className="text-2xl font-semibold text-amber-300 mb-3">
-      {t.article4Title}
-    </h2>
-    <p className="text-zinc-300 leading-7">
-      {t.article4Desc}
-    </p>
-    <p className="mt-4 text-sm text-amber-200">{t.read}</p>
-  </a>
-</div>
+        <div className="grid gap-6">
+          {t.articles.map((article) => (
+            <a
+              key={article.slug}
+              href={`/blog/${article.slug}`}
+              className="group block rounded-3xl border border-white/10 bg-white/5 p-6 transition hover:border-amber-400/40 hover:bg-white/10"
+            >
+              <div className="mb-4 flex flex-wrap items-center justify-between gap-3 text-xs text-zinc-400">
+                <span className="rounded-full border border-white/10 bg-black/20 px-3 py-1">
+                  {article.date}
+                </span>
+                <span className="rounded-full border border-white/10 bg-black/20 px-3 py-1">
+                  {t.dateLabel}: {article.readTime}
+                </span>
+              </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-amber-400/40 transition">
-            <a href="/blog/how-gold-price-is-determined" className="block">
-              <h2 className="text-2xl font-semibold text-amber-300 mb-3">
-                {t.article2Title}
+              <h2 className="mb-3 text-2xl font-semibold text-amber-300 transition group-hover:text-amber-200">
+                {article.title}
               </h2>
-              <p className="text-zinc-300 leading-7">
-                {t.article2Desc}
-              </p>
-              <p className="mt-4 text-sm text-amber-200">{t.read}</p>
-            </a>
-          </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 hover:border-amber-400/40 transition">
-            <a href="/blog/is-gold-a-safe-investment-during-inflation" className="block">
-              <h2 className="text-2xl font-semibold text-amber-300 mb-3">
-                {t.article3Title}
-              </h2>
-              <p className="text-zinc-300 leading-7">
-                {t.article3Desc}
-              </p>
-              <p className="mt-4 text-sm text-amber-200">{t.read}</p>
+              <p className="leading-7 text-zinc-300">{article.desc}</p>
+
+              <div className="mt-5 text-sm font-medium text-amber-200">
+                {t.read}
+              </div>
             </a>
-          </div>
+          ))}
         </div>
       </div>
     </main>
