@@ -44,7 +44,6 @@ export const metadata: Metadata = {
   icons: {
     icon: "/icon.png",
   },
-};
 
   alternates: {
     canonical: "https://goldliveprices.net",
