@@ -44,7 +44,7 @@ export default function DollarImpactGoldPage() {
       p4:
         "The relationship between gold and the dollar is one of the most important factors affecting global gold prices. That is why investors watch dollar movements closely to understand the direction of the gold market.",
       back: "Back to Articles",
-      switch: "عربي",
+      switch: "العربية",
     },
   };
 
