@@ -19,31 +19,32 @@ export const metadata: Metadata = {
   title: "سعر الذهب اليوم في الإمارات والخليج | Gold Live Prices",
 
   description:
-    "تابع سعر الذهب اليوم في الإمارات والسعودية وقطر والكويت لحظة بلحظة. احسب سعر جرام الذهب عيار 24 و22 و21 و18 مع الرسوم البيانية والتحليلات.",
+    "تابع سعر الذهب اليوم في الإمارات والسعودية وقطر والكويت وعُمان لحظة بلحظة. احسب سعر جرام الذهب عيار 24 و22 و21 و18 مع الرسوم البيانية والتحليلات وحاسبة زكاة الذهب.",
 
   keywords: [
     "سعر الذهب اليوم",
     "سعر الذهب في الامارات",
+    "سعر الذهب الإمارات",
+    "سعر الذهب السعودية",
+    "سعر الذهب قطر",
+    "سعر الذهب الكويت",
+    "سعر الذهب عمان",
+    "سعر جرام الذهب",
+    "سعر اونصة الذهب",
     "gold price today",
     "gold price UAE",
-    "سعر جرام الذهب",
     "gold gram price",
-    "سعر اونصة الذهب",
     "gold ounce price",
+    "تحليلات الذهب",
+    "Gold Live Prices",
+    "حاسبة زكاة الذهب",
+    "Gold Zakat Calculator",
+    "العوامل التي تؤثر على أسعار الذهب عالميًا وتوقعات 2026",
+    "كيف يتم تحديد سعر الذهب عالميًا",
+    "هل الذهب استثمار آمن في أوقات التضخم",
+    "حكم زكاة الذهب في الإسلام",
+    "كيف يؤثر الدولار الأمريكي على سعر الذهب",
   ],
-
-  openGraph: {
-    title: "سعر الذهب اليوم | Gold Live Prices",
-    description:
-      "تابع سعر الذهب اليوم في الإمارات والخليج مع تحديث مباشر ورسوم بيانية.",
-    url: "https://goldliveprices.net",
-    siteName: "Gold Live Prices",
-    type: "website",
-  },
-
-  icons: {
-    icon: "/icon.png",
-  },
 
   alternates: {
     canonical: "https://goldliveprices.net",
@@ -62,13 +63,17 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "سعر الذهب اليوم - تحديث مباشر",
+    title: "سعر الذهب اليوم في الإمارات والخليج | Gold Live Prices",
     description:
-      "أسعار الذهب اليوم لجميع العيارات في الإمارات والخليج مع تحديث مباشر.",
+      "تابع سعر الذهب اليوم في الإمارات والخليج مع تحديث مباشر ورسوم بيانية وتحليلات وحاسبة زكاة الذهب.",
     url: "https://goldliveprices.net",
     siteName: "Gold Live Prices",
     locale: "ar_AE",
     type: "website",
+  },
+
+  icons: {
+    icon: "/icon.png",
   },
 };
 
@@ -93,8 +98,8 @@ export default function RootLayout({
         />
       </head>
 
-     <body
-        className={'${geistSans.variable} ${geistMono.variable} antialiased'}
+      <body
+        className={${geistSans.variable} ${geistMono.variable} antialiased}
       >
         {children}
 
