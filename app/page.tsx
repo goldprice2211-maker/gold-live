@@ -136,8 +136,8 @@ export default function Home({
       karat: "عيار",
       errorFetch: "لم يتم جلب سعر الذهب حالياً",
       loading: "جاري التحميل…",
-      globalChartTitle: "الرسم البياني التاريخي للذهب",
-      globalChartDesc: "مخطط زمني لسعر الذهب العالمي (XAU/USD).",
+     globalChartTitle: "الرسم البياني التاريخي للذهب بالأونصة",
+globalChartDesc: "مخطط زمني لسعر الذهب العالمي (XAU/USD). الأونصة الواحدة ≈ 31.10 جرام.",
       globalChartNote:
         "ملاحظة: هذا الرسم يعرض سعر الذهب العالمي بالدولار، وليس سعر الجرام المحلي بعد التحويل.",
       localChartTitle: "الرسم البياني المحلي الاحترافي",
@@ -178,8 +178,8 @@ export default function Home({
       karat: "Karat",
       errorFetch: "Could not fetch gold price right now",
       loading: "Loading…",
-      globalChartTitle: "Historical Gold Chart",
-      globalChartDesc: "A time-based chart for global gold spot price (XAU/USD).",
+  globalChartTitle: "Historical Gold Chart in Ounces",
+globalChartDesc: "A time-based chart for global gold spot price (XAU/USD). 1 ounce ≈ 31.10 grams.",
       globalChartNote:
         "Note: This chart shows global gold price in USD, not the converted local gram price.",
       localChartTitle: "Professional Local Chart",
@@ -717,11 +717,16 @@ export default function Home({
 
         <div className="mt-12 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
           <div className="mb-4">
-            <h3 className="text-xl font-semibold text-amber-300">
-              {T.globalChartTitle}
-            </h3>
-            <p className="mt-2 text-sm text-zinc-400">{T.globalChartDesc}</p>
-          </div>
+  <h3 className="text-xl font-semibold text-amber-300">
+    {T.globalChartTitle}
+  </h3>
+  <p className="mt-2 text-sm text-zinc-400">{T.globalChartDesc}</p>
+  <p className="mt-1 text-xs text-zinc-500">
+    {lang === "ar"
+      ? "الأونصة الواحدة ≈ 31.1035 جرام"
+      : "1 ounce ≈ 31.1035 grams"}
+  </p>
+</div>
 
           <div className="overflow-hidden rounded-2xl border border-white/10">
             <iframe
