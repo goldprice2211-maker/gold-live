@@ -16,24 +16,35 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://goldliveprices.net"),
 
-  title: "سعر الذهب اليوم في الإمارات والخليج | تحديث مباشر",
+  title: "سعر الذهب اليوم في الإمارات والخليج | Gold Live Prices",
+
   description:
-    "تابع سعر الذهب اليوم في الإمارات، السعودية، الكويت، قطر، عمان واليورو. تحديث مباشر لكل دقيقة لأسعار الذهب عيار 24 و22 و21 و18.",
-  icons: {
-    icon: "/icon.png",
-  },
+    "تابع سعر الذهب اليوم في الإمارات والسعودية وقطر والكويت لحظة بلحظة. احسب سعر جرام الذهب عيار 24 و22 و21 و18 مع الرسوم البيانية والتحليلات.",
 
   keywords: [
     "سعر الذهب اليوم",
-    "سعر الذهب الإمارات",
-    "سعر الذهب السعودية",
-    "سعر الذهب الكويت",
-    "سعر الذهب قطر",
-    "سعر الذهب عمان",
-    "سعر الذهب باليورو",
+    "سعر الذهب في الامارات",
     "gold price today",
     "gold price UAE",
+    "سعر جرام الذهب",
+    "gold gram price",
+    "سعر اونصة الذهب",
+    "gold ounce price",
   ],
+
+  openGraph: {
+    title: "سعر الذهب اليوم | Gold Live Prices",
+    description:
+      "تابع سعر الذهب اليوم في الإمارات والخليج مع تحديث مباشر ورسوم بيانية.",
+    url: "https://goldliveprices.net",
+    siteName: "Gold Live Prices",
+    type: "website",
+  },
+
+  icons: {
+    icon: "/icon.png",
+  },
+};
 
   alternates: {
     canonical: "https://goldliveprices.net",
