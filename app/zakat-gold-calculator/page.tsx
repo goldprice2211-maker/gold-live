@@ -1,3 +1,21 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "حاسبة زكاة الذهب",
+  description:
+    "احسب زكاة الذهب بسهولة حسب الوزن والعيار وسعر الذهب اليوم في الإمارات والخليج.",
+  alternates: {
+    canonical: "https://goldliveprices.net/zakat-gold-calculator",
+  },
+};
+
+export default function ZakatGoldCalculator() {
+  return (
+    <div>
+      {/* هنا كود الصفحة الحالية */}
+    </div>
+  );
+}
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
