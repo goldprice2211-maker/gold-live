@@ -1,11 +1,14 @@
 import Home from "../page";
 
 export const metadata = {
-  title: "Gold Price Today in USD | Live Gold Prices",
+  title: "سعر الذهب اليوم بالدولار",
   description:
-    "Live gold price today in USD for 24k, 22k, 21k and 18k gold updated every minute.",
+    "تابع سعر الذهب اليوم بالدولار لجميع العيارات 24 و22 و21 و18 مع تحديث مباشر ورسوم بيانية.",
+  alternates: {
+    canonical: "https://goldliveprices.net/usd",
+  },
 };
 
-export default function USDPage()  {
-  return <Home />;
+export default function UsdPage() {
+  return <Home country="الدولار الأمريكي" defaultCurrency="USD" />;
 }
