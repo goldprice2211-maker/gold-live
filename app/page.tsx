@@ -742,26 +742,92 @@ globalChartDesc: "A time-based chart for global gold spot price (XAU/USD). 1 oun
           <p className="mt-3 text-xs text-zinc-500">{T.globalChartNote}</p>
         </div>
 
-        <div className="mt-12 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-6 backdrop-blur">
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <h3 className="text-xl font-semibold text-amber-300">
-                {T.latestAnalysis}
-              </h3>
+      ق<div className="mt-12 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-6 backdrop-blur">
+  <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <div>
+      <h3 className="text-xl font-semibold text-amber-300">
+        {T.latestAnalysis}
+      </h3>
 
-              <p className="mt-2 max-w-xl text-sm text-zinc-400">
-                {T.latestAnalysisDesc}
-              </p>
-            </div>
+      <p className="mt-2 max-w-xl text-sm text-zinc-400">
+        {T.latestAnalysisDesc}
+      </p>
+    </div>
 
-            <a
-              href="/blog"
-              className="inline-flex items-center justify-center rounded-xl bg-amber-400/20 px-5 py-3 text-sm font-medium text-amber-200 transition hover:bg-amber-400/30"
-            >
-              {T.viewArticles}
-            </a>
-          </div>
-        </div>
+    <a
+      href="/blog"
+      className="inline-flex items-center justify-center rounded-xl bg-amber-400/20 px-5 py-3 text-sm font-medium text-amber-200 transition hover:bg-amber-400/30"
+    >
+      {T.viewArticles}
+    </a>
+  </div>
+
+  <div className="grid gap-4 md:grid-cols-2">
+    <a
+      href="/blog/zakat-gold-guide"
+      className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
+    >
+      <h4 className="text-lg font-semibold text-amber-200">
+        {lang === "ar"
+          ? "كم زكاة الذهب؟ شرح كامل مع أمثلة"
+          : "How to Calculate Gold Zakat"}
+      </h4>
+      <p className="mt-2 text-sm text-zinc-400">
+        {lang === "ar"
+          ? "شرح مبسط لكيفية حساب زكاة الذهب، ومتى تجب، مع رابط مباشر إلى حاسبة زكاة الذهب."
+          : "A simple guide to gold zakat, when it is due, and a direct link to the zakat calculator."}
+      </p>
+    </a>
+
+    <a
+      href="/blog/dollar-impact-gold"
+      className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
+    >
+      <h4 className="text-lg font-semibold text-amber-200">
+        {lang === "ar"
+          ? "كيف يؤثر الدولار الأمريكي على سعر الذهب؟"
+          : "How the US Dollar Affects Gold Prices"}
+      </h4>
+      <p className="mt-2 text-sm text-zinc-400">
+        {lang === "ar"
+          ? "تعرف على العلاقة بين قوة الدولار الأمريكي وحركة أسعار الذهب عالميًا."
+          : "Learn how dollar strength influences global gold price movements."}
+      </p>
+    </a>
+
+    <a
+      href="/blog/gold-market-2026"
+      className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
+    >
+      <h4 className="text-lg font-semibold text-amber-200">
+        {lang === "ar"
+          ? "توقعات أسعار الذهب 2026"
+          : "Gold Price Forecast 2026"}
+      </h4>
+      <p className="mt-2 text-sm text-zinc-400">
+        {lang === "ar"
+          ? "تحليل لأهم العوامل الاقتصادية والسياسية التي قد تؤثر على الذهب في 2026."
+          : "An analysis of the main economic and geopolitical factors that may affect gold in 2026."}
+      </p>
+    </a>
+
+    <a
+      href="/zakat-gold-calculator"
+      className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
+    >
+      <h4 className="text-lg font-semibold text-amber-200">
+        {lang === "ar"
+          ? "حاسبة زكاة الذهب"
+          : "Gold Zakat Calculator"}
+      </h4>
+      <p className="mt-2 text-sm text-zinc-400">
+        {lang === "ar"
+          ? "احسب زكاة الذهب بسهولة حسب الوزن والعيار وسعر الذهب الحالي."
+          : "Calculate gold zakat easily based on weight, karat, and current gold price."}
+      </p>
+    </a>
+  </div>
+</div>
 
         <footer className="mt-10 flex flex-col items-center gap-2 text-center text-xs text-zinc-500">
           <p>©️ {new Date().getFullYear()} — Gold Live</p>
