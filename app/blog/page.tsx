@@ -70,6 +70,13 @@ export default function BlogPage() {
           date: "2026-03-12",
           readTime: "4 دقائق",
         },
+        {
+          slug: "gold-oil-dollar-relation",
+          title: "كيف تعرف أن الذهب سيرتفع؟ العلاقة بين الذهب والنفط والدولار",
+          desc: "مقال جديد يشرح العلاقة بين الذهب والنفط والدولار وكيف تساعد هذه العوامل على فهم اتجاه الذهب.",
+          date: "2026-03-19",
+          readTime: "4 دقائق",
+        },
       ],
     },
     en: {
@@ -113,6 +120,14 @@ export default function BlogPage() {
           title: "How the US Dollar Affects Gold Prices",
           desc: "Learn how the US dollar impacts global gold prices and why interest rates and inflation play a major role in gold market movements.",
           date: "2026-03-12",
+          readTime: "4 min",
+        },
+        {
+          slug: "gold-oil-dollar-relation",
+          title:
+            "How Can You Tell if Gold May Rise? The Relationship Between Gold, Oil, and the Dollar",
+          desc: "A new article explaining the relationship between gold, oil, and the dollar and how these factors help you understand gold direction.",
+          date: "2026-03-19",
           readTime: "4 min",
         },
       ],
