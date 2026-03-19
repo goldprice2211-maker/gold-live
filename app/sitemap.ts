@@ -92,5 +92,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/blog/dollar-impact-gold`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/blog/gold-oil-dollar-relation`,
+      lastModified: new Date(),
+    },
   ]
 }
