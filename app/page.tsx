@@ -136,8 +136,9 @@ export default function Home({
       karat: "عيار",
       errorFetch: "لم يتم جلب سعر الذهب حالياً",
       loading: "جاري التحميل…",
-     globalChartTitle: "الرسم البياني التاريخي للذهب بالأونصة",
-globalChartDesc: "مخطط زمني لسعر الذهب العالمي (XAU/USD). الأونصة الواحدة ≈ 31.10 جرام.",
+      globalChartTitle: "الرسم البياني التاريخي للذهب بالأونصة",
+      globalChartDesc:
+        "مخطط زمني لسعر الذهب العالمي (XAU/USD). الأونصة الواحدة ≈ 31.10 جرام.",
       globalChartNote:
         "ملاحظة: هذا الرسم يعرض سعر الذهب العالمي بالدولار، وليس سعر الجرام المحلي بعد التحويل.",
       localChartTitle: "الرسم البياني المحلي الاحترافي",
@@ -154,7 +155,8 @@ globalChartDesc: "مخطط زمني لسعر الذهب العالمي (XAU/USD)
       tableNote: "اختر العيار لعرض الأسعار الفعلية لآخر 7 أيام.",
       dateLabel: "التاريخ",
       priceLabel: "السعر",
-      noDataYet: "لا توجد بيانات كافية بعد. سيتم بناء الجدول تلقائيًا يومًا بعد يوم.",
+      noDataYet:
+        "لا توجد بيانات كافية بعد. سيتم بناء الجدول تلقائيًا يومًا بعد يوم.",
     };
 
     const en = {
@@ -178,8 +180,9 @@ globalChartDesc: "مخطط زمني لسعر الذهب العالمي (XAU/USD)
       karat: "Karat",
       errorFetch: "Could not fetch gold price right now",
       loading: "Loading…",
-  globalChartTitle: "Historical Gold Chart in Ounces",
-globalChartDesc: "A time-based chart for global gold spot price (XAU/USD). 1 ounce ≈ 31.10 grams.",
+      globalChartTitle: "Historical Gold Chart in Ounces",
+      globalChartDesc:
+        "A time-based chart for global gold spot price (XAU/USD). 1 ounce ≈ 31.10 grams.",
       globalChartNote:
         "Note: This chart shows global gold price in USD, not the converted local gram price.",
       localChartTitle: "Professional Local Chart",
@@ -194,10 +197,12 @@ globalChartDesc: "A time-based chart for global gold spot price (XAU/USD). 1 oun
       localGramDesc:
         "This chart updates automatically based on the selected currency.",
       last7Table: "Gold Prices - Last 7 Days",
-      tableNote: "Choose a karat to view real saved daily prices for the last 7 days.",
+      tableNote:
+        "Choose a karat to view real saved daily prices for the last 7 days.",
       dateLabel: "Date",
       priceLabel: "Price",
-      noDataYet: "Not enough daily data yet. The table will build automatically day by day.",
+      noDataYet:
+        "Not enough daily data yet. The table will build automatically day by day.",
     };
 
     return lang === "ar" ? ar : en;
@@ -403,7 +408,10 @@ globalChartDesc: "A time-based chart for global gold spot price (XAU/USD). 1 oun
                 {lang === "ar" ? "تحليلات الذهب" : "Gold Insights"}
               </a>
 
-              <a href="/zakat-gold-calculator" className="hover:text-amber-500">
+              <a
+                href="/zakat-gold-calculator"
+                className="hover:text-amber-500"
+              >
                 {lang === "ar" ? "حاسبة زكاة الذهب" : "Gold Zakat Calculator"}
               </a>
 
@@ -543,10 +551,30 @@ globalChartDesc: "A time-based chart for global gold spot price (XAU/USD). 1 oun
 
             {display && (
               <div className="mt-6 grid gap-3">
-                <PriceRow k="24" v={display.gram24} sym={CURRENCY[active].symbol} t={T} />
-                <PriceRow k="22" v={display.gram22} sym={CURRENCY[active].symbol} t={T} />
-                <PriceRow k="21" v={display.gram21} sym={CURRENCY[active].symbol} t={T} />
-                <PriceRow k="18" v={display.gram18} sym={CURRENCY[active].symbol} t={T} />
+                <PriceRow
+                  k="24"
+                  v={display.gram24}
+                  sym={CURRENCY[active].symbol}
+                  t={T}
+                />
+                <PriceRow
+                  k="22"
+                  v={display.gram22}
+                  sym={CURRENCY[active].symbol}
+                  t={T}
+                />
+                <PriceRow
+                  k="21"
+                  v={display.gram21}
+                  sym={CURRENCY[active].symbol}
+                  t={T}
+                />
+                <PriceRow
+                  k="18"
+                  v={display.gram18}
+                  sym={CURRENCY[active].symbol}
+                  t={T}
+                />
               </div>
             )}
 
@@ -567,7 +595,9 @@ globalChartDesc: "A time-based chart for global gold spot price (XAU/USD). 1 oun
                       <span>{g === 1000 ? T.kilo : `${g} ${T.gram}`}</span>
 
                       <span className="font-semibold text-amber-100">
-                        {fmt(priceForWeight(display.gram24 * (1 + shopMargin), g))}{" "}
+                        {fmt(
+                          priceForWeight(display.gram24 * (1 + shopMargin), g)
+                        )}{" "}
                         {CURRENCY[active].symbol}
                       </span>
                     </div>
@@ -583,15 +613,27 @@ globalChartDesc: "A time-based chart for global gold spot price (XAU/USD). 1 oun
             <div className="mt-5 grid gap-3">
               <InfoCard
                 title={lang === "ar" ? "عيار 24" : "24K"}
-                desc={lang === "ar" ? "أنقى ذهب (تقريباً 99.9%)." : "Purest gold (~99.9%)."}
+                desc={
+                  lang === "ar"
+                    ? "أنقى ذهب (تقريباً 99.9%)."
+                    : "Purest gold (~99.9%)."
+                }
               />
               <InfoCard
                 title={lang === "ar" ? "عيار 22" : "22K"}
-                desc={lang === "ar" ? "شائع في الخليج للمجوهرات." : "Common in the Gulf for jewelry."}
+                desc={
+                  lang === "ar"
+                    ? "شائع في الخليج للمجوهرات."
+                    : "Common in the Gulf for jewelry."
+                }
               />
               <InfoCard
                 title={lang === "ar" ? "عيار 21" : "21K"}
-                desc={lang === "ar" ? "الأكثر تداولاً في كثير من الأسواق." : "Most traded in many markets."}
+                desc={
+                  lang === "ar"
+                    ? "الأكثر تداولاً في كثير من الأسواق."
+                    : "Most traded in many markets."
+                }
               />
               <InfoCard
                 title={lang === "ar" ? "عيار 18" : "18K"}
@@ -672,7 +714,9 @@ globalChartDesc: "A time-based chart for global gold spot price (XAU/USD). 1 oun
                       ? `${T.localGramMovement} ${selectedChartKarat}`
                       : `${selectedChartKarat}K ${T.localGramMovement}`}
                   </h3>
-                  <p className="mt-1 text-sm text-zinc-400">{T.localGramDesc}</p>
+                  <p className="mt-1 text-sm text-zinc-400">
+                    {T.localGramDesc}
+                  </p>
                 </div>
 
                 <div className="flex flex-wrap gap-2">
@@ -717,16 +761,16 @@ globalChartDesc: "A time-based chart for global gold spot price (XAU/USD). 1 oun
 
         <div className="mt-12 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
           <div className="mb-4">
-  <h3 className="text-xl font-semibold text-amber-300">
-    {T.globalChartTitle}
-  </h3>
-  <p className="mt-2 text-sm text-zinc-400">{T.globalChartDesc}</p>
-  <p className="mt-1 text-xs text-zinc-500">
-    {lang === "ar"
-      ? "الأونصة الواحدة ≈ 31.1035 جرام"
-      : "1 ounce ≈ 31.1035 grams"}
-  </p>
-</div>
+            <h3 className="text-xl font-semibold text-amber-300">
+              {T.globalChartTitle}
+            </h3>
+            <p className="mt-2 text-sm text-zinc-400">{T.globalChartDesc}</p>
+            <p className="mt-1 text-xs text-zinc-500">
+              {lang === "ar"
+                ? "الأونصة الواحدة ≈ 31.1035 جرام"
+                : "1 ounce ≈ 31.1035 grams"}
+            </p>
+          </div>
 
           <div className="overflow-hidden rounded-2xl border border-white/10">
             <iframe
@@ -742,92 +786,140 @@ globalChartDesc: "A time-based chart for global gold spot price (XAU/USD). 1 oun
           <p className="mt-3 text-xs text-zinc-500">{T.globalChartNote}</p>
         </div>
 
-      ق<div className="mt-12 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-6 backdrop-blur">
-  <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-    <div>
-      <h3 className="text-xl font-semibold text-amber-300">
-        {T.latestAnalysis}
-      </h3>
+        <div className="mt-12 rounded-3xl border border-amber-500/20 bg-amber-500/5 p-6 backdrop-blur">
+          <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h3 className="text-xl font-semibold text-amber-300">
+                {T.latestAnalysis}
+              </h3>
 
-      <p className="mt-2 max-w-xl text-sm text-zinc-400">
-        {T.latestAnalysisDesc}
-      </p>
-    </div>
+              <p className="mt-2 max-w-xl text-sm text-zinc-400">
+                {T.latestAnalysisDesc}
+              </p>
+            </div>
 
-    <a
-      href="/blog"
-      className="inline-flex items-center justify-center rounded-xl bg-amber-400/20 px-5 py-3 text-sm font-medium text-amber-200 transition hover:bg-amber-400/30"
-    >
-      {T.viewArticles}
-    </a>
-  </div>
+            <a
+              href="/blog"
+              className="inline-flex items-center justify-center rounded-xl bg-amber-400/20 px-5 py-3 text-sm font-medium text-amber-200 transition hover:bg-amber-400/30"
+            >
+              {T.viewArticles}
+            </a>
+          </div>
 
-  <div className="grid gap-4 md:grid-cols-2">
-    <a
-      href="/blog/zakat-gold-guide"
-      className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
-    >
-      <h4 className="text-lg font-semibold text-amber-200">
-        {lang === "ar"
-          ? "كم زكاة الذهب؟ شرح كامل مع أمثلة"
-          : "How to Calculate Gold Zakat"}
-      </h4>
-      <p className="mt-2 text-sm text-zinc-400">
-        {lang === "ar"
-          ? "شرح مبسط لكيفية حساب زكاة الذهب، ومتى تجب، مع رابط مباشر إلى حاسبة زكاة الذهب."
-          : "A simple guide to gold zakat, when it is due, and a direct link to the zakat calculator."}
-      </p>
-    </a>
+          <div className="grid gap-4 md:grid-cols-2">
+            <a
+              href="/blog/zakat-gold-ruling"
+              className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
+            >
+              <h4 className="text-lg font-semibold text-amber-200">
+                {lang === "ar"
+                  ? "حكم زكاة الذهب في الإسلام"
+                  : "The Ruling on Gold Zakat in Islam"}
+              </h4>
+              <p className="mt-2 text-sm text-zinc-400">
+                {lang === "ar"
+                  ? "شرح مبسط لحكم زكاة الذهب، النصاب، مقدار الزكاة، مع رابط مباشر إلى الحاسبة."
+                  : "A simple guide to gold zakat, nisab, the due amount, and a direct link to the calculator."}
+              </p>
+            </a>
 
-    <a
-      href="/blog/dollar-impact-gold"
-      className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
-    >
-      <h4 className="text-lg font-semibold text-amber-200">
-        {lang === "ar"
-          ? "كيف يؤثر الدولار الأمريكي على سعر الذهب؟"
-          : "How the US Dollar Affects Gold Prices"}
-      </h4>
-      <p className="mt-2 text-sm text-zinc-400">
-        {lang === "ar"
-          ? "تعرف على العلاقة بين قوة الدولار الأمريكي وحركة أسعار الذهب عالميًا."
-          : "Learn how dollar strength influences global gold price movements."}
-      </p>
-    </a>
+            <a
+              href="/blog/dollar-impact-gold"
+              className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
+            >
+              <h4 className="text-lg font-semibold text-amber-200">
+                {lang === "ar"
+                  ? "كيف يؤثر الدولار الأمريكي على سعر الذهب؟"
+                  : "How the US Dollar Affects Gold Prices"}
+              </h4>
+              <p className="mt-2 text-sm text-zinc-400">
+                {lang === "ar"
+                  ? "تعرف على العلاقة بين قوة الدولار الأمريكي وحركة أسعار الذهب عالميًا."
+                  : "Learn how dollar strength influences global gold price movements."}
+              </p>
+            </a>
 
-    <a
-      href="/blog/gold-market-2026"
-      className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
-    >
-      <h4 className="text-lg font-semibold text-amber-200">
-        {lang === "ar"
-          ? "توقعات أسعار الذهب 2026"
-          : "Gold Price Forecast 2026"}
-      </h4>
-      <p className="mt-2 text-sm text-zinc-400">
-        {lang === "ar"
-          ? "تحليل لأهم العوامل الاقتصادية والسياسية التي قد تؤثر على الذهب في 2026."
-          : "An analysis of the main economic and geopolitical factors that may affect gold in 2026."}
-      </p>
-    </a>
+            <a
+              href="/blog/gold-market-2026"
+              className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
+            >
+              <h4 className="text-lg font-semibold text-amber-200">
+                {lang === "ar"
+                  ? "توقعات أسعار الذهب 2026"
+                  : "Gold Price Forecast 2026"}
+              </h4>
+              <p className="mt-2 text-sm text-zinc-400">
+                {lang === "ar"
+                  ? "تحليل لأهم العوامل الاقتصادية والسياسية التي قد تؤثر على الذهب في 2026."
+                  : "An analysis of the main economic and geopolitical factors that may affect gold in 2026."}
+              </p>
+            </a>
 
-    <a
-      href="/zakat-gold-calculator"
-      className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
-    >
-      <h4 className="text-lg font-semibold text-amber-200">
-        {lang === "ar"
-          ? "حاسبة زكاة الذهب"
-          : "Gold Zakat Calculator"}
-      </h4>
-      <p className="mt-2 text-sm text-zinc-400">
-        {lang === "ar"
-          ? "احسب زكاة الذهب بسهولة حسب الوزن والعيار وسعر الذهب الحالي."
-          : "Calculate gold zakat easily based on weight, karat, and current gold price."}
-      </p>
-    </a>
-  </div>
-</div>
+            <a
+              href="/blog/how-gold-price-is-determined"
+              className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
+            >
+              <h4 className="text-lg font-semibold text-amber-200">
+                {lang === "ar"
+                  ? "كيف يتم تحديد سعر الذهب عالميًا؟"
+                  : "How Is the Global Gold Price Determined?"}
+              </h4>
+              <p className="mt-2 text-sm text-zinc-400">
+                {lang === "ar"
+                  ? "تعرف على طريقة تسعير الذهب عالميًا ودور الأونصة والدولار والعرض والطلب."
+                  : "Learn how global gold prices are determined and the role of the ounce, dollar, and supply-demand."}
+              </p>
+            </a>
+
+            <a
+              href="/blog/gold-inflation"
+              className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
+            >
+              <h4 className="text-lg font-semibold text-amber-200">
+                {lang === "ar"
+                  ? "هل الذهب استثمار آمن في أوقات التضخم؟"
+                  : "Is Gold a Safe Investment During Inflation?"}
+              </h4>
+              <p className="mt-2 text-sm text-zinc-400">
+                {lang === "ar"
+                  ? "شرح العلاقة بين الذهب والتضخم ومتى يكون الذهب خيارًا مناسبًا."
+                  : "A simple explanation of the relationship between gold and inflation and when gold may be a suitable option."}
+              </p>
+            </a>
+
+            <a
+              href="/blog/gold-oil-dollar-relation"
+              className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
+            >
+              <h4 className="text-lg font-semibold text-amber-200">
+                {lang === "ar"
+                  ? "كيف تعرف أن الذهب سيرتفع؟ العلاقة بين الذهب والنفط والدولار"
+                  : "How Can You Tell if Gold May Rise? The Relationship Between Gold, Oil, and the Dollar"}
+              </h4>
+              <p className="mt-2 text-sm text-zinc-400">
+                {lang === "ar"
+                  ? "مقال جديد يشرح العلاقة بين الذهب والنفط والدولار وكيف تساعد هذه العوامل على فهم اتجاه الذهب."
+                  : "A new article explaining the relationship between gold, oil, and the dollar and how these factors help you understand gold direction."}
+              </p>
+            </a>
+
+            <a
+              href="/zakat-gold-calculator"
+              className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
+            >
+              <h4 className="text-lg font-semibold text-amber-200">
+                {lang === "ar"
+                  ? "حاسبة زكاة الذهب"
+                  : "Gold Zakat Calculator"}
+              </h4>
+              <p className="mt-2 text-sm text-zinc-400">
+                {lang === "ar"
+                  ? "احسب زكاة الذهب بسهولة حسب الوزن والعيار وسعر الذهب الحالي."
+                  : "Calculate gold zakat easily based on weight, karat, and current gold price."}
+              </p>
+            </a>
+          </div>
+        </div>
 
         <footer className="mt-10 flex flex-col items-center gap-2 text-center text-xs text-zinc-500">
           <p>©️ {new Date().getFullYear()} — Gold Live</p>
@@ -900,7 +992,8 @@ function LineChart({
   const points = data
     .map((value, index) => {
       const x =
-        padding + (index / Math.max(data.length - 1, 1)) * (width - padding * 2);
+        padding +
+        (index / Math.max(data.length - 1, 1)) * (width - padding * 2);
       const y =
         height - padding - ((value - min) / range) * (height - padding * 2);
       return `${x},${y}`;
