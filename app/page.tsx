@@ -419,7 +419,7 @@ export default function Home({
                 {lang === "ar" ? "تواصل معنا" : "Contact"}
               </a>
 
-              <a href="/privacy" className="hover:text-amber-500">
+              <a href="/privacy-policy" className="hover:text-amber-500">
                 {lang === "ar" ? "سياسة الخصوصية" : "Privacy Policy"}
               </a>
 
