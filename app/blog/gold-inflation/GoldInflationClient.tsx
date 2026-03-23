@@ -15,45 +15,57 @@ export default function GoldInflationClient() {
           dateValue: "23/03/2026",
 
           intro1:
-            "يعتبر الذهب من أكثر الأصول التي يلجأ إليها المستثمرون عند ارتفاع معدلات التضخم، وذلك بسبب سمعته الطويلة كوسيلة لحفظ القيمة. فعندما تبدأ العملات في فقدان قوتها الشرائية، يبحث الكثيرون عن أصول يمكنها حماية أموالهم من التآكل مع مرور الوقت.",
+            "يُعد الذهب من أكثر الأصول التي يلجأ إليها المستثمرون عند ارتفاع معدلات التضخم، وذلك بسبب سمعته الطويلة كوسيلة لحفظ القيمة. فعندما تبدأ العملات في فقدان قوتها الشرائية، يبحث الكثيرون عن أصول يمكنها حماية أموالهم من التآكل مع مرور الوقت.",
           intro2:
-            "لكن السؤال المهم هو: هل الذهب دائمًا الخيار الأفضل في أوقات التضخم؟ أم أن هناك عوامل أخرى يجب أخذها في الاعتبار؟ في هذا المقال نشرح العلاقة بين الذهب والتضخم بشكل واضح، ونساعدك على فهم متى يكون الذهب خيارًا مناسبًا ومتى لا يكون كذلك.",
+            "لكن هل الذهب دائمًا الخيار الأفضل في أوقات التضخم؟ أم أن هناك عوامل أخرى تؤثر على أدائه؟ في هذا المقال نشرح العلاقة بين الذهب والتضخم بشكل مفصل، ونوضح متى يكون الذهب استثمارًا مناسبًا ومتى قد لا يكون كذلك.",
 
           h1: "ما هو التضخم؟",
           p1a:
-            "التضخم هو ارتفاع عام ومستمر في أسعار السلع والخدمات، مما يؤدي إلى انخفاض القوة الشرائية للعملة. بمعنى بسيط، نفس المبلغ من المال الذي كان يكفي لشراء شيء معين في الماضي، قد لا يكفي لشرائه اليوم.",
+            "التضخم هو ارتفاع عام ومستمر في أسعار السلع والخدمات، مما يؤدي إلى انخفاض القوة الشرائية للعملة. بمعنى بسيط، نفس المبلغ من المال يصبح قادرًا على شراء كمية أقل من السلع مع مرور الوقت.",
           p1b:
-            "وعندما يرتفع التضخم بشكل ملحوظ، يشعر الأفراد بأن أموالهم تفقد قيمتها تدريجيًا، وهنا يبدأ البحث عن أصول تحافظ على القيمة مثل الذهب.",
+            "عندما يرتفع التضخم، يشعر الأفراد بأن أموالهم تفقد قيمتها، وهذا يدفعهم للبحث عن أصول تحافظ على القيمة مثل الذهب.",
 
-          h2: "لماذا يرتفع الذهب مع التضخم؟",
+          h2: "لماذا يرتفع الذهب في أوقات التضخم؟",
           p2a:
-            "يُنظر إلى الذهب تاريخيًا كأداة لحفظ القيمة، لذلك يزداد الطلب عليه في فترات التضخم. فعندما تضعف العملات، يميل بعض المستثمرين إلى تحويل أموالهم إلى الذهب لأنه أصل ملموس لا يمكن طباعته مثل النقود.",
+            "يُنظر إلى الذهب تاريخيًا كوسيلة لحفظ القيمة، لذلك يزداد الطلب عليه في فترات التضخم. فعندما تضعف العملات، يميل المستثمرون إلى شراء الذهب لأنه أصل ملموس لا يمكن طباعته مثل النقود.",
           p2b:
-            "كما أن الذهب لا يعتمد على جهة إصدار مثل العملات، وهذا يجعله خيارًا جذابًا في أوقات عدم الاستقرار الاقتصادي أو فقدان الثقة في الأنظمة المالية.",
+            "كما أن الذهب غالبًا ما يرتبط بالأمان المالي، لذلك يرتفع الاهتمام به في أوقات عدم اليقين الاقتصادي.",
 
           h3: "هل الذهب يرتفع دائمًا مع التضخم؟",
           p3a:
-            "الإجابة هي: ليس دائمًا. رغم أن الذهب قد يستفيد من التضخم، إلا أن العلاقة ليست مضمونة في كل الحالات. أحيانًا قد يكون التضخم مرتفعًا، لكن الذهب لا يرتفع بالشكل المتوقع.",
+            "ليس بالضرورة. رغم أن الذهب قد يستفيد من التضخم، إلا أن العلاقة ليست ثابتة دائمًا. في بعض الأحيان يكون التضخم مرتفعًا، لكن الذهب لا يرتفع بالشكل المتوقع.",
           p3b:
-            "والسبب هو وجود عوامل أخرى تؤثر على الذهب، مثل أسعار الفائدة، وقوة الدولار، وتوقعات الأسواق. لذلك لا يمكن الاعتماد على التضخم وحده لتوقع حركة الذهب.",
+            "والسبب هو وجود عوامل أخرى مثل أسعار الفائدة وقوة الدولار وتوقعات السوق، والتي قد تؤثر بشكل أكبر من التضخم نفسه.",
 
-          h4: "دور أسعار الفائدة",
+          h4: "تأثير أسعار الفائدة على الذهب",
           p4a:
-            "تلعب أسعار الفائدة دورًا مهمًا في تحديد اتجاه الذهب. عندما ترفع البنوك المركزية الفائدة لمواجهة التضخم، تصبح الأصول التي تعطي عائدًا مثل الودائع والسندات أكثر جاذبية.",
+            "تلعب أسعار الفائدة دورًا مهمًا في حركة الذهب. عندما ترتفع الفائدة، تصبح الأصول التي تعطي عائدًا مثل الودائع والسندات أكثر جاذبية، مما قد يقلل الطلب على الذهب.",
           p4b:
-            "وهذا قد يقلل من الإقبال على الذهب لأنه لا يدر عائدًا مباشرًا. لذلك أحيانًا نرى الذهب يتراجع رغم وجود تضخم مرتفع، بسبب ارتفاع الفائدة.",
+            "أما عندما تكون الفائدة منخفضة، يصبح الذهب خيارًا أفضل لأنه لا يوجد بديل قوي يعطي عائدًا مرتفعًا.",
 
-          h5: "متى يكون الذهب خيارًا مناسبًا؟",
+          h5: "تأثير الدولار على الذهب",
           p5a:
-            "يكون الذهب أكثر جاذبية عندما يجتمع أكثر من عامل داعم، مثل ارتفاع التضخم مع انخفاض الفائدة، أو ضعف الدولار، أو وجود أزمات اقتصادية أو سياسية.",
+            "عادة ما توجد علاقة عكسية بين الدولار والذهب. عندما يقوى الدولار، يصبح الذهب أكثر تكلفة للمستثمرين خارج الولايات المتحدة، مما يقلل الطلب عليه.",
           p5b:
-            "في هذه الحالات، يميل المستثمرون إلى الذهب كملاذ آمن، مما قد يدفع أسعاره للارتفاع. لذلك ينظر المستثمرون المحترفون إلى الذهب كجزء من تنويع الاستثمار وليس كخيار وحيد.",
+            "أما عندما يضعف الدولار، يصبح الذهب أرخص نسبيًا، مما قد يزيد الطلب ويرفع الأسعار.",
 
-          h6: "الخلاصة",
+          h6: "متى يكون الذهب خيارًا مناسبًا؟",
           p6a:
-            "الذهب يمكن أن يكون أداة قوية للتحوط ضد التضخم، لكنه ليس ضمانًا ثابتًا للربح. فحركته تعتمد على مجموعة من العوامل مثل الفائدة والدولار وحالة الاقتصاد العالمي.",
+            "يكون الذهب خيارًا جيدًا عندما يكون التضخم مرتفعًا، والفائدة منخفضة، والدولار ضعيف، أو عند وجود أزمات اقتصادية أو سياسية.",
           p6b:
-            "فهم هذه العوامل يساعدك على اتخاذ قرارات أكثر وعيًا، ويمنحك رؤية أوضح عند التفكير في الاستثمار في الذهب خلال فترات التضخم.",
+            "في هذه الحالات، يلجأ المستثمرون إلى الذهب كملاذ آمن، مما يدعم ارتفاع أسعاره.",
+
+          h7: "هل يجب الاعتماد على الذهب فقط؟",
+          p7a:
+            "لا يُنصح بالاعتماد على الذهب فقط كاستثمار، بل من الأفضل تنويع الاستثمارات لتقليل المخاطر.",
+          p7b:
+            "الذهب يمكن أن يكون جزءًا مهمًا من المحفظة الاستثمارية، لكنه ليس الحل الوحيد في جميع الحالات.",
+
+          h8: "الخلاصة",
+          p8a:
+            "الذهب قد يكون وسيلة فعالة للتحوط ضد التضخم، لكنه لا يرتفع دائمًا في كل الحالات. فحركته تعتمد على مجموعة من العوامل مثل الفائدة والدولار وحالة الاقتصاد العالمي.",
+          p8b:
+            "فهم هذه العوامل يساعدك على اتخاذ قرارات أفضل، ويمنحك رؤية أوضح عند متابعة أسعار الذهب.",
 
           note:
             "تنويه: هذا المقال لأغراض معلوماتية فقط ولا يُعد نصيحة استثمارية أو مالية.",
@@ -66,48 +78,60 @@ export default function GoldInflationClient() {
           dateValue: "03/23/2026",
 
           intro1:
-            "Gold is often one of the first assets investors turn to when inflation rises, largely because of its long-standing reputation as a store of value. When currencies begin to lose purchasing power, many people look for assets that can better preserve wealth over time.",
+            "Gold is often one of the first assets investors turn to when inflation rises, due to its long-standing reputation as a store of value. When currencies lose purchasing power, investors look for assets that can better preserve wealth over time.",
           intro2:
-            "But an important question remains: is gold always the best option during inflation? Or are there other factors to consider? In this article, we explain the relationship between gold and inflation and help you understand when gold may be a suitable choice.",
+            "But is gold always the best choice during inflation? In this article, we explore the relationship between gold and inflation and when gold may or may not be a good investment.",
 
           h1: "What Is Inflation?",
           p1a:
-            "Inflation is a general and sustained increase in the prices of goods and services over time, which reduces the purchasing power of money. In simple terms, the same amount of money buys less than it did before.",
+            "Inflation is a general increase in prices over time, reducing purchasing power.",
           p1b:
-            "When inflation rises significantly, individuals begin to feel that their money is losing value, and they start looking for assets that can preserve that value, such as gold.",
+            "When inflation rises, people look for assets that protect value, such as gold.",
 
           h2: "Why Does Gold Rise During Inflation?",
           p2a:
-            "Gold is historically viewed as a store of value, which is why demand often increases during inflation. When currencies weaken, investors may move part of their wealth into gold as a tangible asset that cannot be printed.",
+            "Gold is seen as a store of value, which is why demand often increases.",
           p2b:
-            "Gold also does not rely on a central authority like fiat currencies, which makes it attractive during times of economic instability or reduced trust in financial systems.",
+            "It is a tangible asset that cannot be printed like money.",
 
           h3: "Does Gold Always Rise With Inflation?",
           p3a:
-            "Not always. Although gold can benefit from inflation, the relationship is not guaranteed in every situation. There are times when inflation is high but gold does not rise as expected.",
+            "Not always. Gold does not rise every time inflation increases.",
           p3b:
-            "This is because other factors also influence gold, such as interest rates, the US dollar, and overall market expectations. Therefore, inflation alone is not enough to predict gold prices.",
+            "Other factors like interest rates and the dollar also play a role.",
 
-          h4: "The Role of Interest Rates",
+          h4: "Interest Rates Impact",
           p4a:
-            "Interest rates play a key role in gold movements. When central banks raise rates to fight inflation, yield-generating assets like bonds and deposits become more attractive.",
+            "Higher interest rates make other assets more attractive.",
           p4b:
-            "This can reduce demand for gold since it does not produce income. That is why gold may sometimes decline even when inflation is high, especially if interest rates are rising strongly.",
+            "This can reduce demand for gold.",
 
-          h5: "When Can Gold Be a Good Option?",
+          h5: "Dollar Impact",
           p5a:
-            "Gold tends to be more attractive when several supportive factors come together, such as high inflation with low interest rates, a weaker dollar, or increased economic and geopolitical uncertainty.",
+            "Gold usually moves inversely to the US dollar.",
           p5b:
-            "In such cases, investors often turn to gold as a safe-haven asset. However, professional investors usually treat gold as part of a diversified strategy rather than a single solution.",
+            "A stronger dollar can pressure gold prices.",
 
-          h6: "Conclusion",
+          h6: "When Is Gold a Good Option?",
           p6a:
-            "Gold can be a useful hedge against inflation, but it is not a guaranteed profit asset. Its movement depends on multiple factors including interest rates, the dollar, and overall economic conditions.",
+            "Gold is stronger when inflation is high and rates are low.",
           p6b:
-            "Understanding these factors helps you make more informed decisions and gives you a clearer perspective when considering gold during inflationary periods.",
+            "It is often used as a safe-haven asset.",
+
+          h7: "Diversification",
+          p7a:
+            "Gold should be part of a diversified portfolio.",
+          p7b:
+            "It is not the only investment option.",
+
+          h8: "Conclusion",
+          p8a:
+            "Gold can hedge inflation but is not guaranteed.",
+          p8b:
+            "Understanding market factors is key.",
 
           note:
-            "Disclaimer: This article is for informational purposes only and does not constitute financial or investment advice.",
+            "Disclaimer: This article is for informational purposes only.",
         };
 
   return (
@@ -143,7 +167,7 @@ export default function GoldInflationClient() {
             <p>{t.intro1}</p>
             <p>{t.intro2}</p>
 
-            {[t.h1, t.h2, t.h3, t.h4, t.h5, t.h6].map((h, i) => (
+            {[t.h1, t.h2, t.h3, t.h4, t.h5, t.h6, t.h7, t.h8].map((h, i) => (
               <section key={i} className="space-y-4">
                 <h2 className="text-2xl font-semibold text-white">{h}</h2>
                 <p>{t[`p${i + 1}a` as keyof typeof t]}</p>
