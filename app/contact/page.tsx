@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "اتصل بنا | Contact Us - Gold Live Prices",
@@ -10,6 +11,16 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-black px-6 py-12 text-white">
       <div className="mx-auto max-w-3xl space-y-8">
+
+        {/* زر الرجوع */}
+        <div className="flex items-center">
+          <Link
+            href="/"
+            className="text-sm text-amber-400 hover:underline"
+          >
+            ← الصفحة الرئيسية
+          </Link>
+        </div>
 
         <header className="space-y-3">
           <h1 className="text-3xl font-bold md:text-4xl">اتصل بنا</h1>
