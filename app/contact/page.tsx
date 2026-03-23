@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import SiteNavbar from "@/components/SiteNavbar";
+import SiteNavbar from "../../components/SiteNavbar";
 
 export const metadata: Metadata = {
   title: "اتصل بنا | Contact Us - Gold Live Prices",
@@ -15,7 +15,9 @@ export default function ContactPage() {
       <main className="min-h-screen bg-black text-white">
         <section className="border-b border-white/10 bg-gradient-to-b from-amber-400/10 to-transparent">
           <div className="mx-auto max-w-5xl px-6 py-16">
-            <p className="mb-3 text-sm font-medium text-amber-300">Gold Live Prices</p>
+            <p className="mb-3 text-sm font-medium text-amber-300">
+              Gold Live Prices
+            </p>
             <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
               اتصل بنا
             </h1>
@@ -29,7 +31,9 @@ export default function ContactPage() {
         <section className="mx-auto max-w-5xl px-6 py-12">
           <div className="grid gap-6 md:grid-cols-2">
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-              <h2 className="mb-3 text-2xl font-bold text-white">وسيلة التواصل</h2>
+              <h2 className="mb-3 text-2xl font-bold text-white">
+                وسيلة التواصل
+              </h2>
               <p className="mb-4 leading-8 text-zinc-300">
                 نحن نرحب بجميع الرسائل، سواء كانت استفسارات عامة، ملاحظات،
                 اقتراحات لتحسين الموقع، أو فرص تعاون.
@@ -69,7 +73,10 @@ export default function ContactPage() {
                 email.
               </p>
               <p>
-                Email: <span className="font-semibold text-amber-300">goldprice2211@gmail.com</span>
+                Email:{" "}
+                <span className="font-semibold text-amber-300">
+                  goldprice2211@gmail.com
+                </span>
               </p>
               <p>We aim to respond to all messages within 24–48 hours.</p>
               <p>
