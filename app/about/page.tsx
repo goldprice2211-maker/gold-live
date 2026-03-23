@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import SiteNavbar from "../../components/SiteNavbar";
+import SiteNavbar from "../components/SiteNavbar";
 
 export const metadata: Metadata = {
   title: "من نحن | About Us - Gold Live Prices",
@@ -31,9 +31,7 @@ export default function AboutPage() {
         <section className="mx-auto max-w-5xl px-6 py-12">
           <div className="grid gap-6 md:grid-cols-2">
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-              <h2 className="mb-3 text-2xl font-bold text-white">
-                ماذا نقدم؟
-              </h2>
+              <h2 className="mb-3 text-2xl font-bold text-white">ماذا نقدم؟</h2>
               <div className="space-y-4 leading-8 text-zinc-300">
                 <p>
                   نوفر تحديثات لأسعار الذهب، إلى جانب مقالات تعليمية وتحليلية
@@ -66,9 +64,7 @@ export default function AboutPage() {
             </div>
 
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-              <h2 className="mb-3 text-2xl font-bold text-white">
-                لمن هذا الموقع؟
-              </h2>
+              <h2 className="mb-3 text-2xl font-bold text-white">لمن هذا الموقع؟</h2>
               <p className="leading-8 text-zinc-300">
                 هذا الموقع موجه لكل من يهتم بمتابعة أسعار الذهب، سواء كانوا
                 أفرادًا يرغبون في معرفة السعر اليومي، أو أشخاصًا مهتمين
@@ -78,9 +74,7 @@ export default function AboutPage() {
             </div>
 
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-              <h2 className="mb-3 text-2xl font-bold text-white">
-                تنبيه مهم
-              </h2>
+              <h2 className="mb-3 text-2xl font-bold text-white">تنبيه مهم</h2>
               <p className="leading-8 text-zinc-300">
                 المعلومات المعروضة في الموقع لأغراض تعليمية ومعلوماتية فقط، ولا
                 تُعد نصيحة استثمارية أو مالية أو شرعية خاصة. قد تختلف الأسعار
