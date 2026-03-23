@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import SiteNavbar from "../../components/SiteNavbar";
+import SiteNavbar from "../components/SiteNavbar";
 
 export const metadata: Metadata = {
   title: "اتصل بنا | Contact Us - Gold Live Prices",
@@ -31,9 +31,7 @@ export default function ContactPage() {
         <section className="mx-auto max-w-5xl px-6 py-12">
           <div className="grid gap-6 md:grid-cols-2">
             <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
-              <h2 className="mb-3 text-2xl font-bold text-white">
-                وسيلة التواصل
-              </h2>
+              <h2 className="mb-3 text-2xl font-bold text-white">وسيلة التواصل</h2>
               <p className="mb-4 leading-8 text-zinc-300">
                 نحن نرحب بجميع الرسائل، سواء كانت استفسارات عامة، ملاحظات،
                 اقتراحات لتحسين الموقع، أو فرص تعاون.
