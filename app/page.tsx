@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 type Prices = {
@@ -13,7 +14,7 @@ type CurrencyKey = "USD" | "EUR" | "AED" | "SAR" | "QAR" | "KWD" | "OMR";
 type KaratKey = "24" | "22" | "21" | "18";
 
 type DailyHistoryItem = {
-  date: string; // YYYY-MM-DD
+  date: string;
   gram24: number;
   gram22: number;
   gram21: number;
@@ -59,8 +60,8 @@ export default function Home({
   const [usdBase, setUsdBase] = useState<Prices | null>(null);
   const [updatedAt, setUpdatedAt] = useState<string>("");
   const [err, setErr] = useState<string>("");
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [selectedChartKarat, setSelectedChartKarat] = useState<KaratKey>("24");
+  const [selectedChartKarat, setSelectedChartKarat] =
+    useState<KaratKey>("24");
 
   const [history, setHistory] = useState<{
     gram24: number[];
@@ -118,24 +119,26 @@ export default function Home({
     const ar = {
       live: "تحديث مباشر كل دقيقة",
       title: "أسعار الذهب اليوم",
+      subtitle:
+        "تابع أسعار الذهب لحظة بلحظة، وتعرف على أسعار الجرام والسبائك، واقرأ أحدث التحليلات لفهم حركة السوق بشكل أوضح.",
       note: "معلومات فقط — الأسعار تقديرية وتعتمد على السعر العالمي (XAU).",
       lastUpdate: "آخر تحديث",
       refreshNow: "تحديث الآن",
       pricesIn: "الأسعار بـ",
       perGram: "السعر لكل 1 جرام",
-      loadingCurrency: "جاري تحميل بيانات العملة…",
+      loadingCurrency: "جاري تحميل بيانات العملة...",
       barsTitle: "سعر سبائك الذهب في محلات الصياغة (عيار 24)",
       barsNote:
         "الأسعار المعروضة تقديرية بناءً على متوسط السوق، وقد تختلف حسب محل الصياغة والمصنعية.",
       quickInfo: "معلومات سريعة",
       tipTitle: "ملاحظة",
       tipBody: "اختر العملة المناسبة لك، وسيتم عرض أسعار العيارات مباشرة.",
-      disclaimer: "معلومات فقط وليست نصيحة استثمارية.",
+      disclaimer: "المحتوى المعروض لأغراض معلوماتية فقط وليس نصيحة استثمارية.",
       gram: "جرام",
       kilo: "1 كيلو",
       karat: "عيار",
       errorFetch: "لم يتم جلب سعر الذهب حالياً",
-      loading: "جاري التحميل…",
+      loading: "جاري التحميل...",
       globalChartTitle: "الرسم البياني التاريخي للذهب بالأونصة",
       globalChartDesc:
         "مخطط زمني لسعر الذهب العالمي (XAU/USD). الأونصة الواحدة ≈ 31.10 جرام.",
@@ -157,29 +160,37 @@ export default function Home({
       priceLabel: "السعر",
       noDataYet:
         "لا توجد بيانات كافية بعد. سيتم بناء الجدول تلقائيًا يومًا بعد يوم.",
+      whyGoldMoves: "لماذا يتغير سعر الذهب؟",
+      whyGoldMovesDesc:
+        "تعرف بسرعة على أهم العوامل التي تحرك السوق وروابط مفيدة لفهم الاتجاه.",
+      heroPrimary: "آخر التحليلات",
+      heroSecondary: "حاسبة زكاة الذهب",
+      cardsTitle: "روابط مفيدة",
     };
 
     const en = {
       live: "Live update every minute",
       title: "Gold Prices Today",
+      subtitle:
+        "Track live gold prices, compare gram and bar prices, and read useful analysis to better understand market direction.",
       note: "Info only — approximate prices based on global XAU spot price.",
       lastUpdate: "Last update",
       refreshNow: "Refresh now",
       pricesIn: "Prices in",
       perGram: "Price per 1 gram",
-      loadingCurrency: "Loading currency data…",
+      loadingCurrency: "Loading currency data...",
       barsTitle: "Gold Bar Prices in Jewelry Shops (24K)",
       barsNote:
         "Approximate market prices. May vary by shop and workmanship fees.",
       quickInfo: "Quick info",
       tipTitle: "Note",
       tipBody: "Choose your currency to see karat prices instantly.",
-      disclaimer: "Info only. Not investment advice.",
+      disclaimer: "Content is for informational purposes only, not investment advice.",
       gram: "gram",
       kilo: "1 kg",
       karat: "Karat",
       errorFetch: "Could not fetch gold price right now",
-      loading: "Loading…",
+      loading: "Loading...",
       globalChartTitle: "Historical Gold Chart in Ounces",
       globalChartDesc:
         "A time-based chart for global gold spot price (XAU/USD). 1 ounce ≈ 31.10 grams.",
@@ -203,6 +214,12 @@ export default function Home({
       priceLabel: "Price",
       noDataYet:
         "Not enough daily data yet. The table will build automatically day by day.",
+      whyGoldMoves: "Why does gold move?",
+      whyGoldMovesDesc:
+        "Quick links to the most important factors that influence gold prices.",
+      heroPrimary: "Latest Analysis",
+      heroSecondary: "Gold Zakat Calculator",
+      cardsTitle: "Useful Links",
     };
 
     return lang === "ar" ? ar : en;
@@ -310,7 +327,7 @@ export default function Home({
     loadPrices();
     const t = setInterval(loadPrices, 60000);
     return () => clearInterval(t);
-  }, []);
+  }, [lang]);
 
   useEffect(() => {
     localStorage.setItem("gold_history", JSON.stringify(history));
@@ -387,70 +404,33 @@ export default function Home({
       </div>
 
       <div className="relative mx-auto max-w-5xl px-5 py-10">
-        <header className="flex flex-col gap-6 rounded-3xl border border-amber-300/10 bg-white/5 p-6 shadow-[0_0_0_1px_rgba(255,215,0,0.06),0_20px_80px_rgba(0,0,0,0.55)] backdrop-blur">
-          <div className="flex items-center justify-between">
-            <h1 className="text-xl font-bold">
-              {lang === "ar" ? "سعر الذهب اليوم" : "Gold Price Today"}
-            </h1>
-
-            <button onClick={() => setMenuOpen(!menuOpen)} className="text-2xl">
-              ☰
-            </button>
-          </div>
-
-          {menuOpen && (
-            <div className="mt-4 flex flex-col gap-3 border-t pt-4 text-sm">
-              <a href="/about" className="hover:text-amber-500">
-                {lang === "ar" ? "من نحن" : "About Us"}
-              </a>
-
-              <a href="/blog" className="hover:text-amber-500">
-                {lang === "ar" ? "تحليلات الذهب" : "Gold Insights"}
-              </a>
-
-              <a
-                href="/zakat-gold-calculator"
-                className="hover:text-amber-500"
-              >
-                {lang === "ar" ? "حاسبة زكاة الذهب" : "Gold Zakat Calculator"}
-              </a>
-
-              <a href="/contact" className="hover:text-amber-500">
-                {lang === "ar" ? "تواصل معنا" : "Contact"}
-              </a>
-
-              <a href="/privacy-policy" className="hover:text-amber-500">
-                {lang === "ar" ? "سياسة الخصوصية" : "Privacy Policy"}
-              </a>
-
-              <a href="/terms" className="hover:text-amber-500">
-                {lang === "ar" ? "الشروط والأحكام" : "Terms & Conditions"}
-              </a>
-            </div>
-          )}
-
-          <div className="flex flex-col gap-2">
+        <header className="rounded-3xl border border-amber-300/10 bg-white/5 p-6 shadow-[0_0_0_1px_rgba(255,215,0,0.06),0_20px_80px_rgba(0,0,0,0.55)] backdrop-blur">
+          <div className="flex flex-col gap-3">
             <p className="inline-flex w-fit items-center gap-2 rounded-full border border-amber-200/15 bg-amber-300/10 px-3 py-1 text-sm text-amber-200">
               <span className="h-2 w-2 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(255,215,0,0.55)]" />
               {T.live}
             </p>
 
-            <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">
+            <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">
               {country
                 ? lang === "ar"
                   ? `سعر الذهب اليوم في ${country}`
                   : `Gold Price Today in ${country}`
                 : T.title}
-              <span className="ml-2 bg-gradient-to-r from-amber-200 via-yellow-100 to-amber-300 bg-clip-text text-transparent">
+              <span className="mr-2 bg-gradient-to-r from-amber-200 via-yellow-100 to-amber-300 bg-clip-text text-transparent">
                 (24 / 22 / 21 / 18)
               </span>
             </h1>
 
-            <p className="text-sm text-zinc-300 md:text-base">{T.note}</p>
+            <p className="max-w-3xl text-sm leading-8 text-zinc-300 md:text-base">
+              {T.subtitle}
+            </p>
+
+            <p className="text-sm text-zinc-400">{T.note}</p>
           </div>
 
-          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div className="flex w-full flex-wrap items-center gap-2">
+          <div className="mt-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex flex-wrap items-center gap-2">
               {(
                 ["AED", "USD", "EUR", "SAR", "QAR", "KWD", "OMR"] as CurrencyKey[]
               ).map((k) => {
@@ -463,8 +443,7 @@ export default function Home({
                     key={k}
                     onClick={() => setActive(k)}
                     className={[
-                      "rounded-xl px-4 py-2 text-sm font-medium transition",
-                      "border",
+                      "rounded-xl px-4 py-2 text-sm font-medium transition border",
                       on
                         ? "border-amber-200/30 bg-amber-300/15 text-amber-100 shadow-[0_0_0_1px_rgba(255,215,0,0.12)]"
                         : "border-white/10 bg-white/5 text-zinc-200 hover:border-amber-200/20 hover:bg-white/10",
@@ -474,49 +453,124 @@ export default function Home({
                   </button>
                 );
               })}
-
-              <div className="ml-auto flex items-center gap-2">
-                <button
-                  onClick={() => setLang("ar")}
-                  className={`rounded-xl border px-3 py-2 text-sm ${
-                    lang === "ar"
-                      ? "border-amber-300 bg-amber-300/20 text-amber-200"
-                      : "border-white/10 text-zinc-300 hover:bg-white/10"
-                  }`}
-                >
-                  عربي
-                </button>
-
-                <button
-                  onClick={() => setLang("en")}
-                  className={`rounded-xl border px-3 py-2 text-sm ${
-                    lang === "en"
-                      ? "border-amber-300 bg-amber-300/20 text-amber-200"
-                      : "border-white/10 text-zinc-300 hover:bg-white/10"
-                  }`}
-                >
-                  English
-                </button>
-              </div>
             </div>
 
-            <div className="flex items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-zinc-200 md:min-w-[320px]">
-              <div className="flex flex-col">
-                <span className="text-xs text-zinc-400">{T.lastUpdate}</span>
-                <span className="font-medium">
-                  {updatedAt ? new Date(updatedAt).toLocaleString() : "—"}
-                </span>
-              </div>
+            <div className="flex items-center gap-2 self-start lg:self-auto">
+              <button
+                onClick={() => setLang("ar")}
+                className={`rounded-xl border px-3 py-2 text-sm ${
+                  lang === "ar"
+                    ? "border-amber-300 bg-amber-300/20 text-amber-200"
+                    : "border-white/10 text-zinc-300 hover:bg-white/10"
+                }`}
+              >
+                عربي
+              </button>
 
               <button
-                onClick={loadPrices}
-                className="rounded-xl border border-amber-200/20 bg-amber-300/10 px-3 py-2 text-xs font-medium text-amber-100 hover:bg-amber-300/15"
+                onClick={() => setLang("en")}
+                className={`rounded-xl border px-3 py-2 text-sm ${
+                  lang === "en"
+                    ? "border-amber-300 bg-amber-300/20 text-amber-200"
+                    : "border-white/10 text-zinc-300 hover:bg-white/10"
+                }`}
               >
-                {T.refreshNow}
+                English
               </button>
             </div>
           </div>
+
+          <div className="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-zinc-200">
+              <span className="block text-xs text-zinc-400">{T.lastUpdate}</span>
+              <span className="font-medium">
+                {updatedAt ? new Date(updatedAt).toLocaleString() : "—"}
+              </span>
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={loadPrices}
+                className="rounded-xl border border-amber-200/20 bg-amber-300/10 px-4 py-3 text-sm font-medium text-amber-100 hover:bg-amber-300/15"
+              >
+                {T.refreshNow}
+              </button>
+
+              <Link
+                href="/blog"
+                className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-zinc-200 hover:bg-white/10"
+              >
+                {T.heroPrimary}
+              </Link>
+
+              <Link
+                href="/zakat-gold-calculator"
+                className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-zinc-200 hover:bg-white/10"
+              >
+                {T.heroSecondary}
+              </Link>
+            </div>
+          </div>
         </header>
+
+        <section className="mt-8 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+          <div className="mb-5">
+            <h2 className="text-xl font-semibold text-amber-300">
+              {T.whyGoldMoves}
+            </h2>
+            <p className="mt-2 text-sm text-zinc-400">{T.whyGoldMovesDesc}</p>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-3">
+            <Link
+              href="/blog/dollar-impact-gold"
+              className="rounded-2xl border border-white/10 bg-black/20 p-5 transition hover:border-amber-400/40 hover:bg-white/5"
+            >
+              <h3 className="text-lg font-semibold text-amber-200">
+                {lang === "ar"
+                  ? "تأثير الدولار على الذهب"
+                  : "Dollar Impact on Gold"}
+              </h3>
+              <p className="mt-2 text-sm leading-7 text-zinc-400">
+                {lang === "ar"
+                  ? "افهم العلاقة بين قوة الدولار الأمريكي وحركة أسعار الذهب."
+                  : "Understand how US dollar strength affects gold prices."}
+              </p>
+            </Link>
+
+            <Link
+              href="/blog/gold-inflation"
+              className="rounded-2xl border border-white/10 bg-black/20 p-5 transition hover:border-amber-400/40 hover:bg-white/5"
+            >
+              <h3 className="text-lg font-semibold text-amber-200">
+                {lang === "ar"
+                  ? "الذهب والتضخم"
+                  : "Gold and Inflation"}
+              </h3>
+              <p className="mt-2 text-sm leading-7 text-zinc-400">
+                {lang === "ar"
+                  ? "متى يكون الذهب خيارًا مناسبًا في فترات ارتفاع الأسعار؟"
+                  : "When can gold be useful during inflationary periods?"}
+              </p>
+            </Link>
+
+            <Link
+              href="/blog/gold-market-2026"
+              className="rounded-2xl border border-white/10 bg-black/20 p-5 transition hover:border-amber-400/40 hover:bg-white/5"
+            >
+              <h3 className="text-lg font-semibold text-amber-200">
+                {lang === "ar"
+                  ? "توقعات الذهب 2026"
+                  : "Gold Forecast 2026"}
+              </h3>
+              <p className="mt-2 text-sm leading-7 text-zinc-400">
+                {lang === "ar"
+                  ? "نظرة مبسطة على أهم العوامل التي قد تؤثر على الذهب في 2026."
+                  : "A simple outlook on the factors that may affect gold in 2026."}
+              </p>
+            </Link>
+          </div>
+        </section>
 
         <section className="mt-8 grid gap-4 md:grid-cols-2">
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
@@ -535,11 +589,11 @@ export default function Home({
             )}
 
             {!display && !err && (
-              <div className="mt-6 animate-pulse space-y-3">
-                <div className="h-14 rounded-2xl bg-white/10" />
-                <div className="h-14 rounded-2xl bg-white/10" />
-                <div className="h-14 rounded-2xl bg-white/10" />
-                <div className="h-14 rounded-2xl bg-white/10" />
+              <div className="mt-6 space-y-3">
+                <SkeletonRow />
+                <SkeletonRow />
+                <SkeletonRow />
+                <SkeletonRow />
               </div>
             )}
 
@@ -648,6 +702,32 @@ export default function Home({
             <div className="mt-6 rounded-2xl border border-amber-200/15 bg-amber-300/10 p-4 text-sm text-amber-100">
               <p className="font-medium">{T.tipTitle}</p>
               <p className="mt-1 text-amber-100/90">{T.tipBody}</p>
+            </div>
+
+            <div className="mt-6 rounded-2xl border border-white/10 bg-black/20 p-4">
+              <h3 className="mb-3 text-base font-semibold text-white">
+                {T.cardsTitle}
+              </h3>
+              <div className="grid gap-3">
+                <Link
+                  href="/zakat-gold-calculator"
+                  className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-zinc-200 transition hover:bg-white/10"
+                >
+                  {lang === "ar" ? "حاسبة زكاة الذهب" : "Gold Zakat Calculator"}
+                </Link>
+                <Link
+                  href="/about"
+                  className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-zinc-200 transition hover:bg-white/10"
+                >
+                  {lang === "ar" ? "من نحن" : "About Us"}
+                </Link>
+                <Link
+                  href="/contact"
+                  className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-zinc-200 transition hover:bg-white/10"
+                >
+                  {lang === "ar" ? "اتصل بنا" : "Contact Us"}
+                </Link>
+              </div>
             </div>
           </div>
         </section>
@@ -798,16 +878,16 @@ export default function Home({
               </p>
             </div>
 
-            <a
+            <Link
               href="/blog"
               className="inline-flex items-center justify-center rounded-xl bg-amber-400/20 px-5 py-3 text-sm font-medium text-amber-200 transition hover:bg-amber-400/30"
             >
               {T.viewArticles}
-            </a>
+            </Link>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
-            <a
+            <Link
               href="/blog/zakat-gold-ruling"
               className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
             >
@@ -821,9 +901,9 @@ export default function Home({
                   ? "شرح مبسط لحكم زكاة الذهب، النصاب، مقدار الزكاة، مع رابط مباشر إلى الحاسبة."
                   : "A simple guide to gold zakat, nisab, the due amount, and a direct link to the calculator."}
               </p>
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/blog/dollar-impact-gold"
               className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
             >
@@ -837,9 +917,9 @@ export default function Home({
                   ? "تعرف على العلاقة بين قوة الدولار الأمريكي وحركة أسعار الذهب عالميًا."
                   : "Learn how dollar strength influences global gold price movements."}
               </p>
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/blog/gold-market-2026"
               className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
             >
@@ -853,9 +933,9 @@ export default function Home({
                   ? "تحليل لأهم العوامل الاقتصادية والسياسية التي قد تؤثر على الذهب في 2026."
                   : "An analysis of the main economic and geopolitical factors that may affect gold in 2026."}
               </p>
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/blog/how-gold-price-is-determined"
               className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
             >
@@ -869,9 +949,9 @@ export default function Home({
                   ? "تعرف على طريقة تسعير الذهب عالميًا ودور الأونصة والدولار والعرض والطلب."
                   : "Learn how global gold prices are determined and the role of the ounce, dollar, and supply-demand."}
               </p>
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/blog/gold-inflation"
               className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
             >
@@ -885,9 +965,9 @@ export default function Home({
                   ? "شرح العلاقة بين الذهب والتضخم ومتى يكون الذهب خيارًا مناسبًا."
                   : "A simple explanation of the relationship between gold and inflation and when gold may be a suitable option."}
               </p>
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/blog/gold-oil-dollar-relation"
               className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
             >
@@ -898,12 +978,12 @@ export default function Home({
               </h4>
               <p className="mt-2 text-sm text-zinc-400">
                 {lang === "ar"
-                  ? "مقال جديد يشرح العلاقة بين الذهب والنفط والدولار وكيف تساعد هذه العوامل على فهم اتجاه الذهب."
-                  : "A new article explaining the relationship between gold, oil, and the dollar and how these factors help you understand gold direction."}
+                  ? "مقال يشرح العلاقة بين الذهب والنفط والدولار وكيف تساعد هذه العوامل على فهم اتجاه الذهب."
+                  : "An article explaining the relationship between gold, oil, and the dollar and how these factors help you understand gold direction."}
               </p>
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/zakat-gold-calculator"
               className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
             >
@@ -917,12 +997,12 @@ export default function Home({
                   ? "احسب زكاة الذهب بسهولة حسب الوزن والعيار وسعر الذهب الحالي."
                   : "Calculate gold zakat easily based on weight, karat, and current gold price."}
               </p>
-            </a>
+            </Link>
           </div>
         </div>
 
-        <footer className="mt-10 flex flex-col items-center gap-2 text-center text-xs text-zinc-500">
-          <p>©️ {new Date().getFullYear()} — Gold Live</p>
+        <footer className="mt-12 flex flex-col items-center gap-2 border-t border-white/10 pt-8 text-center text-xs text-zinc-500">
+          <p>© {new Date().getFullYear()} — Gold Live Prices</p>
           <p>{T.disclaimer}</p>
         </footer>
       </div>
@@ -972,6 +1052,17 @@ function InfoCard({ title, desc }: { title: string; desc: string }) {
   );
 }
 
+function SkeletonRow() {
+  return (
+    <div className="animate-pulse rounded-2xl border border-white/10 bg-black/20 px-4 py-4">
+      <div className="flex items-center justify-between">
+        <div className="h-10 w-32 rounded-xl bg-white/10" />
+        <div className="h-10 w-24 rounded-xl bg-white/10" />
+      </div>
+    </div>
+  );
+}
+
 function LineChart({
   data,
   symbol,
@@ -1005,21 +1096,6 @@ function LineChart({
   return (
     <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/20 p-4">
       <svg viewBox={`0 0 ${width} ${height}`} className="h-72 w-full">
-        <defs>
-          <linearGradient id="lineFill" x1="0" x2="0" y1="0" y2="1">
-            <stop
-              offset="0%"
-              stopColor={positive ? "#34d399" : "#f87171"}
-              stopOpacity="0.35"
-            />
-            <stop
-              offset="100%"
-              stopColor={positive ? "#34d399" : "#f87171"}
-              stopOpacity="0.02"
-            />
-          </linearGradient>
-        </defs>
-
         {[0, 1, 2, 3].map((i) => {
           const y = padding + (i / 3) * (height - padding * 2);
           return (
