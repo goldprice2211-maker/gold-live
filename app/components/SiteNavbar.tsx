@@ -11,7 +11,7 @@ export default function SiteNavbar() {
           Gold Live Prices
         </Link>
 
-        <nav className="flex items-center gap-5 text-sm text-zinc-300">
+        <nav className="flex flex-wrap items-center gap-3 text-sm text-zinc-300 md:gap-5">
           <Link
             href="/"
             className="rounded-lg px-3 py-2 transition hover:bg-white/5 hover:text-amber-300"
@@ -38,6 +38,20 @@ export default function SiteNavbar() {
             className="rounded-lg px-3 py-2 transition hover:bg-white/5 hover:text-amber-300"
           >
             تواصل
+          </Link>
+
+          <Link
+            href="/privacy-policy"
+            className="rounded-lg px-3 py-2 transition hover:bg-white/5 hover:text-amber-300"
+          >
+            الخصوصية
+          </Link>
+
+          <Link
+            href="/terms"
+            className="rounded-lg px-3 py-2 transition hover:bg-white/5 hover:text-amber-300"
+          >
+            الشروط
           </Link>
         </nav>
       </div>
