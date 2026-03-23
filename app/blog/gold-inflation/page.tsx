@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import GoldInflationClient from "./GoldInflationClient";
+import GoldInflationClient.tsx from "./GoldInflationClient";
 
 export const metadata: Metadata = {
   title:
