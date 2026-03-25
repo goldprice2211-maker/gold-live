@@ -133,7 +133,8 @@ export default function Home({
       quickInfo: "معلومات سريعة",
       tipTitle: "ملاحظة",
       tipBody: "اختر العملة المناسبة لك، وسيتم عرض أسعار العيارات مباشرة.",
-      disclaimer: "المحتوى المعروض لأغراض معلوماتية فقط وليس نصيحة استثمارية.",
+      disclaimer:
+        "المحتوى المعروض لأغراض معلوماتية فقط وليس نصيحة استثمارية.",
       gram: "جرام",
       kilo: "1 كيلو",
       karat: "عيار",
@@ -185,7 +186,8 @@ export default function Home({
       quickInfo: "Quick info",
       tipTitle: "Note",
       tipBody: "Choose your currency to see karat prices instantly.",
-      disclaimer: "Content is for informational purposes only, not investment advice.",
+      disclaimer:
+        "Content is for informational purposes only, not investment advice.",
       gram: "gram",
       kilo: "1 kg",
       karat: "Karat",
@@ -482,7 +484,9 @@ export default function Home({
 
           <div className="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-zinc-200">
-              <span className="block text-xs text-zinc-400">{T.lastUpdate}</span>
+              <span className="block text-xs text-zinc-400">
+                {T.lastUpdate}
+              </span>
               <span className="font-medium">
                 {updatedAt ? new Date(updatedAt).toLocaleString() : "—"}
               </span>
@@ -543,9 +547,7 @@ export default function Home({
               className="rounded-2xl border border-white/10 bg-black/20 p-5 transition hover:border-amber-400/40 hover:bg-white/5"
             >
               <h3 className="text-lg font-semibold text-amber-200">
-                {lang === "ar"
-                  ? "الذهب والتضخم"
-                  : "Gold and Inflation"}
+                {lang === "ar" ? "الذهب والتضخم" : "Gold and Inflation"}
               </h3>
               <p className="mt-2 text-sm leading-7 text-zinc-400">
                 {lang === "ar"
@@ -559,9 +561,7 @@ export default function Home({
               className="rounded-2xl border border-white/10 bg-black/20 p-5 transition hover:border-amber-400/40 hover:bg-white/5"
             >
               <h3 className="text-lg font-semibold text-amber-200">
-                {lang === "ar"
-                  ? "توقعات الذهب 2026"
-                  : "Gold Forecast 2026"}
+                {lang === "ar" ? "توقعات الذهب 2026" : "Gold Forecast 2026"}
               </h3>
               <p className="mt-2 text-sm leading-7 text-zinc-400">
                 {lang === "ar"
@@ -713,7 +713,9 @@ export default function Home({
                   href="/zakat-gold-calculator"
                   className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-zinc-200 transition hover:bg-white/10"
                 >
-                  {lang === "ar" ? "حاسبة زكاة الذهب" : "Gold Zakat Calculator"}
+                  {lang === "ar"
+                    ? "حاسبة زكاة الذهب"
+                    : "Gold Zakat Calculator"}
                 </Link>
                 <Link
                   href="/about"
@@ -888,6 +890,22 @@ export default function Home({
 
           <div className="grid gap-4 md:grid-cols-2">
             <Link
+              href="/blog/best-time-to-buy-gold"
+              className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
+            >
+              <h4 className="text-lg font-semibold text-amber-200">
+                {lang === "ar"
+                  ? "5 إشارات تساعدك تعرف هل الوقت مناسب لشراء الذهب الآن"
+                  : "5 Signs to Help You Know if Now Is a Good Time to Buy Gold"}
+              </h4>
+              <p className="mt-2 text-sm text-zinc-400">
+                {lang === "ar"
+                  ? "دليل عملي يشرح أهم الإشارات التي تساعدك على اتخاذ قرار شراء الذهب بشكل أذكى، مثل حركة السعر، الدولار، الفائدة، التضخم، والأخبار العالمية."
+                  : "A practical guide explaining the key signals that can help you decide whether now is a good time to buy gold, including price action, the dollar, rates, inflation, and global news."}
+              </p>
+            </Link>
+
+            <Link
               href="/blog/zakat-gold-ruling"
               className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
             >
@@ -1002,7 +1020,7 @@ export default function Home({
         </div>
 
         <footer className="mt-12 flex flex-col items-center gap-2 border-t border-white/10 pt-8 text-center text-xs text-zinc-500">
-          <p>© {new Date().getFullYear()} — Gold Live Prices</p>
+          <p>©️ {new Date().getFullYear()} — Gold Live Prices</p>
           <p>{T.disclaimer}</p>
         </footer>
       </div>
