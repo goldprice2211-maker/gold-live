@@ -29,12 +29,40 @@ export default function BlogPage() {
   > = {
     ar: {
       title: "تحليلات الذهب",
-      desc: "مقالات وتحليلات تساعدك على فهم سوق الذهب والعوامل المؤثرة على الأسعار.",
+      desc: "مقالات وتحليلات تساعدك على فهم سوق الذهب والعوامل المؤثرة على الأسعار، مع شروحات عملية مبسطة تساعدك على اتخاذ قرارات أفضل.",
       back: "الرجوع للرئيسية",
       switch: "English",
       read: "اقرأ المقال ←",
       dateLabel: "مدة القراءة",
       articles: [
+        {
+          slug: "best-time-to-buy-gold",
+          title: "5 إشارات تساعدك تعرف هل الوقت مناسب لشراء الذهب الآن",
+          desc: "دليل عملي طويل ومفيد يشرح أهم الإشارات التي تساعدك على اتخاذ قرار شراء الذهب بشكل أذكى، مثل حركة السعر، الدولار، الفائدة، التضخم، والأخبار العالمية.",
+          date: "2026-03-25",
+          readTime: "6 دقائق",
+        },
+        {
+          slug: "gold-oil-dollar-relation",
+          title: "كيف تعرف أن الذهب سيرتفع؟ العلاقة بين الذهب والنفط والدولار",
+          desc: "مقال يشرح العلاقة بين الذهب والنفط والدولار وكيف تساعد هذه العوامل على فهم اتجاه الذهب.",
+          date: "2026-03-19",
+          readTime: "4 دقائق",
+        },
+        {
+          slug: "dollar-impact-gold",
+          title: "كيف يؤثر الدولار الأمريكي على سعر الذهب؟",
+          desc: "تعرف على العلاقة بين الدولار الأمريكي وأسعار الذهب عالميًا، وكيف تؤثر الفائدة الأمريكية والتضخم على حركة الذهب في الأسواق العالمية.",
+          date: "2026-03-12",
+          readTime: "4 دقائق",
+        },
+        {
+          slug: "zakat-gold-ruling",
+          title: "حكم زكاة الذهب في الإسلام",
+          desc: "تعرف على حكم زكاة الذهب، وما هو النصاب، ومتى تجب الزكاة، وكيف يمكن حسابها بسهولة.",
+          date: "2026-03-11",
+          readTime: "4 دقائق",
+        },
         {
           slug: "gold-market-2026",
           title: "العوامل التي تؤثر على أسعار الذهب عالميًا وتوقعات 2026",
@@ -50,43 +78,51 @@ export default function BlogPage() {
           readTime: "3 دقائق",
         },
         {
-          slug: "is-gold-a-safe-investment-during-inflation",
+          slug: "gold-inflation",
           title: "هل الذهب استثمار آمن في أوقات التضخم؟",
-          desc: "تحليل مبسط للعلاقة بين الذهب والتضخم، ومتى يكون الذهب خيارًا مناسبًا لحفظ القيمة.",
+          desc: "تحليل مبسط ومفيد للعلاقة بين الذهب والتضخم، ومتى يكون الذهب خيارًا مناسبًا لحفظ القيمة، وكيف تؤثر الفائدة والدولار على اتجاهه.",
           date: "2026-03-10",
-          readTime: "3 دقائق",
-        },
-        {
-          slug: "zakat-gold-ruling",
-          title: "حكم زكاة الذهب في الإسلام",
-          desc: "تعرف على حكم زكاة الذهب، وما هو النصاب، ومتى تجب الزكاة، وكيف يمكن حسابها بسهولة.",
-          date: "2026-03-11",
-          readTime: "4 دقائق",
-        },
-        {
-          slug: "dollar-impact-gold",
-          title: "كيف يؤثر الدولار الأمريكي على سعر الذهب؟",
-          desc: "تعرف على العلاقة بين الدولار الأمريكي وأسعار الذهب عالميًا، وكيف تؤثر الفائدة الأمريكية والتضخم على حركة الذهب في الأسواق العالمية.",
-          date: "2026-03-12",
-          readTime: "4 دقائق",
-        },
-        {
-          slug: "gold-oil-dollar-relation",
-          title: "كيف تعرف أن الذهب سيرتفع؟ العلاقة بين الذهب والنفط والدولار",
-          desc: "مقال جديد يشرح العلاقة بين الذهب والنفط والدولار وكيف تساعد هذه العوامل على فهم اتجاه الذهب.",
-          date: "2026-03-19",
-          readTime: "4 دقائق",
+          readTime: "5 دقائق",
         },
       ],
     },
     en: {
       title: "Gold Market Insights",
-      desc: "Articles and analysis to help you understand the gold market and price movements.",
+      desc: "Articles and analysis to help you understand the gold market, price movements, and the key factors that influence buying decisions.",
       back: "Back to Home",
       switch: "العربية",
       read: "Read Article →",
       dateLabel: "Read time",
       articles: [
+        {
+          slug: "best-time-to-buy-gold",
+          title: "5 Signs to Help You Know if Now Is a Good Time to Buy Gold",
+          desc: "A practical long-form guide explaining the key signals that may help you decide whether now is a good time to buy gold, including price action, the dollar, rates, inflation, and global news.",
+          date: "2026-03-25",
+          readTime: "6 min",
+        },
+        {
+          slug: "gold-oil-dollar-relation",
+          title:
+            "How Can You Tell if Gold May Rise? The Relationship Between Gold, Oil, and the Dollar",
+          desc: "An article explaining the relationship between gold, oil, and the dollar and how these factors help you understand gold direction.",
+          date: "2026-03-19",
+          readTime: "4 min",
+        },
+        {
+          slug: "dollar-impact-gold",
+          title: "How the US Dollar Affects Gold Prices",
+          desc: "Learn how the US dollar impacts global gold prices and why interest rates and inflation play a major role in gold market movements.",
+          date: "2026-03-12",
+          readTime: "4 min",
+        },
+        {
+          slug: "zakat-gold-ruling",
+          title: "The Ruling on Gold Zakat in Islam",
+          desc: "Learn the ruling on gold zakat, the nisab, when zakat becomes due, and how to calculate it easily.",
+          date: "2026-03-11",
+          readTime: "4 min",
+        },
         {
           slug: "gold-market-2026",
           title: "Key Factors Affecting Global Gold Prices & 2026 Outlook",
@@ -102,33 +138,11 @@ export default function BlogPage() {
           readTime: "3 min",
         },
         {
-          slug: "is-gold-a-safe-investment-during-inflation",
+          slug: "gold-inflation",
           title: "Is Gold a Safe Investment During Inflation?",
-          desc: "A simple analysis of the relationship between gold and inflation and when gold may help preserve value.",
+          desc: "A useful and clearer analysis of the relationship between gold and inflation, and when gold may help preserve value.",
           date: "2026-03-10",
-          readTime: "3 min",
-        },
-        {
-          slug: "zakat-gold-ruling",
-          title: "The Ruling on Gold Zakat in Islam",
-          desc: "Learn the ruling on gold zakat, the nisab, when zakat becomes due, and how to calculate it easily.",
-          date: "2026-03-11",
-          readTime: "4 min",
-        },
-        {
-          slug: "dollar-impact-gold",
-          title: "How the US Dollar Affects Gold Prices",
-          desc: "Learn how the US dollar impacts global gold prices and why interest rates and inflation play a major role in gold market movements.",
-          date: "2026-03-12",
-          readTime: "4 min",
-        },
-        {
-          slug: "gold-oil-dollar-relation",
-          title:
-            "How Can You Tell if Gold May Rise? The Relationship Between Gold, Oil, and the Dollar",
-          desc: "A new article explaining the relationship between gold, oil, and the dollar and how these factors help you understand gold direction.",
-          date: "2026-03-19",
-          readTime: "4 min",
+          readTime: "5 min",
         },
       ],
     },
@@ -162,7 +176,7 @@ export default function BlogPage() {
           <h1 className="mb-4 text-3xl font-bold text-amber-300 md:text-4xl">
             {t.title}
           </h1>
-          <p className="max-w-2xl text-zinc-400 md:text-base">{t.desc}</p>
+          <p className="max-w-3xl text-zinc-400 md:text-base">{t.desc}</p>
         </div>
 
         <div className="grid gap-6">
