@@ -904,6 +904,21 @@ export default function Home({
                   : "A practical guide explaining the key signals that can help you decide whether now is a good time to buy gold, including price action, the dollar, rates, inflation, and global news."}
               </p>
             </Link>
+            <Link
+  href="/blog/gold-tax-and-making-charges"
+  className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
+>
+  <h4 className="text-lg font-semibold text-amber-200">
+    {lang === "ar"
+      ? "هل يوجد ذهب بدون ضريبة في الخليج؟ وما هي مصنعية الذهب وكم تتراوح؟"
+      : "Is There Tax-Free Gold in the Gulf? What Are Gold Making Charges and How Much Do They Cost?"}
+  </h4>
+  <p className="mt-2 text-sm text-zinc-400">
+    {lang === "ar"
+      ? "دليل مفيد يشرح ضريبة الذهب في الخليج، وما هي مصنعية الذهب، وكم قد تتراوح، وكيف تشتري بذكاء أكثر."
+      : "A useful guide explaining gold tax in the Gulf, what making charges are, how much they may cost, and how to buy more wisely."}
+  </p>
+</Link>
 
             <Link
               href="/blog/zakat-gold-ruling"
