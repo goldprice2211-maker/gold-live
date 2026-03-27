@@ -35,6 +35,13 @@ export default function BlogPage() {
       read: "اقرأ المقال ←",
       dateLabel: "مدة القراءة",
       articles: [
+      {
+  slug: "gold-tax-and-making-charges",
+  title: "هل يوجد ذهب بدون ضريبة في الخليج؟ وما هي مصنعية الذهب وكم تتراوح؟",
+  desc: "تعرف هل يوجد ذهب بدون ضريبة في دول الخليج، وما هي مصنعية الذهب وكم تتراوح، وكيف تشتري الذهب بأقل تكلفة ممكنة.",
+  date: "2026-03-27",
+  readTime: "5 دقائق",
+},
         {
           slug: "best-time-to-buy-gold",
           title: "5 إشارات تساعدك تعرف هل الوقت مناسب لشراء الذهب الآن",
@@ -94,6 +101,13 @@ export default function BlogPage() {
       read: "Read Article →",
       dateLabel: "Read time",
       articles: [
+      {
+  slug: "gold-tax-and-making-charges",
+  title: "Is There Tax-Free Gold in the Gulf? What Are Gold Making Charges and How Much Do They Cost?",
+  desc: "Learn whether tax-free gold exists in Gulf countries, what gold making charges are, how much they usually cost, and how to buy gold more wisely.",
+  date: "2026-03-27",
+  readTime: "5 min",
+},
         {
           slug: "best-time-to-buy-gold",
           title: "5 Signs to Help You Know if Now Is a Good Time to Buy Gold",
