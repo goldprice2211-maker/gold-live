@@ -889,6 +889,21 @@ export default function Home({
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
+           <Link
+  href="/blog/best-gold-karat"
+  className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
+>
+  <h4 className="text-lg font-semibold text-amber-200">
+    {lang === "ar"
+      ? "أفضل عيار ذهب للادخار: 24 أم 22 أم 21؟"
+      : "Best Gold Karat: 24K vs 22K vs 21K"}
+  </h4>
+  <p className="mt-2 text-sm text-zinc-400">
+    {lang === "ar"
+      ? "دليل شامل يوضح الفرق بين العيارات وأيها الأنسب للادخار أو الزينة."
+      : "A complete guide comparing gold karats and which is best for saving or jewelry."}
+  </p>
+</Link>
             <Link
               href="/blog/best-time-to-buy-gold"
               className="rounded-2xl border border-white/10 bg-white/5 p-5 transition hover:border-amber-400/40 hover:bg-white/10"
