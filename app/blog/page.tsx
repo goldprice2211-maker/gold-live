@@ -35,7 +35,14 @@ export default function BlogPage() {
       read: "اقرأ المقال ←",
       dateLabel: "مدة القراءة",
       articles: [
-      {
+     {
+  slug: "best-gold-karat",
+  title: "أفضل عيار ذهب للادخار والاستثمار: 24 أم 22 أم 21؟",
+  desc: "تعرف على الفرق بين عيارات الذهب وأيهم الأفضل للادخار أو الزينة، مع شرح مبسط يساعدك على اتخاذ القرار الصحيح.",
+  date: "2026-03-27",
+  readTime: "6 دقائق",
+},
+        {
   slug: "gold-tax-and-making-charges",
   title: "هل يوجد ذهب بدون ضريبة في الخليج؟ وما هي مصنعية الذهب وكم تتراوح؟",
   desc: "تعرف هل يوجد ذهب بدون ضريبة في دول الخليج، وما هي مصنعية الذهب وكم تتراوح، وكيف تشتري الذهب بأقل تكلفة ممكنة.",
@@ -101,7 +108,14 @@ export default function BlogPage() {
       read: "Read Article →",
       dateLabel: "Read time",
       articles: [
-      {
+    {
+  slug: "best-gold-karat",
+  title: "Best Gold Karat for Investment: 24K vs 22K vs 21K",
+  desc: "Learn the differences between 24K, 22K, and 21K gold and which one is best for saving or jewelry.",
+  date: "2026-03-27",
+  readTime: "6 min",
+},
+        {
   slug: "gold-tax-and-making-charges",
   title: "Is There Tax-Free Gold in the Gulf? What Are Gold Making Charges and How Much Do They Cost?",
   desc: "Learn whether tax-free gold exists in Gulf countries, what gold making charges are, how much they usually cost, and how to buy gold more wisely.",
